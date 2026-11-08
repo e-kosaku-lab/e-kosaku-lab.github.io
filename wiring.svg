@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 670" width="900" height="670" role="img" aria-label="さぼてんきけいの配線図">
+<title>さぼてんきけい 配線図</title>
+<rect width="900" height="670" fill="#ffffff"/>
+<g font-family="'Noto Sans JP','Hiragino Sans','Yu Gothic','Meiryo','IPAGothic',sans-serif" fill="#222">
+<text x="450" y="34" text-anchor="middle" font-size="24" font-weight="700">配線図（つなぎかたの図）</text>
+<text x="450" y="56" text-anchor="middle" font-size="13" fill="#555">同じ色の線は、つながっています。色は見やすくするためで、ワイヤーの色は、どれでもOK</text>
+<line x1="210" y1="250" x2="700" y2="250" stroke="#d62828" stroke-width="5" stroke-linecap="round"/>
+<line x1="210" y1="300" x2="700" y2="300" stroke="#222222" stroke-width="5" stroke-linecap="round"/>
+<line x1="210" y1="350" x2="700" y2="350" stroke="#e0a800" stroke-width="5" stroke-linecap="round"/>
+<line x1="210" y1="400" x2="700" y2="400" stroke="#2a9d3f" stroke-width="5" stroke-linecap="round"/>
+<line x1="480" y1="150" x2="480" y2="242" stroke="#fff" stroke-width="11"/>
+<line x1="480" y1="500" x2="480" y2="258" stroke="#fff" stroke-width="11"/>
+<line x1="540" y1="150" x2="540" y2="292" stroke="#fff" stroke-width="11"/>
+<line x1="540" y1="500" x2="540" y2="308" stroke="#fff" stroke-width="11"/>
+<line x1="600" y1="150" x2="600" y2="342" stroke="#fff" stroke-width="11"/>
+<line x1="600" y1="500" x2="600" y2="358" stroke="#fff" stroke-width="11"/>
+<line x1="660" y1="150" x2="660" y2="392" stroke="#fff" stroke-width="11"/>
+<line x1="660" y1="500" x2="660" y2="408" stroke="#fff" stroke-width="11"/>
+<line x1="480" y1="150" x2="480" y2="250" stroke="#d62828" stroke-width="5"/>
+<line x1="480" y1="500" x2="480" y2="250" stroke="#d62828" stroke-width="5"/>
+<circle cx="480" cy="250" r="7" fill="#d62828"/>
+<line x1="540" y1="150" x2="540" y2="300" stroke="#222222" stroke-width="5"/>
+<line x1="540" y1="500" x2="540" y2="300" stroke="#222222" stroke-width="5"/>
+<circle cx="540" cy="300" r="7" fill="#222222"/>
+<line x1="600" y1="150" x2="600" y2="350" stroke="#e0a800" stroke-width="5"/>
+<line x1="600" y1="500" x2="600" y2="350" stroke="#e0a800" stroke-width="5"/>
+<circle cx="600" cy="350" r="7" fill="#e0a800"/>
+<line x1="660" y1="150" x2="660" y2="400" stroke="#2a9d3f" stroke-width="5"/>
+<line x1="660" y1="500" x2="660" y2="400" stroke="#2a9d3f" stroke-width="5"/>
+<circle cx="660" cy="400" r="7" fill="#2a9d3f"/>
+<rect x="40" y="170" width="170" height="290" rx="10" fill="#eef3f8" stroke="#34495e" stroke-width="3"/>
+<text x="125" y="196" text-anchor="middle" font-size="17" font-weight="700">ESP32 ボード</text>
+<text x="125" y="216" text-anchor="middle" font-size="12" fill="#555">（NodeMCU-32S）</text>
+<circle cx="210" cy="250" r="7" fill="#d62828"/>
+<text x="198" y="255" text-anchor="end" font-size="14" font-weight="700">3V3</text>
+<circle cx="210" cy="300" r="7" fill="#222222"/>
+<text x="198" y="305" text-anchor="end" font-size="14" font-weight="700">GND</text>
+<circle cx="210" cy="350" r="7" fill="#e0a800"/>
+<text x="198" y="355" text-anchor="end" font-size="14" font-weight="700">D21 (GPIO21)</text>
+<circle cx="210" cy="400" r="7" fill="#2a9d3f"/>
+<text x="198" y="405" text-anchor="end" font-size="14" font-weight="700">D22 (GPIO22)</text>
+<rect x="95" y="425" width="60" height="35" rx="4" fill="#cfd8dc" stroke="#34495e" stroke-width="2"/>
+<text x="125" y="447" text-anchor="middle" font-size="12">USB</text>
+<rect x="440" y="70" width="260" height="80" rx="8" fill="#e8f1fb" stroke="#34495e" stroke-width="3"/>
+<text x="570" y="98" text-anchor="middle" font-size="16" font-weight="700">OLED（画面）0.96インチ</text>
+<text x="480" y="138" text-anchor="middle" font-size="14" font-weight="700">VCC</text>
+<text x="540" y="138" text-anchor="middle" font-size="14" font-weight="700">GND</text>
+<text x="600" y="138" text-anchor="middle" font-size="14" font-weight="700">SDA</text>
+<text x="660" y="138" text-anchor="middle" font-size="14" font-weight="700">SCL</text>
+<rect x="440" y="500" width="260" height="80" rx="8" fill="#eaf6ea" stroke="#34495e" stroke-width="3"/>
+<text x="570" y="566" text-anchor="middle" font-size="16" font-weight="700">センサー（AHT20 + BMP280）</text>
+<text x="480" y="528" text-anchor="middle" font-size="14" font-weight="700">VCC</text>
+<text x="540" y="528" text-anchor="middle" font-size="14" font-weight="700">GND</text>
+<text x="600" y="528" text-anchor="middle" font-size="14" font-weight="700">SDA</text>
+<text x="660" y="528" text-anchor="middle" font-size="14" font-weight="700">SCL</text>
+<text x="716" y="247" font-size="15" font-weight="700" fill="#d62828">電気（＋）</text>
+<text x="716" y="266" font-size="12" fill="#444">3V3（3.3V）／ VCC</text>
+<text x="716" y="297" font-size="15" font-weight="700" fill="#222222">電気（−）</text>
+<text x="716" y="316" font-size="12" fill="#444">GND ／ GND</text>
+<text x="716" y="347" font-size="15" font-weight="700" fill="#e0a800">データ</text>
+<text x="716" y="366" font-size="12" fill="#444">D21 ／ SDA</text>
+<text x="716" y="397" font-size="15" font-weight="700" fill="#2a9d3f">時計</text>
+<text x="716" y="416" font-size="12" fill="#444">D22 ／ SCL</text>
+<rect x="40" y="486" width="380" height="150" rx="8" fill="#fff4f4" stroke="#d62828" stroke-width="2"/>
+<text x="54" y="510" font-size="14" font-weight="700" fill="#d62828">⚠ 気をつけること</text>
+<text x="54" y="532" font-size="13">・電気（＋）は必ず「3V3」（3.3ボルト）へ。</text>
+<text x="54" y="550" font-size="13">　「5V」「VIN」には、つながない。</text>
+<text x="54" y="572" font-size="13">・部品の端子のならび順は商品でちがいます。</text>
+<text x="54" y="590" font-size="13">　基板に書いてある名前を見てつなぎます。</text>
+<text x="54" y="612" font-size="13">・ESP32のピンは左右に分かれています。ボード</text>
+<text x="54" y="630" font-size="13">　に書いてある名前（3V3,GND,D21,D22）をさがす。</text>
+<text x="450" y="660" text-anchor="middle" font-size="11" fill="#777">※ブレッドボードの穴の位置ではなく、つなぎかたを示した図です。</text>
+</g></svg>

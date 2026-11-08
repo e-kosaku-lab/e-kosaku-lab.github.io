@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>さぼてんきけい 説明書｜でんき工作研究室</title>
+<meta name="description" content="さぼてんきけい（温度・湿度・気圧）の説明書。ワイヤーをつないで光らせる、数字・言葉・ドット絵を変える、AIにお願いする、じぶんで考える、の4つのステップで進めます。">
+<!-- 公開前の確認が終わるまでは検索に出さない。公開するときに、この1行を消す -->
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#main">本文へ</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><canvas class="sabo xs" data-face="kaiteki" aria-hidden="true"></canvas><span class="brand-text">でんき工作研究室<small>e-kosaku-lab</small></span></a>
+    <nav class="main" aria-label="メインメニュー">
+      <ul>
+        <li><a href="index.html">トップ</a></li>
+        <li><a href="manual.html" aria-current="page">説明書</a></li>
+        <li><a href="parents.html">おうちの人へ</a></li>
+        <li><a href="next.html">つぎの一歩</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+
+  <div class="hero">
+    <canvas class="sabo l" data-face="kaiteki" role="img" aria-label="サボテンのキャラクター、さぼてんきくん"></canvas>
+    <h1>さぼてんきけい 説明書</h1>
+  </div>
+  <p class="lead">温度・湿度・気圧を、小さな画面に出します。はんだ付けはいりません。おうちの人といっしょに、ゆっくり進めてください。</p>
+
+  <!-- 公開前: 部品が届いて、動作確認と写真の差しかえが終わったら、この「draft」ブロックを消す -->
+  <div class="draft" role="note">
+    <strong>この説明書は、準備中の下書きです。</strong>
+    部品で動作を確かめたあと、写真つきの完成版に更新します。
+  </div>
+
+  <div class="note">
+    <strong>おうちの人へ：</strong>パソコンの準備、AIの使いかた、うまくいかないときの直しかたは、<a href="parents.html">おうちの人へのページ</a>にまとめました。先に一度、目を通してください。
+  </div>
+
+  <h2>4つのステップで進めます</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>ステップ</th><th>すること</th><th>パソコン</th><th>目安</th></tr></thead>
+      <tbody>
+        <tr><td><a href="#step1"><strong>1. 光った！</strong></a></td><td>ワイヤーをつないで、USBをさす。画面に温度が出る</td><td>電気をもらうだけ</td><td>30分〜1時間</td></tr>
+        <tr><td><a href="#step2"><strong>2. 変えてみよう</strong></a></td><td>数字 → 言葉 → 0と1の絵 を、じぶんで書きかえる</td><td>おうちの人が準備</td><td>1〜2時間</td></tr>
+        <tr><td><a href="#step3"><strong>3. AIにお願い</strong></a></td><td>「こうしたい」を考えて、おうちの人がAIにたのむ。画面でたしかめる</td><td>おうちの人が操作</td><td>30分〜</td></tr>
+        <tr><td><a href="#step4"><strong>4. じぶんで考える</strong></a></td><td>新しい表示や遊びを考えて、作ってみる</td><td>いっしょに</td><td>すきなだけ</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>1日で全部やらなくてだいじょうぶです。ステップ1だけで、その日はおしまいでもOKです。</p>
+
+  <h2>はじめに（おうちの人といっしょに読んでね）</h2>
+  <div class="warn" role="note">
+    <strong class="t">電波法・技適について</strong>
+    <p>キットのESP32ボードには、技適マークがありません。付属のプログラムは、Wi-Fi・Bluetoothを使いません。日本国内で、技適のないボードのWi-Fi・Bluetoothを使うと、電波法違反になるおそれがあります。無線を使うプログラムを書くときは、ご自身で法令を確認してください。</p>
+  </div>
+  <ul>
+    <li>対象年齢の目安は、小学3年生以上です。おうちの人といっしょにお使いください。</li>
+    <li>小さな部品があります。小さなお子さまが口に入れないよう、気をつけてください。</li>
+    <li>使う電気は、USBからの小さな電気だけです。家のコンセントに直接つなぐ部品はありません。</li>
+    <li><strong>AIは、おうちの人が操作してください。</strong>AIのサービスには、使える年齢の条件があります（<a href="parents.html#ai">おうちの人へ「AIを使うとき」</a>）。</li>
+    <li>動作確認は出荷前に行っていますが、市販品のような保証・修理はできません。</li>
+  </ul>
+
+  <!-- ================= ステップ1 ================= -->
+  <h2 id="step1"><span class="stepno">1</span>光った！<canvas class="sabo xs" data-face="kaiteki" aria-hidden="true"></canvas></h2>
+  <p>ボードには、もう「さぼてんきけい」のプログラムが入っています。<strong>ワイヤーをつないで、USBをさすだけ</strong>で、画面に温度が出ます。</p>
+
+  <h3>1-1. 入っているもの（チェックしよう）</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>部品</th><th>数</th></tr></thead>
+      <tbody>
+        <tr><td>ESP32 ボード（NodeMCU-32S）… 小さなコンピューター</td><td>1</td></tr>
+        <tr><td>センサー（AHT20 + BMP280）… 温度・湿度・気圧をはかる</td><td>1</td></tr>
+        <tr><td>画面（0.96インチ OLED）</td><td>1</td></tr>
+        <tr><td>ブレッドボード … 穴がたくさんある板</td><td>1</td></tr>
+        <tr><td>ジャンパーワイヤー（10cm）… 部品どうしをつなぐ、細い電線。これから「ワイヤー」と呼びます</td><td>10</td></tr>
+        <tr><td>USBケーブル</td><td>1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- 部品の写真（名前入り）を入れる: <figure><img src="parts.jpg" alt="…"></figure> -->
+
+  <h3>1-2. 部品をさす（配線）</h3>
+  <div class="note"><strong>USBケーブルは、まだささないでね。</strong>電気が来ていない状態で作ります。</div>
+  <p>画面とセンサーは、<strong>同じ4本のワイヤー</strong>を、2つで分け合ってつなぎます。（ワイヤー ＝ ジャンパーワイヤー。部品どうしをつなぐ、細い電線のことです）</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>はたらき</th><th>ESP32のピン</th><th>画面</th><th>センサー</th></tr></thead>
+      <tbody>
+        <tr><td>電気（＋）</td><td><strong>3V3</strong>（3.3V）</td><td>VCC</td><td>VCC</td></tr>
+        <tr><td>電気（−）</td><td><strong>GND</strong></td><td>GND</td><td>GND</td></tr>
+        <tr><td>データ</td><td><strong>D21</strong>（GPIO21）</td><td>SDA</td><td>SDA</td></tr>
+        <tr><td>時計</td><td><strong>D22</strong>（GPIO22）</td><td>SCL</td><td>SCL</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="warn" role="note">
+    <strong class="t">気をつけること</strong>
+    <ul>
+      <li>電気（＋）のワイヤーは、かならず「3V3」につなぎます。「5V」「VIN」には、つなぎません（ESP32ボードのピンのことです）。</li>
+      <li>「3V3」は、<strong>3.3ボルト（V）</strong>の電気が出るピンです。「5V」は5ボルトで、部品によっては、こわれてしまうことがあります。</li>
+      <li>ワイヤーの色は、どれでもだいじょうぶです。<strong>同じはたらきのワイヤーは、同じ色にそろえる</strong>と、まちがえにくくなります。</li>
+      <li>部品の足のならび順は、商品でちがいます。基板に書いてある名前（VCC・GND・SDA・SCL）を見て、つなぎます。虫めがねがあると見やすいよ。</li>
+      <li>ESP32のピンは、左右に分かれています。ボードに書いてある名前（3V3・GND・D21・D22）をさがします。</li>
+    </ul>
+  </div>
+
+  <figure>
+    <img src="wiring.svg" width="900" height="670" alt="配線図。ESP32の3V3、GND、D21、D22が、画面とセンサーのVCC、GND、SDA、SCLにそれぞれつながっている。">
+    <figcaption>配線図（つなぎかたの図）。線の色は見やすくするためのもので、お手元のワイヤーの色とはちがいます。ブレッドボードの穴の位置ではなく、どこをどこにつなぐかを示しています。</figcaption>
+  </figure>
+
+  <h4>部品の足の名前が、ちがうとき</h4>
+  <p>部品によって、同じはたらきの足に、ちがう名前がついていることがあります。よく見る名前は、こうです。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>はたらき</th><th>この説明書の名前</th><th>ほかによくある名前</th></tr></thead>
+      <tbody>
+        <tr><td>電気（＋）</td><td>VCC</td><td>VDD、VIN、3V3</td></tr>
+        <tr><td>電気（−）</td><td>GND</td><td>VSS</td></tr>
+        <tr><td>データ</td><td>SDA</td><td>SDI</td></tr>
+        <tr><td>時計</td><td>SCL</td><td>SCK</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul>
+    <li>迷ったら、部品の商品ページや、基板の説明で、<strong>はたらき</strong>を確かめよう。</li>
+    <li>部品についている「VIN」は、<strong>電気（＋）の入り口</strong>です。ESP32ボードの「VIN」は、別のもの（5Vの電気）なので、つながないでね。</li>
+  </ul>
+  <!-- TODO（要確認）: 今回のセンサーと画面の足の名前（VDD・SCK など）を、実物で確かめて書く -->
+
+  <h4>ブレッドボードの中のようす</h4>
+  <p>ブレッドボードは、穴の下で、金属の板が穴どうしをつないでいます。見えないけれど、こんなふうにつながっています。</p>
+  <figure>
+    <img src="breadboard-inside.svg" width="640" height="515" alt="ブレッドボードの中のつながりかた。たて5つの穴はつながっている。まん中のみぞの上と下はつながっていない。ふちの長い列は横につながっている。">
+    <figcaption>ブレッドボードの中のつながりかた</figcaption>
+  </figure>
+  <ul>
+    <li><strong>たて5つの穴は、つながっています。</strong>同じ列にさしたものは、電気がつながります。</li>
+    <li><strong>まん中のみぞの上と下は、つながっていません。</strong>ESP32のように足が2列あるボードは、みぞをまたいでさします。こうすると、左右の足が、べつべつの列になります。</li>
+    <li><strong>ふちの長い列は、横にずっとつながっています。</strong>電気（＋）や電気（−）を、みんなで使うときに便利です。</li>
+    <li><strong>ワイヤーは、はなれた列どうしをつなぐ</strong>ために使います。</li>
+  </ul>
+
+  <h4>ブレッドボードにさす</h4>
+  <ol class="steps">
+    <li>ESP32ボードを、ブレッドボードの<strong>真ん中のみぞをまたぐように</strong>さす。（ボードが大きいので、さしたあとに使える穴は、ボードの外がわの列だけになります）</li>
+    <li>画面とセンサーを、ブレッドボードのあいている場所にさす。</li>
+    <li>上の表のとおりに、ワイヤーでつなぐ。</li>
+  </ol>
+  <!-- TODO（要確認）: 400穴1枚にESP32と部品2つがおさまるか／ワイヤーの本数と色（同梱の色を見てから、おすすめの色分けを決める）／ブレッドボードの、ふちの長い列（電源用）が途中で切れていないか／ESP32の外側の穴だけで配線できるか。実機の写真と、穴の位置つき配線図を入れる -->
+
+  <h3>さす前に、指さしチェック</h3>
+  <ul>
+    <li>電気（＋）のワイヤーが「3V3」、電気（−）のワイヤーが「GND」</li>
+    <li>「D21」は SDA、「D22」は SCL</li>
+    <li>画面にも、センサーにも、4つの足（VCC・GND・SDA・SCL）のワイヤーがつながっている</li>
+  </ul>
+
+  <h3>1-3. USBをさす</h3>
+  <ol class="steps">
+    <li>USBケーブルで、ボードとパソコンをつなぐ。（パソコンは、電気をもらうためだけに使います。まだ何もしなくてOK）</li>
+    <li>2秒くらい「さぼてんきけい」の画面が出て、そのあと、こんなふうに出たら<strong>せいこう！</strong></li>
+  </ol>
+  <!-- TODO（要確認）: パソコンのかわりに、スマホ用のUSB充電器でも動くか -->
+  <div class="oled" role="img" aria-label="画面の例。左に、温度 24.5 C、湿度 52%、気圧 1013 hPa、かいてき。右上に、さぼてんきくんのにこにこ顔。">
+    <div class="oled-text">温度 24.5 C<br>湿度 52%<br>気圧 1013 hPa<br>かいてき</div>
+    <canvas class="oled-mark" width="16" height="16" data-face="kaiteki" data-color="oled" aria-hidden="true"></canvas>
+  </div>
+
+  <h3>たしかめてみよう</h3>
+  <ul>
+    <li>センサーに「はーっ」と息をふきかけると、湿度の数字が上がるかな？</li>
+    <li>湿度が70%以上になると「じめじめ」、40%より低いと「からから」と出て、右上の<strong>さぼてんきくん</strong>（サボテンのキャラクター）の顔もかわります。</li>
+    <li>さぼてんきくんが、ゆらゆら動いて見えるかな？ 絵が2まいあって、半秒ごとに切りかわっています。</li>
+    <li>気圧の数字は、下の「気圧の数字のみかた」で見てみよう。毎日見てみよう。</li>
+  </ul>
+
+    <p><strong>湿度と、さぼてんきくんの顔</strong>（湿度が変わると、顔が変わるよ）</p>
+  <ul class="sabo-trio" aria-label="さぼてんきくんの3つの顔">
+    <li><canvas class="sabo m" data-face="karakara" aria-hidden="true"></canvas><strong>からから</strong><span>湿度 40%より低い</span></li>
+    <li><canvas class="sabo m" data-face="kaiteki" aria-hidden="true"></canvas><strong>かいてき</strong><span>湿度 40〜70%</span></li>
+    <li><canvas class="sabo m" data-face="jimejime" aria-hidden="true"></canvas><strong>じめじめ</strong><span>湿度 70%以上</span></li>
+  </ul>
+
+  <h3 id="pressure">気圧の数字のみかた</h3>
+  <p>気圧は「hPa（ヘクトパスカル）」という単位です。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>数字（目安）</th><th>ようす</th></tr></thead>
+      <tbody>
+        <tr><td>1020 より上</td><td>高気圧。晴れやすい</td></tr>
+        <tr><td>1013 くらい</td><td>ふつう（標準の気圧）</td></tr>
+        <tr><td>1000 より下</td><td>低気圧。くもりや雨になりやすい</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul>
+    <li>数字そのものより、<strong>数時間のあいだの変わりかた</strong>が大事です。ぐんぐん下がっていくとき（目安：3時間で3hPa以上）は、天気がくずれやすくなります。</li>
+    <li>キットの気圧は、<strong>今いる場所の高さの気圧</strong>です。高い所ほど低く出ます（100mで約12hPa）。天気予報の気圧は、海面の高さにそろえた数字なので、ちがう数字になることがあります。まず数日、じぶんの家の「ふだんの数字」を見つけよう。</li>
+  </ul>
+  <!-- TODO（要確認）: 目安の数字（1020・1000・3時間で3hPa）は、実機で見たあと、気象庁などの説明と照らして直す -->
+
+  <h3 id="trouble">うまくいかないときは<canvas class="sabo xs" data-face="jimejime" aria-hidden="true"></canvas></h3>
+  <p>うまくいかないのは、ふつうのことです。<strong>どこがちがうか、1つずつさがすのが電子工作のたのしいところ</strong>です。</p>
+
+  <details>
+    <summary>画面に何も出ない</summary>
+    <div>
+      <ol>
+        <li>画面の VCC が 3V3、GND が GND につながっているか。</li>
+        <li>SDA が D21、SCL が D22 か（入れかわっていないか）。</li>
+        <li>ワイヤーがしっかりささっているか。ゆるいときは、予備のワイヤーにかえる。</li>
+      </ol>
+    </div>
+  </details>
+  <details>
+    <summary>「センサーが つながって いません」と出る</summary>
+    <div>
+      <ol>
+        <li>センサーの4つの足（VCC・GND・SDA・SCL）のワイヤーをたしかめる。</li>
+        <li>予備のワイヤーにかえてみる。</li>
+      </ol>
+    </div>
+  </details>
+  <details>
+    <summary>気圧が「---」になる</summary>
+    <div>
+      <p>センサーのワイヤーをたしかめる。それでもだめなら、<a href="parents.html#trouble">おうちの人へ「うまくいかないとき」</a>へ。</p>
+    </div>
+  </details>
+  <details>
+    <summary>ボードの明かり（LED）もつかない</summary>
+    <div>
+      <p>USBケーブルをさしなおす。パソコンの別の差し込み口にさしてみる。</p>
+    </div>
+  </details>
+
+  <!-- ================= ステップ2 ================= -->
+  <h2 id="step2"><span class="stepno">2</span>変えてみよう<canvas class="sabo xs" data-face="kaiteki" aria-hidden="true"></canvas></h2>
+  <p>ここからは、パソコンでプログラムを書きかえます。<strong>パソコンの準備は、おうちの人にお願いしてね。</strong>（<a href="parents.html#pc">おうちの人へ「パソコンの準備」</a>）</p>
+
+  <h3>2-0. プログラムを開く</h3>
+  <ol class="steps">
+    <li>プログラム <code>sabotenkikei.ino</code> を開く。
+      <br><a class="btn" href="https://github.com/e-kosaku-lab/sabotenkikei" rel="noopener">プログラムのページ（GitHub）</a></li>
+    <li>いちばん上のほうに、<code>かえてみよう！</code> と書いてあるところがあるよ。そこから <code>かえてみよう ここまで</code> までが、きみが書きかえていい場所です。</li>
+    <li>書きかえたら、<strong>→（書き込み）ボタン</strong>をおすと、ボードに送られます。</li>
+  </ol>
+  <div class="ok sabo-say">
+    <canvas class="sabo m" data-face="kaiteki" aria-hidden="true"></canvas>
+    <div>
+      <strong>まちがえても、こわれません。</strong>わからなくなったら、プログラムを開きなおせば、元にもどります。
+    </div>
+  </div>
+
+  <h3>2-1. 数字をかえてみよう</h3>
+<pre><code>const float JIMEJIME_LINE = 70;  // これ以上で じめじめ</code></pre>
+  <ul>
+    <li><code>70</code> を <code>50</code> にして書き込んでみよう。どうなるかな？</li>
+    <li>息をふきかけて、マークがかわるのをたしかめよう。</li>
+    <li>ためしたら、ノートに書いておこう。「50にしたら、すぐ じめじめ になった」など。</li>
+  </ul>
+
+  <h4>動くはやさもかえられるよ</h4>
+  <p>さぼてんきくんは、2まいの絵がこうたいに出て、動いているように見えます。その切りかえの間かくも、かえられます。</p>
+<pre><code>const unsigned long ANIME_MS = 500;  // 絵をきりかえる間かく（1000 = 1秒）</code></pre>
+  <ul>
+    <li><code>500</code> を <code>200</code> にすると、はやく動きます。<code>1000</code> にすると、ゆっくりです。</li>
+    <li><code>50</code> より小さくしないでね。</li>
+  </ul>
+
+  <h3>2-2. 言葉をかえてみよう</h3>
+<pre><code>const char *WORD_KAITEKI  = "かいてき";</code></pre>
+  <ul>
+    <li><code>" "</code> の中を、すきな言葉にかえてみよう。たとえば <code>"いいかんじ"</code> <code>"ごきげん"</code>。</li>
+    <li><strong><code>"</code> はけさないでね。</strong>けすと、書き込みのときに赤い文字が出ます（そのときは <code>"</code> をもどせばOK）。</li>
+    <li>むずかしい漢字は、画面に出ないことがあります。ひらがな・カタカナがおすすめ。</li>
+  </ul>
+
+  <h3 id="dots">2-3. 0と1で、絵をかえてみよう</h3>
+  <p>マークの絵は、<code>0</code> と <code>1</code> でできています。<strong><code>1</code> が光るドット、<code>0</code> が光らないドット</strong>です。1行に16こ、16行あります。</p>
+<pre><code>// かいてき: にこにこ顔の さぼてんきくん
+const char *MARK_KAITEKI[16] = {
+  "0000000110000000",
+  "0000001111000000",
+  …</code></pre>
+
+  <p>絵は、1つの顔につき<strong>2まい</strong>あります。名前のさいごに <code>2</code> がついているのが、絵2です（<code>MARK_KAITEKI</code> が絵1、<code>MARK_KAITEKI2</code> が絵2）。2まいをこうたいに出すので、動いて見えます。絵2は、絵1と、ちがうところが少しだけあります。どこがちがうか、さがしてみよう。</p>
+
+  <h4>ドット絵メーカー</h4>
+  <p>マスをタッチ（クリック）すると、ぬったり消したりできます。なぞると続けてぬれます。下に、0と1が出てきます。</p>
+  <div class="dotmaker">
+    <div class="dotgrid" id="dotgrid" role="group" aria-label="16かける16のマス。ボタンをおすと、ぬる・消すが切りかわる"></div>
+    <div class="dotbtns">
+      <button type="button" class="btn ghost small" data-load="kaiteki">かいてき 1</button>
+      <button type="button" class="btn ghost small" data-load="kaiteki2">かいてき 2</button>
+      <button type="button" class="btn ghost small" data-load="jimejime">じめじめ 1</button>
+      <button type="button" class="btn ghost small" data-load="jimejime2">じめじめ 2</button>
+      <button type="button" class="btn ghost small" data-load="karakara">からから 1</button>
+      <button type="button" class="btn ghost small" data-load="karakara2">からから 2</button>
+      <button type="button" class="btn ghost small" data-load="clear">ぜんぶ消す</button>
+    </div>
+    <label for="dotcode"><strong>できた0と1</strong>（プログラムの16行と入れかえる）</label>
+    <textarea id="dotcode" rows="17" readonly spellcheck="false"></textarea>
+    <p><button type="button" class="btn" id="dotcopy">コピーする</button> <span id="dotmsg" role="status"></span></p>
+  </div>
+
+  <p><strong>紙でもできるよ：</strong>方眼紙に、たて16マス・よこ16マスをかいて、えんぴつでぬる。ぬったマスは <code>1</code>、ぬっていないマスは <code>0</code>。1行ずつ、左から順番に書きうつします。</p>
+  <!-- TODO: 印刷用の方眼シート（PDF）を置いて、ここからリンクする -->
+
+  <h4>コツ</h4>
+  <ul>
+    <li>1行は、かならず<strong>16こ</strong>。数えまちがえると、絵がずれます。ずれたら、どの行がちがうか、さがしてみよう。</li>
+    <li><code>"</code> と <code>,</code>（カンマ）は、けさないでね。</li>
+    <li>画面では、1ドットが2倍の大きさで出ます。</li>
+  </ul>
+
+  <!-- ================= ステップ3 ================= -->
+  <h2 id="step3"><span class="stepno">3</span>AIにお願い<canvas class="sabo xs" data-face="kaiteki" aria-hidden="true"></canvas></h2>
+  <p>「こうしたい！」をきみが考えて、<strong>おうちの人がAIにたのみます。</strong>AIのこたえが本当に正しいかは、<strong>画面に書き込んで、きみがたしかめます。</strong></p>
+  <div class="note">AIの使いかたのルールは、<a href="parents.html#ai">おうちの人へ「AIを使うとき」</a>を見てください。</div>
+
+  <h3>3-1. たのむ言葉を考えよう</h3>
+  <p>AIには、<strong>何を・どうしたいか</strong>を、くわしく言うほど伝わります。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>あまり伝わらない</th><th>よく伝わる</th></tr></thead>
+      <tbody>
+        <tr><td>「かわいくして」</td><td>「さぼてんきくんの目を、ハートの形にして」</td></tr>
+        <tr><td>「あつい時も出して」</td><td>「温度が28度以上のときは『あつい』と出して、太陽のマークを出して」</td></tr>
+        <tr><td>「もっと動かして」</td><td>「さぼてんきくんの絵を、2倍はやく切りかえて」</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>たのむときは、<strong>プログラムぜんぶ</strong>をいっしょにわたして、さいごにこう書きます。</p>
+<pre><code>このプログラムは、ESP32と0.96インチのOLED（U8g2）で、温度と湿度を表示するものです。
+「（ここに、やりたいこと）」ように変えてください。
+変えたところがわかるように、変えた行にコメントを書いてください。</code></pre>
+
+  <h3>3-2. たしかめよう</h3>
+  <ol class="steps">
+    <li>AIがかえたプログラムを書き込む。</li>
+    <li>画面を見て、<strong>たのんだとおりになっているか</strong>たしかめる。温度の話なら、センサーを手でにぎって温めてみる。湿度の話なら、息をふきかけてみる。</li>
+    <li>ちがっていたら、<strong>何がちがったか</strong>をそのままAIに伝える。<br>例：「ハートが出ません。画面には何も出なくなりました」<br>例：「『あつい』の字が出ません。四角い記号になります」</li>
+  </ol>
+<div class="ok sabo-say">
+    <canvas class="sabo m" data-face="kaiteki" aria-hidden="true"></canvas>
+    <div>
+      <p><strong>ほんとうにあった話：</strong>このキットを作るときも、AIが書いたプログラムで日本語が出ないことがありました。人が調べて、たしかめて、直しました。</p>
+      <p><strong>AIはまちがえることがあります。たしかめるのは、きみの目です。</strong></p>
+    </div>
+  </div>
+
+  <!-- ================= ステップ4 ================= -->
+  <h2 id="step4"><span class="stepno">4</span>じぶんで考える<canvas class="sabo xs" data-face="kaiteki" aria-hidden="true"></canvas></h2>
+  <p>ここまでできたら、もう「作る人」です。じぶんのアイデアで作ってみよう。</p>
+
+  <h3>4-1. アイデアシート</h3>
+  <p>紙に書いてみよう。</p>
+  <ul>
+    <li>画面に、何を出したい？</li>
+    <li>それは、どんなときに出る？（あつい時？ 夜？ 1分ごと？）</li>
+    <li>どんな絵にする？（16×16マスにかいてみよう）</li>
+    <li>名前をつけるなら？</li>
+  </ul>
+
+  <h3>4-2. アイデアのヒント</h3>
+  <ul>
+    <li><strong>あつい・さむい</strong>も出す（温度で、マークをかえる）</li>
+    <li><strong>じぶんのキャラクター</strong>を考えて、かいてき・じめじめ・からからの3つの顔をかく（さぼてんきくんのように）</li>
+    <li><strong>気圧のマーク</strong>（気圧が低い日は、かさのマーク）</li>
+    <li><strong>もっと動かす</strong>（絵を3まいにふやして、順番に出す。AIに手つだってもらおう）</li>
+  </ul>
+  <p>作りかたは、ステップ2（じぶんで書きかえる）と、ステップ3（AIにたのむ）の組み合わせです。うまくいかなかったら、<strong>小さく分けて、1つずつ</strong>たしかめよう。できたら、写真をとっておこう。</p>
+
+<div class="ok sabo-say">
+    <canvas class="sabo m" data-face="kaiteki" aria-hidden="true"></canvas>
+    <div>
+      <p><strong>できた！</strong> もっとやりたくなったら、つぎは何をしようかな。</p>
+      <a class="btn big" href="next.html">つぎの一歩へ</a>
+    </div>
+  </div>
+
+  <h2>片づけとお手入れ</h2>
+  <ul>
+    <li>使い終わったら、USBケーブルをはずす。</li>
+    <li>水にぬらさない。ブレッドボードに、水をこぼさない。</li>
+    <li>小さな部品は、箱や袋に入れて、小さなお子さまの手の届かないところに置く。</li>
+    <li>配線はそのままでもだいじょうぶです。次はUSBをさすだけで動きます。</li>
+  </ul>
+
+  <h2>お問い合わせ</h2>
+  <p>わからないことは、購入したメルカリの取引メッセージで、ご連絡ください。</p>
+  <p>この説明書とプログラムは、更新することがあります。</p>
+
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <ul>
+      <li><a href="index.html">トップ</a></li>
+      <li><a href="manual.html">説明書</a></li>
+      <li><a href="parents.html">おうちの人へ</a></li>
+      <li><a href="next.html">つぎの一歩</a></li>
+      <li><a href="index.html#about">このサイトについて</a></li>
+    </ul>
+    <p>学習用の個人制作です。動作や安全についての保証はありません。小さな部品があります。小さなお子さまの誤飲にご注意ください。</p>
+    <p class="foot-sabo"><canvas class="sabo xs" data-face="kaiteki" aria-hidden="true"></canvas><span>&copy; 2026 でんき工作研究室（e-kosaku-lab）</span></p>
+  </div>
+</footer>
+
+<script src="sabo.js"></script>
+<script>
+// ドット絵メーカー。絵のデータは、同じフォルダの sabo.js から読む。ほかのサイトからは何も読みこまない。
+(function () {
+  var MARKS = window.SABO_MARKS;
+  var N = 16;
+
+  // ドット絵メーカー
+  var grid = document.getElementById("dotgrid");
+  if (!grid) return;
+  var out = document.getElementById("dotcode"), msg = document.getElementById("dotmsg");
+  var cells = [];
+  for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-pressed", "false");
+    b.setAttribute("aria-label", (y + 1) + "行目 " + (x + 1) + "列目");
+    grid.appendChild(b);
+    cells.push(b);
+  }
+  function on(b) { return b.getAttribute("aria-pressed") === "true"; }
+  function set(b, v) { b.setAttribute("aria-pressed", v ? "true" : "false"); }
+  function render() {
+    var lines = [];
+    for (var y = 0; y < N; y++) {
+      var s = "";
+      for (var x = 0; x < N; x++) s += on(cells[y * N + x]) ? "1" : "0";
+      lines.push('  "' + s + '",');
+    }
+    out.value = lines.join("\n");
+    msg.textContent = "";
+  }
+  function load(name) {
+    var rows = MARKS[name];
+    cells.forEach(function (b, i) { set(b, rows ? rows[Math.floor(i / N)][i % N] === "1" : false); });
+    render();
+  }
+
+  // なぞってぬる（マウス・タッチ）。キーボードは click で1マスずつ。
+  var painting = false, mode = true;
+  grid.addEventListener("pointerdown", function (e) {
+    var b = e.target.closest("button");
+    if (!b) return;
+    e.preventDefault();
+    painting = true; mode = !on(b); set(b, mode); render();
+  });
+  grid.addEventListener("pointermove", function (e) {
+    if (!painting) return;
+    var el = document.elementFromPoint(e.clientX, e.clientY);
+    if (el && el.parentNode === grid && on(el) !== mode) { set(el, mode); render(); }
+  });
+  window.addEventListener("pointerup", function () { painting = false; });
+  window.addEventListener("pointercancel", function () { painting = false; });
+  grid.addEventListener("click", function (e) {
+    var b = e.target.closest("button");
+    if (b && e.detail === 0) { set(b, !on(b)); render(); }  // キーボード（Enter・スペース）
+  });
+
+  document.querySelectorAll("[data-load]").forEach(function (b) {
+    b.addEventListener("click", function () { load(b.getAttribute("data-load")); });
+  });
+  document.getElementById("dotcopy").addEventListener("click", function () {
+    function done() { msg.textContent = "コピーしました"; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(out.value).then(done, function () { out.select(); msg.textContent = "えらんだ所を、コピーしてください"; });
+    } else { out.select(); msg.textContent = "えらんだ所を、コピーしてください"; }
+  });
+
+  load("kaiteki");
+})();
+</script>
+</body>
+</html>

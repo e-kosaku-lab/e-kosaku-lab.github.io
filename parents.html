@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>おうちの人へ｜でんき工作研究室</title>
+<meta name="description" content="さぼてんきけいを親子で進めるための、おうちの人向けのページ。パソコンの準備、書き込みのやりかた、AIを使うときのルール、うまくいかないときの直しかた。">
+<!-- 公開前の確認が終わるまでは検索に出さない。公開するときに、この1行を消す -->
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#main">本文へ</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><canvas class="sabo xs" data-face="kaiteki" aria-hidden="true"></canvas><span class="brand-text">でんき工作研究室<small>e-kosaku-lab</small></span></a>
+    <nav class="main" aria-label="メインメニュー">
+      <ul>
+        <li><a href="index.html">トップ</a></li>
+        <li><a href="manual.html">説明書</a></li>
+        <li><a href="parents.html" aria-current="page">おうちの人へ</a></li>
+        <li><a href="next.html">つぎの一歩</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+
+  <div class="hero">
+    <canvas class="sabo l" data-face="kaiteki" role="img" aria-label="サボテンのキャラクター、さぼてんきくん"></canvas>
+    <div>
+      <h1>おうちの人へ</h1>
+      <p class="lead">おうちの人も、はじめてで大丈夫です。先生役ではなく、いっしょに試して、いっしょに悩む「なかま」として付き合ってください。</p>
+    </div>
+  </div>
+
+  <!-- 公開前: 要確認の項目を確かめたら、この「draft」ブロックを消す -->
+  <div class="draft" role="note">
+    <strong>このページは、準備中の下書きです。</strong>
+    部品での確認と、AIサービスの規約の確認が終わったら更新します。
+  </div>
+
+  <ul>
+    <li>うまくいかない時間も、このキットの体験の一部です。すぐに答えを教えず、「どこがちがうと思う？」と聞いてみてください。</li>
+    <li>お子さま向けの本編は、<a href="manual.html">説明書</a>にあります。</li>
+  </ul>
+
+  <p>
+    <a class="btn ghost small" href="#pc">パソコンの準備</a>
+    <a class="btn ghost small" href="#write">書き込みのやりかた</a>
+    <a class="btn ghost small" href="#ai">AIを使うとき</a>
+    <a class="btn ghost small" href="#trouble">うまくいかないとき</a>
+  </p>
+
+  <h2>だれが、何をするか</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>ステップ</th><th>お子さま</th><th>おうちの人</th></tr></thead>
+      <tbody>
+        <tr><td>1. 光った！</td><td>部品をさす・線をつなぐ・たしかめる</td><td>小さな部品の扱いを見守る。パソコンからの電気だけで動きます</td></tr>
+        <tr><td>2. 変えてみよう</td><td>数字・言葉・0と1の絵を書きかえる</td><td><strong>パソコンの準備</strong>と、書き込みの操作の手伝い</td></tr>
+        <tr><td>3. AIにお願い</td><td>やりたいことを考える・画面でたしかめる</td><td><strong>AIの操作</strong></td></tr>
+        <tr><td>4. じぶんで考える</td><td>アイデアを考えて作る</td><td>話を聞く。必要ならステップ2・3のやりかたで手伝う</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>ことば</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>ことば</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr><td>ESP32（イーエスピー32）</td><td>小さなコンピューターの部品。このキットの頭脳</td></tr>
+        <tr><td>プログラム（スケッチ）</td><td>ボードへの命令を書いた文章。ファイル名の最後が <code>.ino</code></td></tr>
+        <tr><td>書き込み</td><td>パソコンで書いたプログラムを、ボードに送ること</td></tr>
+        <tr><td>Arduino IDE（アルドゥイーノ アイディーイー）</td><td>プログラムを書いて、書き込むための無料のソフト</td></tr>
+        <tr><td>ライブラリ</td><td>画面やセンサーを使うための、出来合いの部品のようなプログラム</td></tr>
+        <tr><td>ポート</td><td>パソコンがボードを見つけたときの「つなぎ口」の名前（COM3 など）</td></tr>
+        <tr><td>VCC・VDD、SCL・SCK など</td><td>部品によって、同じはたらきの足の名前がちがうことがあります。<a href="manual.html">説明書</a>の「部品の足の名前が、ちがうとき」を見てください</td></tr>
+        <tr><td>SPI（エスピーアイ）</td><td>I2C（このキットで使う、4本の線でつなぐ方式）とは別の通信の方式。MOSI・MISO・SCK・CS の4本を使う。今回は使わない。MOSI は SDI、MISO は SDO と書かれることもある</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="pc">パソコンの準備（ステップ2の前に・1回だけ）</h2>
+  <p>目安は30分〜1時間です（インターネットの速さによります）。</p>
+  <p><strong>用意するもの：</strong>パソコン（Windows または Mac）、インターネット。USBの差し込み口がない場合は、変換アダプター。</p>
+  <!-- TODO（要確認）: Chromebook は Arduino IDE が使えないため対象外と書くか -->
+
+  <details>
+    <summary>1. Arduino IDE を入れる</summary>
+    <div>
+      <ol class="steps">
+        <li><a href="https://www.arduino.cc/en/software" rel="noopener">Arduino の公式サイト</a>を開く。</li>
+        <li>「Arduino IDE 2.x」を、お使いのパソコン（Windows / Mac）に合わせてダウンロードして、インストールする。</li>
+        <li>起動できたら、次へ進む。</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary>2. ESP32 を使えるようにする</summary>
+    <div>
+      <ol class="steps">
+        <li>メニューの「ファイル」→「基本設定」（Macは「Arduino IDE」→「設定」）を開く。</li>
+        <li>「追加のボードマネージャのURL」に、次の1行を入れて、OK を押す。
+<pre><code>https://espressif.github.io/arduino-esp32/package_esp32_index.json</code></pre></li>
+        <li>左の「ボードマネージャ」（ボードの絵）を開き、「esp32」と検索する。</li>
+        <li>「esp32 by Espressif Systems」の「インストール」を押す（少し時間がかかります）。</li>
+        <li>メニューの「ツール」→「ボード」→「esp32」→ <strong>「ESP32 Dev Module」</strong> を選ぶ。</li>
+      </ol>
+      <!-- TODO（要確認）: 「ESP32 Dev Module」の名前と場所が、今のArduino IDEの画面と合っているか -->
+    </div>
+  </details>
+
+  <details>
+    <summary>3. ライブラリを入れる</summary>
+    <div>
+      <ol class="steps">
+        <li>左の「ライブラリマネージャ」（本の絵）を開く。</li>
+        <li>「U8g2」と検索して、<strong>olikraus</strong> さんのものを「インストール」。</li>
+        <li>「Adafruit BMP280」と検索して「インストール」。「ほかに必要なライブラリも入れますか？」と聞かれたら、<strong>「すべてインストール」</strong>。</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary>4. パソコンとボードをつなぐ</summary>
+    <div>
+      <ol class="steps">
+        <li>ボードを、付属の<strong>USBケーブル</strong>で、パソコンにつなぐ。</li>
+        <li>「ツール」→「ポート」で、ボードのポートを選ぶ。
+          <ul>
+            <li>Windows：「COM3」などの名前</li>
+            <li>Mac：「/dev/cu.usbserial-…」などの名前</li>
+          </ul>
+        </li>
+        <li>ポートが出ないときは、<a href="#trouble">「うまくいかないとき」</a>を見てください。</li>
+      </ol>
+    </div>
+  </details>
+
+  <h2 id="write">書き込みのやりかた（ステップ2から毎回）</h2>
+  <ol class="steps">
+    <li>プログラム <code>sabotenkikei.ino</code> を開く。
+      <br><a class="btn" href="https://github.com/e-kosaku-lab/sabotenkikei" rel="noopener">プログラムのページ（GitHub）</a>
+      <br>GitHubのページでは「Download raw file」でダウンロードし、Arduino IDE の「ファイル」→「開く」で開きます。「スケッチ用のフォルダを作りますか？」と聞かれたら「OK」。
+      <!-- TODO（要確認）: 今のGitHubの画面のボタン名 --></li>
+    <li>「ツール」の「ボード」が「ESP32 Dev Module」、「ポート」が選ばれていることを確かめる。</li>
+    <li>画面の左上の <strong>→（書き込み）ボタン</strong>を押す。</li>
+    <li>下の黒い画面に「Connecting……」と出たまま進まないときは、ボードの <strong>BOOT ボタン</strong>を、「Writing」と出るまで押し続ける。</li>
+    <li>「Hard resetting」などと出て止まったら完了。数秒で画面が切りかわります。</li>
+  </ol>
+  <div class="ok">
+    <p><strong>元にもどしたいとき：</strong>もう一度 <code>sabotenkikei.ino</code> をダウンロードして書き込めば、出荷したときと同じ表示にもどります。</p>
+    <p>書きかえたものを残したいときは、「ファイル」→「名前を付けて保存」で別の名前にしておくと安心です。</p>
+  </div>
+
+  <h2 id="ai">AIを使うとき（ステップ3）</h2>
+  <h3>ルール</h3>
+  <ul>
+    <li><strong>AIはおうちの人が、おうちの人のアカウントで操作してください。</strong>お子さまは「何をたのむか」を考え、結果を画面でたしかめる役です。</li>
+    <li>AIのサービスには、<strong>利用できる年齢の条件</strong>があります。使うサービスの利用規約を確認してください。
+      <!-- TODO（要確認）: 使うAIサービス（ChatGPT / Claude / Gemini など）ごとの年齢条件。確認できたらここに書く --></li>
+    <li>名前・住所・学校名・顔写真など、<strong>個人の情報は入力しないでください。</strong>プログラムだけを貼り付ければ十分です。</li>
+    <li>AIの答えは、まちがっていることがあります。<strong>動かしてたしかめるまでは、正しいとは限らない</strong>、という姿勢を見せてあげてください。おうちの人がAIを使い、確かめる姿を見ること自体が、お子さまの学びになります。</li>
+  </ul>
+
+  <h3>たのみかた</h3>
+  <p>説明書の<a href="manual.html#step3">ステップ3</a>にある書き方（プログラムぜんぶ＋やりたいこと）を、そのまま使えます。うまく動かないときは、エラーの赤い文字や、画面のようすをそのまま伝えると、直してもらいやすくなります。</p>
+
+  <h3>よくあるつまずき</h3>
+  <details>
+    <summary>書き込みのときに赤い文字が出る</summary>
+    <div><p>AIの答えの一部だけを貼った、または説明の文章まで貼った可能性があります。プログラムの部分だけを、全部入れかえてください。</p></div>
+  </details>
+  <details>
+    <summary>日本語が「□」や記号になる</summary>
+    <div><p>その字が、画面の文字の一覧（フォント）に入っていません。ひらがな・カタカナにするか、AIに「U8g2の u8g2_font_b12_t_japanese2 に入っている字だけで」と伝えてください。</p></div>
+  </details>
+  <details>
+    <summary>Wi-Fi を使うプログラムが出てきた</summary>
+    <div>
+      <div class="warn" role="note">
+        <p>技適マークのないボードなので、<strong>書き込まないでください。</strong>「Wi-Fi・Bluetoothを使わずに」と付け加えて、たのみなおしてください。</p>
+      </div>
+    </div>
+  </details>
+
+  <h2 id="trouble">うまくいかないとき<canvas class="sabo xs" data-face="jimejime" aria-hidden="true"></canvas></h2>
+  <p>配線のまちがいは、<a href="manual.html#trouble">説明書（ステップ1）の「うまくいかないときは」</a>も見てください。</p>
+
+  <details>
+    <summary>ポートが出ない・書き込めない</summary>
+    <div>
+      <ol>
+        <li><strong>USBケーブルが「充電だけ」のものではないか。</strong>付属のケーブルは通信できますが、ほかのケーブルに替えたときは、通信できるケーブルか確かめる。</li>
+        <li>ボードに明かりがつくか。つかないときは、USBのさしこみをやりなおす。</li>
+        <li>別のUSBの差し込み口で試す。</li>
+        <li>ドライバー（パソコンがボードを見つけるためのソフト）を入れる。このキットのボードは、「CP2102」というチップを使っている想定です。
+          <br><a href="https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers" rel="noopener">CP2102のドライバー（Silicon Labs）</a>
+          <br>入れたあと、パソコンを再起動する。</li>
+        <li>書き込み中に「Connecting……」で止まったら、BOOTボタンを押しながら、もう一度書き込む。</li>
+      </ol>
+      <!-- TODO（要確認）: ドライバーのURLが今も正しいか／ボードのチップが本当にCP2102か（届いた実物で確認） -->
+    </div>
+  </details>
+
+  <details>
+    <summary>赤い文字で「No such file」と出る（ライブラリが見つからない）</summary>
+    <div><p><a href="#pc">パソコンの準備</a>の「3. ライブラリを入れる」の、<strong>U8g2</strong> と <strong>Adafruit BMP280</strong> が入っているか、確かめてください。</p></div>
+  </details>
+
+  <details>
+    <summary>気圧が「---」になる</summary>
+    <div><p>気圧センサーのアドレス（0x76 / 0x77）は、プログラム側で両方試しています。それでも出ない場合は、配線かセンサーの不良の可能性が高いです。線を差しなおしても直らなければ、ご連絡ください。</p></div>
+  </details>
+
+  <details>
+    <summary>書きかえたら、画面が真っ暗になった</summary>
+    <div><p>プログラムの書きかえで、どこかが動かなくなっている可能性があります。<a href="#write">「元にもどしたいとき」</a>の方法で、出荷時のプログラムを書き込んでください。部品はこわれていません。</p></div>
+  </details>
+
+  <h2>つぎの一歩</h2>
+  <p>お子さまが「もっとやりたい」と言ったら、道具や本、教室のえらび方を「つぎの一歩」のページにまとめています。</p>
+  <p><a class="btn" href="next.html">つぎの一歩へ</a></p>
+
+  <h2>お問い合わせ</h2>
+  <p>購入したメルカリの取引メッセージで、ご連絡ください。</p>
+
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <ul>
+      <li><a href="index.html">トップ</a></li>
+      <li><a href="manual.html">説明書</a></li>
+      <li><a href="parents.html">おうちの人へ</a></li>
+      <li><a href="next.html">つぎの一歩</a></li>
+      <li><a href="index.html#about">このサイトについて</a></li>
+    </ul>
+    <p>学習用の個人制作です。動作や安全についての保証はありません。小さな部品があります。小さなお子さまの誤飲にご注意ください。</p>
+    <p class="foot-sabo"><canvas class="sabo xs" data-face="kaiteki" aria-hidden="true"></canvas><span>&copy; 2026 でんき工作研究室（e-kosaku-lab）</span></p>
+  </div>
+</footer>
+<script src="sabo.js"></script>
+</body>
+</html>
