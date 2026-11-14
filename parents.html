@@ -54,7 +54,7 @@
     <table>
       <thead><tr><th>ステップ</th><th>お子さま</th><th>おうちの人</th></tr></thead>
       <tbody>
-        <tr><td>1. 光った！</td><td>部品をさす・線をつなぐ・たしかめる</td><td>小さな部品の扱いを見守る。パソコンからの電気だけで動きます</td></tr>
+        <tr><td>1. 光った！</td><td>部品をさす・線をつなぐ・たしかめる</td><td>小さな部品の扱いを見守る。電気は、パソコンのほか、スマホ用のUSB電源（USB充電器・モバイルバッテリー）からもらえます</td></tr>
         <tr><td>2. 変えてみよう</td><td>数字・言葉・0と1の絵を書きかえる</td><td><strong>パソコンの準備</strong>と、書き込みの操作の手伝い</td></tr>
         <tr><td>3. AIにお願い</td><td>やりたいことを考える・画面でたしかめる</td><td><strong>AIの操作</strong></td></tr>
         <tr><td>4. じぶんで考える</td><td>アイデアを考えて作る</td><td>話を聞く。必要ならステップ2・3のやりかたで手伝う</td></tr>
@@ -72,7 +72,7 @@
         <tr><td>書き込み</td><td>パソコンで書いたプログラムを、ボードに送ること</td></tr>
         <tr><td>Arduino IDE（アルドゥイーノ アイディーイー）</td><td>プログラムを書いて、書き込むための無料のソフト</td></tr>
         <tr><td>ライブラリ</td><td>画面やセンサーを使うための、出来合いの部品のようなプログラム</td></tr>
-        <tr><td>ポート</td><td>パソコンがボードを見つけたときの「つなぎ口」の名前（COM3 など）</td></tr>
+        <tr><td>ポート</td><td>パソコンがボードを見つけたときの「つなぎ口」の名前（Windowsでは「COM」と数字。たとえば COM3 や COM5。番号は、パソコンやさす口によってちがいます）</td></tr>
         <tr><td>VCC・VDD、SCL・SCK など</td><td>部品によって、同じはたらきの足の名前がちがうことがあります。<a href="manual.html">説明書</a>の「部品の足の名前が、ちがうとき」を見てください</td></tr>
         <tr><td>SPI（エスピーアイ）</td><td>I2C（このキットで使う、4本の線でつなぐ方式）とは別の通信の方式。MOSI・MISO・SCK・CS の4本を使う。今回は使わない。MOSI は SDI、MISO は SDO と書かれることもある</td></tr>
       </tbody>
@@ -89,7 +89,9 @@
     <div>
       <ol class="steps">
         <li><a href="https://www.arduino.cc/en/software" rel="noopener">Arduino の公式サイト</a>を開く。</li>
-        <li>「Arduino IDE 2.x」を、お使いのパソコン（Windows / Mac）に合わせてダウンロードして、インストールする。</li>
+        <li>「Arduino IDE 2.x」を、お使いのパソコン（Windows / Mac）に合わせて、「DOWNLOAD」からダウンロードする。
+          <figure><img src="images/e00-arduino-download.png" alt="Arduino のダウンロードのページ。Arduino IDE 2.3.11 と、パソコンの種類を選ぶ欄、DOWNLOAD のボタンがある。" loading="lazy"><figcaption>ダウンロードのページ（2026年11月の画面。バージョンの数字は、ちがうことがあります）</figcaption></figure></li>
+        <li>ダウンロードしたファイル（たとえば <code>arduino-ide_2.3.11_Windows_64bit.exe</code>）をクリックして、画面の案内にしたがって、「はい」や「インストール」を選ぶ。</li>
         <li>起動できたら、次へ進む。</li>
       </ol>
     </div>
@@ -135,7 +137,7 @@
         <li>ボードを、付属の<strong>USBケーブル</strong>で、パソコンにつなぐ。</li>
         <li>「ツール」→「ポート」で、ボードのポートを選ぶ。
           <ul>
-            <li>Windows：「COM3」などの名前</li>
+            <li>Windows：「COM3」「COM5」など、「COM」と数字の名前（番号は、パソコンによってちがいます）</li>
             <li>Mac：「/dev/cu.usbserial-…」などの名前</li>
           </ul>
         </li>
