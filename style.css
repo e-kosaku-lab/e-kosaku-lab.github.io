@@ -121,3 +121,8 @@ h2 canvas.sabo,h3 canvas.sabo{display:inline-block;vertical-align:middle;margin-
 .photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:16px 0}
 .photos figure{margin:0}
 figure figcaption{font-size:.9rem}
+
+/* 広い図を、スマホで横にずらして見る */
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.scrollx img{min-width:720px}
+.nw{white-space:nowrap}

@@ -168,21 +168,21 @@
   <h4>ブレッドボードの穴の位置で見る配線</h4>
   <p>ブレッドボードには、列の番号（1〜30）と、行の文字（a〜j）が書いてあります。下の図は、ESP32 を<strong>USBが「1」の側（右）になる向き</strong>にさして、画面とセンサーを左はしにさしたときの、ワイヤーのつなぎかたです。</p>
   <figure>
-    <img src="images/breadboard-wiring.svg" width="1040" height="780" alt="ブレッドボードを上から見た配線図。ESP32、センサー、画面が、8本のワイヤーでつながっている。" loading="lazy">
-    <figcaption>配線の図（ブレッドボードを上から見たところ）。ワイヤーの色は、表と合わせてあります。</figcaption>
+    <div class="scrollx"><img src="images/breadboard-wiring.svg" width="1040" height="780" alt="ブレッドボードを上から見た配線図。ESP32、センサー、画面が、8本のワイヤーでつながっている。" loading="lazy"></div>
+    <figcaption>配線の図（ブレッドボードを上から見たところ）。ワイヤーの色は、表と合わせてあります。スマホでは、横にずらして見られます。<a href="images/breadboard-wiring.svg" target="_blank" rel="noopener">図を大きく開く</a></figcaption>
   </figure>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>色</th><th>つなぐ穴（列の番号＋行の文字）</th><th>はたらき</th></tr></thead>
+      <thead><tr><th class="nw">色</th><th>つなぐ穴（列の番号＋行の文字）</th><th>はたらき</th></tr></thead>
       <tbody>
-        <tr><td>赤</td><td>19j（ESP32の「3V3」）→ 28c（センサーの VDD の列）</td><td>電気（＋）をセンサーへ</td></tr>
-        <tr><td>オレンジ</td><td>28d（センサーの VDD の列）→ 27h（画面の VDD の列）</td><td>電気（＋）を画面へ</td></tr>
-        <tr><td>黒</td><td>19a（ESP32の「GND」）→ 26c（センサーの GND の列）</td><td>電気（−）をセンサーへ</td></tr>
-        <tr><td>灰色</td><td>26d（センサーの GND の列）→ 28h（画面の GND の列）</td><td>電気（−）を画面へ</td></tr>
-        <tr><td>黄</td><td>14a（ESP32の「D21」）→ 27c（センサーの SDA の列）</td><td>データをセンサーへ</td></tr>
-        <tr><td>白</td><td>27d（センサーの SDA の列）→ 25h（画面の SDA の列）</td><td>データを画面へ</td></tr>
-        <tr><td>緑</td><td>17a（ESP32の「D22」）→ 25c（センサーの SCL の列）</td><td>時計をセンサーへ</td></tr>
-        <tr><td>紫</td><td>25d（センサーの SCL の列）→ 26h（画面の SCK の列）</td><td>時計を画面へ</td></tr>
+        <tr><td class="nw">赤</td><td>19j（ESP32の「3V3」）→ 28c（センサーの VDD の列）</td><td>電気（＋）をセンサーへ</td></tr>
+        <tr><td class="nw">オレンジ</td><td>28d（センサーの VDD の列）→ 27h（画面の VDD の列）</td><td>電気（＋）を画面へ</td></tr>
+        <tr><td class="nw">黒</td><td>19a（ESP32の「GND」）→ 26c（センサーの GND の列）</td><td>電気（−）をセンサーへ</td></tr>
+        <tr><td class="nw">灰色</td><td>26d（センサーの GND の列）→ 28h（画面の GND の列）</td><td>電気（−）を画面へ</td></tr>
+        <tr><td class="nw">黄</td><td>14a（ESP32の「D21」）→ 27c（センサーの SDA の列）</td><td>データをセンサーへ</td></tr>
+        <tr><td class="nw">白</td><td>27d（センサーの SDA の列）→ 25h（画面の SDA の列）</td><td>データを画面へ</td></tr>
+        <tr><td class="nw">緑</td><td>17a（ESP32の「D22」）→ 25c（センサーの SCL の列）</td><td>時計をセンサーへ</td></tr>
+        <tr><td class="nw">紫</td><td>25d（センサーの SCL の列）→ 26h（画面の SCK の列）</td><td>時計を画面へ</td></tr>
       </tbody>
     </table>
   </div>
