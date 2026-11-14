@@ -152,8 +152,15 @@
   <ol class="steps">
     <li>プログラム <code>sabotenkikei.ino</code> を開く。（開くと、下の写真のような画面になります。「かえてみよう！」の場所は、ステップ2で書きかえます）
       <br><a class="btn" href="https://github.com/e-kosaku-lab/sabotenkikei" rel="noopener">プログラムのページ（GitHub）</a>
-      <br>GitHubのページでは「Download raw file」でダウンロードし、Arduino IDE の「ファイル」→「開く」で開きます。「スケッチ用のフォルダを作りますか？」と聞かれたら「OK」。
-      <!-- TODO（要確認）: 今のGitHubの画面のボタン名 --></li>
+
+      <ol>
+        <li>GitHubのページの下のほうに、「さぼてんきけい: sketches/sabotenkikei/sabotenkikei.ino」と書いてあります。その青い文字（リンク）をクリックします。
+          <figure><img src="images/gh-1-repo.png" alt="GitHubのページ。赤い枠で、sketches/sabotenkikei/sabotenkikei.ino のリンクを囲んでいる。" loading="lazy"><figcaption>赤い枠の、青い文字をクリックします。</figcaption></figure></li>
+        <li>開いたページの、右はしの「<strong>…</strong>」（3つの点のマーク）をクリックして、「<strong>Download</strong>」を選びます。プログラム（スケッチ）が、ダウンロードされます。
+          <figure><img src="images/gh-2-file.png" alt="sabotenkikei.ino のページ。右はしの3つの点のマークを、赤い枠で囲んでいる。" loading="lazy"><figcaption>赤い枠の「…」から、「Download」を選びます。</figcaption></figure></li>
+        <li>ダウンロードしたファイルを、ダブルクリックします。Arduino IDE（ソフト）が起動します。起動しないときは、Arduino IDE の「ファイル」→「開く」で開きます。</li>
+        <li>「スケッチ用のフォルダを作りますか？」と聞かれたら、「OK」を押します。</li>
+      </ol></li>
     <li>「ツール」の「ボード」が「ESP32 Dev Module」、「ポート」が選ばれていることを確かめる。</li>
     <li>画面の左上の <strong>→（書き込み）ボタン</strong>を押す。</li>
     <li>下の黒い画面に「Connecting……」と出たまま進まないときは、ボードの <strong>BOOT ボタン</strong>を、「Writing」と出るまで押し続ける。</li>
