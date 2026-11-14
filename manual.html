@@ -142,7 +142,10 @@
   </ul>
   <h4>足の名前を、写真で見くらべよう</h4>
   <p>画面とセンサーは、足の名前も、ならび順も、ちがいます。<strong>ならび順で覚えず、書いてある名前を見て、つなぎます。</strong></p>
-  <div class="photos"><figure><img src="images/oled.jpg" alt="画面の足の名前の写真" loading="lazy"><figcaption>画面（OLED）：左から GND・VDD・SCK・SDA</figcaption></figure><figure><img src="images/sensor.jpg" alt="センサーの足の名前の写真" loading="lazy"><figcaption>センサー：VDD・SDA・GND・SCL（この向きで、右から左に読みます）</figcaption></figure><figure><img src="images/sensor_back.jpg" alt="センサーの足の側の写真" loading="lazy"><figcaption>センサーの足の側。基板に書かれた名前を、虫めがねで読もう</figcaption></figure></div>
+  <div class="photos"><figure><img src="images/oled.jpg" alt="画面の足の名前の写真" loading="lazy"><figcaption>画面（OLED）：左から GND・VDD・SCK・SDA（「1」の側が左）</figcaption></figure></div>
+  <div class="note"><strong>画面の保護フィルム：</strong>画面には、うすい保護フィルムが、ついています。青いラベルの部分をつまんで、はがしてから、使います。</div>
+  <p>センサーは、表と裏を、見くらべてみよう。</p>
+  <div class="photos"><figure><img src="images/sensor.jpg" alt="センサーの表の写真" loading="lazy"><figcaption>センサーの表：足は、VDD・SDA・GND・SCL の順（この向きで、右から左に読みます）</figcaption></figure><figure><img src="images/sensor_back.jpg" alt="センサーの裏の写真" loading="lazy"><figcaption>センサーの裏（足のがわ）。基板に書かれた名前を、虫めがねで読もう</figcaption></figure></div>
   <p>ESP32ボードのピンの名前も、ボードの両はしに書いてあります（3V3・GND・D21・D22をさがします）。</p>
   <div class="photos"><figure><img src="images/esp_front.jpg" alt="ボードの表の写真" loading="lazy"><figcaption>ボードの表（USBが下）</figcaption></figure><figure><img src="images/esp_back.jpg" alt="ボードの裏の写真" loading="lazy"><figcaption>ボードの裏。ピンの名前が、はしに書いてある</figcaption></figure></div>
 
@@ -194,7 +197,9 @@
 
   <h4>写真で、順番に見よう</h4>
   <div class="photos"><figure><img src="images/c01.jpg" alt="1. ブレッドボード。まん中のみぞを見つけよう" loading="lazy"><figcaption>1. ブレッドボード。まん中のみぞを見つけよう</figcaption></figure><figure><img src="images/c02.jpg" alt="2. ESP32を、みぞをまたいでさす（USBが右）" loading="lazy"><figcaption>2. ESP32を、みぞをまたいでさす（USBが右）</figcaption></figure><figure><img src="images/c03.jpg" alt="3. 画面をさす" loading="lazy"><figcaption>3. 画面をさす</figcaption></figure><figure><img src="images/c04.jpg" alt="4. センサーをさす" loading="lazy"><figcaption>4. センサーをさす</figcaption></figure></div>
-  <div class="photos"><figure><img src="images/c05.jpg" alt="5. 電気（＋）：3V3 → 画面とセンサーの VDD" loading="lazy"><figcaption>5. 電気（＋）：3V3 → 画面とセンサーの VDD</figcaption></figure><figure><img src="images/c06.jpg" alt="6. 電気（−）：GND → 画面とセンサーの GND" loading="lazy"><figcaption>6. 電気（−）：GND → 画面とセンサーの GND</figcaption></figure><figure><img src="images/c07.jpg" alt="7. データ：D21 → 画面とセンサーの SDA" loading="lazy"><figcaption>7. データ：D21 → 画面とセンサーの SDA</figcaption></figure><figure><img src="images/c08.jpg" alt="8. 時計：D22 → 画面の SCK、センサーの SCL" loading="lazy"><figcaption>8. 時計：D22 → 画面の SCK、センサーの SCL</figcaption></figure></div>
+  <div class="note"><strong>ワイヤーのさしかた：</strong>1本ずつ、「どこから、どこへ」を、指でしっかり指して、たしかめます。<strong>ワイヤーをさすまで、指さしを続けましょう。</strong>さしたあとは、ぐらぐらしないか、見てください。</div>
+  <div class="photos"><figure><img src="images/c05.jpg" alt="5-1. 電気（＋）：ワイヤーの1本めを、ESP32の「3V3」の足の外がわの穴（19j）にさします" loading="lazy"><figcaption>5-1. 電気（＋）：ワイヤーの1本めを、ESP32の「3V3」の足の外がわの穴（19j）にさします</figcaption></figure><figure><img src="images/c05b.jpg" alt="5-2. ワイヤーのもう片方を、センサーの VDD の列（28c）にさします" loading="lazy"><figcaption>5-2. ワイヤーのもう片方を、センサーの VDD の列（28c）にさします</figcaption></figure><figure><img src="images/c05c.jpg" alt="5-3. センサーの VDD の列（28d）から、画面の VDD の列（27h）へ、オレンジのワイヤーをさします。3V3 の電気が、センサーと画面の両方に届きます" loading="lazy"><figcaption>5-3. センサーの VDD の列（28d）から、画面の VDD の列（27h）へ、オレンジのワイヤーをさします。3V3 の電気が、センサーと画面の両方に届きます</figcaption></figure></div>
+  <div class="photos"><figure><img src="images/c06.jpg" alt="6. 電気（−）：GND をつなぎます（黒と灰色のワイヤー）。センサーと画面の GND に、つながります" loading="lazy"><figcaption>6. 電気（−）：GND をつなぎます（黒と灰色のワイヤー）。センサーと画面の GND に、つながります</figcaption></figure><figure><img src="images/c07.jpg" alt="7・8. データ（D21）と時計（D22）をつなぎます（黄・白・緑・紫のワイヤー）" loading="lazy"><figcaption>7・8. データ（D21）と時計（D22）をつなぎます（黄・白・緑・紫のワイヤー）</figcaption></figure></div>
   <h4>できあがり</h4>
   <div class="photos"><figure><img src="images/c09-top-1.jpg" alt="できあがり（上から）" loading="lazy"><figcaption>できあがり（上から）</figcaption></figure><figure><img src="images/c09-top-2.jpg" alt="できあがり（上から、べつの角度）" loading="lazy"><figcaption>できあがり（上から、べつの角度）</figcaption></figure></div>
   <!-- 検証済み（写真）: 400穴1枚に、ESP32と部品2つがおさまった。 --><!-- TODO（要確認）: 400穴1枚にESP32と部品2つがおさまるか／ワイヤーの本数と色（同梱の色を見てから、おすすめの色分けを決める）／ブレッドボードの、ふちの長い列（電源用）が途中で切れていないか／ESP32の外側の穴だけで配線できるか。実機の写真と、穴の位置つき配線図を入れる -->
@@ -211,7 +216,7 @@
     <li>USBケーブルで、ボードとパソコンをつなぐ。（パソコンは、電気をもらうためだけに使います。まだ何もしなくてOK）</li>
     <li>2秒くらい「さぼてんきけい」の画面が出て、そのあと、こんなふうに出たら<strong>せいこう！</strong></li>
   </ol>
-  <figure><img src="images/led.jpg" alt="ボードの赤いLEDがついた写真" loading="lazy"><figcaption>USBをさすと、ボードの赤い明かり（LED）がつきます。</figcaption></figure>
+  <figure><img src="images/led.jpg" alt="USBをさして、ボードの赤いLEDがついた写真。ブレッドボード全体が写っている。" loading="lazy"><figcaption>USBをさすと、ボードの赤い明かり（LED）がつきます。</figcaption></figure>
   <!-- TODO（要確認）: パソコンのかわりに、スマホ用のUSB充電器でも動くか -->
   <figure><img src="images/d01-start.jpg" alt="起動したときの画面。さぼてんきけいの文字と、さぼてんきくん。" loading="lazy"><figcaption>はじめの2秒くらいに出る画面</figcaption></figure>
   <div class="oled" role="img" aria-label="画面の例。左に、温度 24.5 C、湿度 52%、気圧 1013 hPa、かいてき。右上に、さぼてんきくんのにこにこ顔。">
