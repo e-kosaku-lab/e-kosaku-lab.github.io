@@ -165,6 +165,33 @@
     <li>画面とセンサーを、ブレッドボードのあいている場所にさす。</li>
     <li>上の表のとおりに、ワイヤーでつなぐ。</li>
   </ol>
+  <h4>ブレッドボードの穴の位置で見る配線</h4>
+  <p>ブレッドボードには、列の番号（1〜30）と、行の文字（a〜j）が書いてあります。下の図は、ESP32 を<strong>USBが「1」の側（右）になる向き</strong>にさして、画面とセンサーを左はしにさしたときの、ワイヤーのつなぎかたです。</p>
+  <figure>
+    <img src="images/breadboard-wiring.svg" width="1040" height="780" alt="ブレッドボードを上から見た配線図。ESP32、センサー、画面が、8本のワイヤーでつながっている。" loading="lazy">
+    <figcaption>配線の図（ブレッドボードを上から見たところ）。ワイヤーの色は、表と合わせてあります。</figcaption>
+  </figure>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>色</th><th>つなぐ穴（列の番号＋行の文字）</th><th>はたらき</th></tr></thead>
+      <tbody>
+        <tr><td>赤</td><td>19j（ESP32の「3V3」）→ 28c（センサーの VDD の列）</td><td>電気（＋）をセンサーへ</td></tr>
+        <tr><td>オレンジ</td><td>28d（センサーの VDD の列）→ 27h（画面の VDD の列）</td><td>電気（＋）を画面へ</td></tr>
+        <tr><td>黒</td><td>19a（ESP32の「GND」）→ 26c（センサーの GND の列）</td><td>電気（−）をセンサーへ</td></tr>
+        <tr><td>灰色</td><td>26d（センサーの GND の列）→ 28h（画面の GND の列）</td><td>電気（−）を画面へ</td></tr>
+        <tr><td>黄</td><td>14a（ESP32の「D21」）→ 27c（センサーの SDA の列）</td><td>データをセンサーへ</td></tr>
+        <tr><td>白</td><td>27d（センサーの SDA の列）→ 25h（画面の SDA の列）</td><td>データを画面へ</td></tr>
+        <tr><td>緑</td><td>17a（ESP32の「D22」）→ 25c（センサーの SCL の列）</td><td>時計をセンサーへ</td></tr>
+        <tr><td>紫</td><td>25d（センサーの SCL の列）→ 26h（画面の SCK の列）</td><td>時計を画面へ</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul>
+    <li>「19j」は、「19列の、jの行の穴」のことです。ESP32の足が入っている行（b と i）の、すぐ外がわの穴（a と j）を使います。</li>
+    <li>センサーの足は、a の行の 28〜25 列に、画面の足は、j の行の 28〜25 列にさします。センサーの足は<strong>左から VDD・SDA・GND・SCL</strong>、画面の足は<strong>左から GND・VDD・SCK・SDA</strong> の順です。</li>
+    <li>同じ列の a〜e の穴は、つながっています（f〜j も同じ）。そのため、センサーの足の列の c・d の穴を使えます。</li>
+  </ul>
+
   <h4>写真で、順番に見よう</h4>
   <div class="photos"><figure><img src="images/c01.jpg" alt="1. ブレッドボード。まん中のみぞを見つけよう" loading="lazy"><figcaption>1. ブレッドボード。まん中のみぞを見つけよう</figcaption></figure><figure><img src="images/c02.jpg" alt="2. ESP32を、みぞをまたいでさす（USBが右）" loading="lazy"><figcaption>2. ESP32を、みぞをまたいでさす（USBが右）</figcaption></figure><figure><img src="images/c03.jpg" alt="3. 画面をさす" loading="lazy"><figcaption>3. 画面をさす</figcaption></figure><figure><img src="images/c04.jpg" alt="4. センサーをさす" loading="lazy"><figcaption>4. センサーをさす</figcaption></figure></div>
   <div class="photos"><figure><img src="images/c05.jpg" alt="5. 電気（＋）：3V3 → 画面とセンサーの VDD" loading="lazy"><figcaption>5. 電気（＋）：3V3 → 画面とセンサーの VDD</figcaption></figure><figure><img src="images/c06.jpg" alt="6. 電気（−）：GND → 画面とセンサーの GND" loading="lazy"><figcaption>6. 電気（−）：GND → 画面とセンサーの GND</figcaption></figure><figure><img src="images/c07.jpg" alt="7. データ：D21 → 画面とセンサーの SDA" loading="lazy"><figcaption>7. データ：D21 → 画面とセンサーの SDA</figcaption></figure><figure><img src="images/c08.jpg" alt="8. 時計：D22 → 画面の SCK、センサーの SCL" loading="lazy"><figcaption>8. 時計：D22 → 画面の SCK、センサーの SCL</figcaption></figure></div>
