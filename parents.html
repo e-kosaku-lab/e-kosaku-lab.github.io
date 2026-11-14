@@ -112,7 +112,10 @@
         <li>「esp32 by Espressif Systems」の「インストール」を押す（少し時間がかかります）。</li>
         <li>メニューの「ツール」→「ボード」→「esp32」→ <strong>「ESP32 Dev Module」</strong> を選ぶ。</li>
       </ol>
-      <!-- TODO（要確認）: 「ESP32 Dev Module」の名前と場所が、今のArduino IDEの画面と合っているか -->
+      <div class="photos">
+        <figure><img src="images/e02-boardmgr.png" alt="ボードマネージャで esp32 を検索した画面。esp32 by Espressif Systems の欄。" loading="lazy"><figcaption>「esp32」と検索して、「esp32 by Espressif Systems」を入れます。</figcaption></figure>
+        <figure><img src="images/e04-board.png" alt="ツール、ボード、esp32、の順に開き、ESP32 Dev Module にチェックがついている画面。" loading="lazy"><figcaption>「ツール」→「ボード」→「esp32」→「ESP32 Dev Module」</figcaption></figure>
+      </div>
     </div>
   </details>
 
@@ -124,6 +127,10 @@
         <li>「U8g2」と検索して、<strong>olikraus</strong> さんのものを「インストール」。</li>
         <li>「Adafruit BMP280」と検索して「インストール」。「ほかに必要なライブラリも入れますか？」と聞かれたら、<strong>「すべてインストール」</strong>。</li>
       </ol>
+      <div class="photos">
+        <figure><img src="images/e03-u8g2.png" alt="ライブラリマネージャで U8g2 を検索した画面。" loading="lazy"><figcaption>U8g2（olikraus）</figcaption></figure>
+        <figure><img src="images/e03-bmp280.png" alt="ライブラリマネージャで Adafruit BMP280 を検索した画面。" loading="lazy"><figcaption>Adafruit BMP280 Library</figcaption></figure>
+      </div>
     </div>
   </details>
 
@@ -140,12 +147,13 @@
         </li>
         <li>ポートが出ないときは、<a href="#trouble">「うまくいかないとき」</a>を見てください。</li>
       </ol>
+      <figure><img src="images/e05-port.png" alt="ツール、ポートの順に開き、COM5 にチェックがついている画面。" loading="lazy"><figcaption>「ツール」→「ポート」。この例では「COM5」です（番号は、パソコンによってちがいます）。</figcaption></figure>
     </div>
   </details>
 
   <h2 id="write">書き込みのやりかた（ステップ2から毎回）</h2>
   <ol class="steps">
-    <li>プログラム <code>sabotenkikei.ino</code> を開く。
+    <li>プログラム <code>sabotenkikei.ino</code> を開く。（開くと、下の写真のような画面になります。「かえてみよう！」の場所は、ステップ2で書きかえます）
       <br><a class="btn" href="https://github.com/e-kosaku-lab/sabotenkikei" rel="noopener">プログラムのページ（GitHub）</a>
       <br>GitHubのページでは「Download raw file」でダウンロードし、Arduino IDE の「ファイル」→「開く」で開きます。「スケッチ用のフォルダを作りますか？」と聞かれたら「OK」。
       <!-- TODO（要確認）: 今のGitHubの画面のボタン名 --></li>
@@ -154,6 +162,11 @@
     <li>下の黒い画面に「Connecting……」と出たまま進まないときは、ボードの <strong>BOOT ボタン</strong>を、「Writing」と出るまで押し続ける。</li>
     <li>「Hard resetting」などと出て止まったら完了。数秒で画面が切りかわります。</li>
   </ol>
+  <div class="photos">
+    <figure><img src="images/e08-program.png" alt="プログラムを開いた Arduino IDE の画面。「かえてみよう！」の説明と、JIMEJIME_LINE などの数字が見える。" loading="lazy"><figcaption>プログラムを開いた画面。「かえてみよう！」の下を、書きかえます。</figcaption></figure>
+    <figure><img src="images/e06-upload.png" alt="Arduino IDE の画面の上のぶぶん。左から2つめの書き込みボタン（→）に赤い丸。" loading="lazy"><figcaption>書き込みボタン（→）</figcaption></figure>
+    <figure><img src="images/e10-write-ok.png" alt="書き込みが終わったときの黒い画面。Hash of data verified と Hard resetting via RTS pin と出ている。" loading="lazy"><figcaption>おわると、「Hard resetting」と出ます。</figcaption></figure>
+  </div>
   <div class="ok">
     <p><strong>元にもどしたいとき：</strong>もう一度 <code>sabotenkikei.ino</code> をダウンロードして書き込めば、出荷したときと同じ表示にもどります。</p>
     <p>書きかえたものを残したいときは、「ファイル」→「名前を付けて保存」で別の名前にしておくと安心です。</p>
@@ -181,6 +194,13 @@
   <details>
     <summary>書き込みのときに赤い文字が出る</summary>
     <div><p>AIの答えの一部だけを貼った、または説明の文章まで貼った可能性があります。プログラムの部分だけを、全部入れかえてください。</p></div>
+  </details>
+  <details>
+    <summary>「No such file or directory」と赤い文字が出る</summary>
+    <div>
+      <p>ライブラリが入っていません。「パソコンの準備」の「3. ライブラリを入れる」で、U8g2 と Adafruit BMP280 を入れて、もう一度、書き込んでください。</p>
+      <figure><img src="images/e09-error.png" alt="書き込みのときに出た赤いエラー。U8g2lib.h: No such file or directory と出ている。（パソコンのユーザー名は、黒く隠しています）" loading="lazy"><figcaption>エラーの例（U8g2 が入っていないとき）。ユーザー名の部分は隠しています。</figcaption></figure>
+    </div>
   </details>
   <details>
     <summary>日本語が「□」や記号になる</summary>

@@ -116,3 +116,8 @@ h2 canvas.sabo,h3 canvas.sabo{display:inline-block;vertical-align:middle;margin-
 .sabo-trio strong{display:block}
 .sabo-trio span{display:block;font-size:.9rem;line-height:1.5;color:var(--muted)}
 .foot-sabo{display:flex;align-items:center;gap:8px}
+
+/* 写真・画面の並び */
+.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:16px 0}
+.photos figure{margin:0}
+figure figcaption{font-size:.9rem}
