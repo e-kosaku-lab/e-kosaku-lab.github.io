@@ -148,41 +148,6 @@
     </div>
   </details>
 
-  <h2 id="blink">書き込みの練習：Lチカ（ためしてみよう）</h2>
-  <p>パソコンの準備が終わったら、まず、ボードの小さなLEDを光らせる練習プログラム「Lチカ」で、<strong>書き込みができるか</strong>を、たしかめられます。ワイヤーは、つながなくてだいじょうぶです（ボードとUSBケーブルだけ）。</p>
-  <div class="warn" role="note">
-    <strong class="t">先に読んでください</strong>
-    <p>Lチカを書き込むと、ボードに入っている「さぼてんきけい」のプログラムは、いったん消えます。あとで、下の「書き込みのやりかた」で、<code>sabotenkikei.ino</code> を書き込めば、もとにもどります。</p>
-  </div>
-  <ol class="steps">
-    <li>ボードを、USBケーブルで、パソコンにつなぐ。</li>
-    <li>Lチカのプログラム <code>blink.ino</code> を、GitHubからダウンロードする。
-      <br><a class="btn" href="https://github.com/e-kosaku-lab/sabotenkikei/blob/main/sketches/blink/blink.ino" rel="noopener">Lチカのプログラム（GitHub）</a>
-      <br>ダウンロードのしかたは、下の「書き込みのやりかた」の1番と同じです（右はしの「…」から「Download」）。ダウンロードしたファイルをダブルクリックして、Arduino IDE で開きます。</li>
-    <li>「ツール」の「ボード」が「ESP32 Dev Module」、「ポート」が選ばれていることを確かめる。</li>
-    <li>左上の <strong>→（書き込み）ボタン</strong>を押す。</li>
-    <li>下の黒い画面に「Connecting……」と出たまま進まないときは、ボードの <strong>BOOT ボタン</strong>を、「Writing」と出るまで押し続ける。</li>
-    <li>書き込みが終わると、<strong>ボードの小さな青いLEDが、1秒ごとに、ついたり消えたりします。</strong>（赤いLEDは、電気が来ているしるしで、ずっとついています）</li>
-  </ol>
-  <div class="photos">
-    <figure><img src="images/blink-photo.jpg" alt="書き込みのあと、ボードの青いLEDがついている写真。USBの近くで、青く光っている。" loading="lazy"><figcaption>青いLEDが、ついたところ（USBのコネクタの近く）。</figcaption></figure>
-    <figure><video controls loop muted playsinline preload="metadata" poster="images/blink-video-poster.jpg" width="720" height="405" style="max-width:100%;height:auto"><source src="videos/blink.mp4" type="video/mp4">動画が見られないときは、<a href="videos/blink.mp4">こちら</a>から開いてください。</video><figcaption>青いLEDが、1秒ごとに、ついたり消えたりする様子（約5秒）。</figcaption></figure>
-  </div>
-  <div class="ok">
-    <p><strong>点滅したら、せいこうです！</strong>パソコンとボードの準備は、できています。青いLEDが光らなくても、書き込みが「Hard resetting」で終わっていれば、書き込み自体は、できています。ボードの電源の赤いLEDは、プログラムとは関係なく、ついています。</p>
-  </div>
-  <h3>数字をかえてみよう</h3>
-  <p>プログラムの中の、<code>delay(1000);</code> の数字を、かえて、もう一度、書き込んでみよう。</p>
-  <pre><code>digitalWrite(LED_PIN, HIGH);  // LEDをつける
-delay(1000);                   // 1000 = 1秒まつ
-digitalWrite(LED_PIN, LOW);   // LEDを消す
-delay(1000);                   // 1000 = 1秒まつ</code></pre>
-  <ul>
-    <li><code>1000</code> を <code>200</code> にすると、はやく点滅します。<code>3000</code> にすると、ゆっくりです。</li>
-    <li>ついている時間と、消えている時間を、べつべつの数字にしてみよう。</li>
-    <li>かえたら、書き込みのたびに、「どうなったか」を、ノートに書いておこう。</li>
-  </ul>
-
   <h2 id="write">書き込みのやりかた（ステップ2から毎回）</h2>
   <ol class="steps">
     <li>プログラム <code>sabotenkikei.ino</code> を開く。（開くと、下の写真のような画面になります。「かえてみよう！」の場所は、ステップ2で書きかえます）
@@ -210,6 +175,53 @@ delay(1000);                   // 1000 = 1秒まつ</code></pre>
     <p><strong>元にもどしたいとき：</strong>もう一度 <code>sabotenkikei.ino</code> をダウンロードして書き込めば、出荷したときと同じ表示にもどります。</p>
     <p>書きかえたものを残したいときは、「ファイル」→「名前を付けて保存」で別の名前にしておくと安心です。</p>
   </div>
+
+  <h2 id="blink">ほかのプログラムを書いてみよう：Lチカ（新しいスケッチから）</h2>
+  <p>ステップ2の「かえてみよう！」に慣れたら、ボードの小さな青いLEDを光らせる、みじかいプログラム「Lチカ」を、<strong>自分で書き写して</strong>、書き込んでみましょう。ワイヤーは、つながなくてだいじょうぶです（ボードとUSBケーブルだけ）。</p>
+  <div class="warn" role="note">
+    <strong class="t">先に読んでください</strong>
+    <p>Lチカを書き込むと、ボードに入っている「さぼてんきけい」のプログラムは、いったん消えます。あとで、上の「書き込みのやりかた」で、<code>sabotenkikei.ino</code> を書き込めば、もとにもどります。</p>
+  </div>
+  <ol class="steps">
+    <li>ボードを、USBケーブルで、パソコンにつなぐ。</li>
+    <li>Arduino IDE で、「ファイル」→「新規スケッチ」を選ぶ。新しい画面が開きます。</li>
+    <li>画面に、はじめから書いてある文字（<code>void setup() { … }</code> と <code>void loop() { … }</code>）を、<strong>ぜんぶ消す</strong>。</li>
+    <li>下のプログラムを、コピーして、貼り付ける（または、自分で書き写す）。
+<pre class="copyable"><code id="blink-code">// Lチカ：ボードの青いLEDを、1秒ごとに、ついたり消えたりさせます
+const int LED_PIN = 2;  // 青いLEDは、2番のピンにつながっています
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED_PIN, HIGH);  // LEDをつける
+  delay(1000);                  // 1000 = 1秒まつ
+  digitalWrite(LED_PIN, LOW);   // LEDを消す
+  delay(1000);                  // 1000 = 1秒まつ
+}
+</code></pre>
+      <button type="button" class="btn copy-btn" data-copy="blink-code">プログラムをコピーする</button></li>
+    <li>「ツール」の「ボード」が「ESP32 Dev Module」、「ポート」が選ばれていることを確かめる。</li>
+    <li>左上の <strong>→（書き込み）ボタン</strong>を押す。「保存しますか？」と聞かれたら、名前を「blink」にして、保存する。</li>
+    <li>下の黒い画面に「Connecting……」と出たまま進まないときは、ボードの <strong>BOOT ボタン</strong>を、「Writing」と出るまで押し続ける。</li>
+    <li>書き込みが終わると、<strong>ボードの小さな青いLEDが、1秒ごとに、ついたり消えたりします。</strong>（赤いLEDは、電気が来ているしるしで、ずっとついています）</li>
+  </ol>
+  <div class="photos">
+    <figure><img src="images/blink-photo.jpg" alt="書き込みのあと、ボードの青いLEDがついている写真。USBの近くで、青く光っている。" loading="lazy"><figcaption>青いLEDが、ついたところ（USBのコネクタの近く）。</figcaption></figure>
+    <figure><video controls loop muted playsinline preload="metadata" poster="images/blink-video-poster.jpg" width="720" height="405" style="max-width:100%;height:auto"><source src="videos/blink.mp4" type="video/mp4">動画が見られないときは、<a href="videos/blink.mp4">こちら</a>から開いてください。</video><figcaption>青いLEDが、1秒ごとに、ついたり消えたりする様子（約5秒）。</figcaption></figure>
+  </div>
+  <div class="ok">
+    <p><strong>点滅したら、せいこうです！</strong>パソコンとボードの準備は、できています。青いLEDが光らなくても、書き込みが「Hard resetting」で終わっていれば、書き込み自体は、できています。ボードの電源の赤いLEDは、プログラムとは関係なく、ついています。</p>
+    <p>このプログラムは、<a href="https://github.com/e-kosaku-lab/sabotenkikei/blob/main/sketches/blink/blink.ino" rel="noopener">GitHub</a>にも置いてあります。</p>
+  </div>
+  <h3>数字をかえてみよう</h3>
+  <p>プログラムの中の、<code>delay(1000);</code> の数字を、かえて、もう一度、書き込んでみよう。</p>
+  <ul>
+    <li><code>1000</code> を <code>200</code> にすると、はやく点滅します。<code>3000</code> にすると、ゆっくりです。</li>
+    <li>ついている時間と、消えている時間を、べつべつの数字にしてみよう。</li>
+    <li>かえたら、書き込みのたびに、「どうなったか」を、ノートに書いておこう。</li>
+  </ul>
 
   <h2 id="ai">AIを使うとき（ステップ3）</h2>
   <h3>ルール</h3>
@@ -314,5 +326,15 @@ delay(1000);                   // 1000 = 1秒まつ</code></pre>
 </footer>
 <script src="sabo.js"></script>
 <script src="lightbox.js" defer></script>
+<script>
+document.addEventListener('click',function(e){
+  var b=e.target.closest('.copy-btn'); if(!b) return;
+  var el=document.getElementById(b.getAttribute('data-copy')); if(!el) return;
+  var t=el.textContent, o=b.getAttribute('data-label')||b.textContent; b.setAttribute('data-label',o);
+  function done(m){ b.textContent=m; setTimeout(function(){ b.textContent=o; },3000); }
+  function pick(){ var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r); done('文字を選びました。Ctrl+C（Macは⌘+C）でコピーしてください'); }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(function(){ done('コピーしました'); }, pick); } else { pick(); }
+});
+</script>
 </body>
 </html>
