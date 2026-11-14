@@ -43,24 +43,24 @@
 <text x="125" y="447" text-anchor="middle" font-size="12">USB</text>
 <rect x="440" y="70" width="260" height="80" rx="8" fill="#e8f1fb" stroke="#34495e" stroke-width="3"/>
 <text x="570" y="98" text-anchor="middle" font-size="16" font-weight="700">OLED（画面）0.96インチ</text>
-<text x="480" y="138" text-anchor="middle" font-size="14" font-weight="700">VCC</text>
+<text x="480" y="138" text-anchor="middle" font-size="14" font-weight="700">VDD</text>
 <text x="540" y="138" text-anchor="middle" font-size="14" font-weight="700">GND</text>
 <text x="600" y="138" text-anchor="middle" font-size="14" font-weight="700">SDA</text>
-<text x="660" y="138" text-anchor="middle" font-size="14" font-weight="700">SCL</text>
+<text x="660" y="138" text-anchor="middle" font-size="14" font-weight="700">SCK</text>
 <rect x="440" y="500" width="260" height="80" rx="8" fill="#eaf6ea" stroke="#34495e" stroke-width="3"/>
 <text x="570" y="566" text-anchor="middle" font-size="16" font-weight="700">センサー（AHT20 + BMP280）</text>
-<text x="480" y="528" text-anchor="middle" font-size="14" font-weight="700">VCC</text>
+<text x="480" y="528" text-anchor="middle" font-size="14" font-weight="700">VDD</text>
 <text x="540" y="528" text-anchor="middle" font-size="14" font-weight="700">GND</text>
 <text x="600" y="528" text-anchor="middle" font-size="14" font-weight="700">SDA</text>
 <text x="660" y="528" text-anchor="middle" font-size="14" font-weight="700">SCL</text>
 <text x="716" y="247" font-size="15" font-weight="700" fill="#d62828">電気（＋）</text>
-<text x="716" y="266" font-size="12" fill="#444">3V3（3.3V）／ VCC</text>
+<text x="716" y="266" font-size="12" fill="#444">3V3（3.3V）／ VDD</text>
 <text x="716" y="297" font-size="15" font-weight="700" fill="#222222">電気（−）</text>
 <text x="716" y="316" font-size="12" fill="#444">GND ／ GND</text>
 <text x="716" y="347" font-size="15" font-weight="700" fill="#e0a800">データ</text>
 <text x="716" y="366" font-size="12" fill="#444">D21 ／ SDA</text>
 <text x="716" y="397" font-size="15" font-weight="700" fill="#2a9d3f">時計</text>
-<text x="716" y="416" font-size="12" fill="#444">D22 ／ SCL</text>
+<text x="716" y="416" font-size="12" fill="#444">D22 ／ SCL・SCK</text>
 <rect x="40" y="486" width="380" height="150" rx="8" fill="#fff4f4" stroke="#d62828" stroke-width="2"/>
 <text x="54" y="510" font-size="14" font-weight="700" fill="#d62828">⚠ 気をつけること</text>
 <text x="54" y="532" font-size="13">・電気（＋）は必ず「3V3」（3.3ボルト）へ。</text>

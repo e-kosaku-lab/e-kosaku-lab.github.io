@@ -9,6 +9,7 @@
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:16px 0}.photos figure{margin:0}.photos figcaption,figure figcaption{font-size:.9rem}</style>
 </head>
 <body>
 <a class="skip" href="#main">本文へ</a>
@@ -90,19 +91,19 @@
       </tbody>
     </table>
   </div>
-  <!-- 部品の写真（名前入り）を入れる: <figure><img src="parts.jpg" alt="…"></figure> -->
+  <figure><img src="images/parts.jpg" alt="入っている部品を並べた写真" loading="lazy"><figcaption>全部そろっているか、写真と見くらべよう。（左から：ブレッドボード、USBケーブル、ESP32ボード、画面、センサー、ワイヤー10本）</figcaption></figure>
 
   <h3>1-2. 部品をさす（配線）</h3>
   <div class="note"><strong>USBケーブルは、まだささないでね。</strong>電気が来ていない状態で作ります。</div>
   <p>画面とセンサーは、<strong>同じ4本のワイヤー</strong>を、2つで分け合ってつなぎます。（ワイヤー ＝ ジャンパーワイヤー。部品どうしをつなぐ、細い電線のことです）</p>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>はたらき</th><th>ESP32のピン</th><th>画面</th><th>センサー</th></tr></thead>
+      <thead><tr><th>はたらき</th><th>ESP32のピン</th><th>画面（OLED）</th><th>センサー</th></tr></thead>
       <tbody>
-        <tr><td>電気（＋）</td><td><strong>3V3</strong>（3.3V）</td><td>VCC</td><td>VCC</td></tr>
+        <tr><td>電気（＋）</td><td><strong>3V3</strong>（3.3V）</td><td>VDD</td><td>VDD</td></tr>
         <tr><td>電気（−）</td><td><strong>GND</strong></td><td>GND</td><td>GND</td></tr>
         <tr><td>データ</td><td><strong>D21</strong>（GPIO21）</td><td>SDA</td><td>SDA</td></tr>
-        <tr><td>時計</td><td><strong>D22</strong>（GPIO22）</td><td>SCL</td><td>SCL</td></tr>
+        <tr><td>時計</td><td><strong>D22</strong>（GPIO22）</td><td>SCK</td><td>SCL</td></tr>
       </tbody>
     </table>
   </div>
@@ -112,13 +113,13 @@
       <li>電気（＋）のワイヤーは、かならず「3V3」につなぎます。「5V」「VIN」には、つなぎません（ESP32ボードのピンのことです）。</li>
       <li>「3V3」は、<strong>3.3ボルト（V）</strong>の電気が出るピンです。「5V」は5ボルトで、部品によっては、こわれてしまうことがあります。</li>
       <li>ワイヤーの色は、どれでもだいじょうぶです。<strong>同じはたらきのワイヤーは、同じ色にそろえる</strong>と、まちがえにくくなります。</li>
-      <li>部品の足のならび順は、商品でちがいます。基板に書いてある名前（VCC・GND・SDA・SCL）を見て、つなぎます。虫めがねがあると見やすいよ。</li>
+      <li><strong>画面とセンサーは、足のならび順がちがいます</strong>（下の写真）。基板に書いてある名前（VDD・GND・SDA・SCL）を見て、つなぎます。虫めがねがあると見やすいよ。</li>
       <li>ESP32のピンは、左右に分かれています。ボードに書いてある名前（3V3・GND・D21・D22）をさがします。</li>
     </ul>
   </div>
 
   <figure>
-    <img src="wiring.svg" width="900" height="670" alt="配線図。ESP32の3V3、GND、D21、D22が、画面とセンサーのVCC、GND、SDA、SCLにそれぞれつながっている。">
+    <img src="wiring.svg" width="900" height="670" alt="配線図。ESP32の3V3、GND、D21、D22が、画面とセンサーのVDD、GND、SDA、SCLにそれぞれつながっている。">
     <figcaption>配線図（つなぎかたの図）。線の色は見やすくするためのもので、お手元のワイヤーの色とはちがいます。ブレッドボードの穴の位置ではなく、どこをどこにつなぐかを示しています。</figcaption>
   </figure>
 
@@ -128,7 +129,7 @@
     <table>
       <thead><tr><th>はたらき</th><th>この説明書の名前</th><th>ほかによくある名前</th></tr></thead>
       <tbody>
-        <tr><td>電気（＋）</td><td>VCC</td><td>VDD、VIN、3V3</td></tr>
+        <tr><td>電気（＋）</td><td>VDD</td><td>VCC、VIN、3V3</td></tr>
         <tr><td>電気（−）</td><td>GND</td><td>VSS</td></tr>
         <tr><td>データ</td><td>SDA</td><td>SDI</td></tr>
         <tr><td>時計</td><td>SCL</td><td>SCK</td></tr>
@@ -139,7 +140,11 @@
     <li>迷ったら、部品の商品ページや、基板の説明で、<strong>はたらき</strong>を確かめよう。</li>
     <li>部品についている「VIN」は、<strong>電気（＋）の入り口</strong>です。ESP32ボードの「VIN」は、別のもの（5Vの電気）なので、つながないでね。</li>
   </ul>
-  <!-- TODO（要確認）: 今回のセンサーと画面の足の名前（VDD・SCK など）を、実物で確かめて書く -->
+  <h4>足の名前を、写真で見くらべよう</h4>
+  <p>画面とセンサーは、足の名前も、ならび順も、ちがいます。<strong>ならび順で覚えず、書いてある名前を見て、つなぎます。</strong></p>
+  <div class="photos"><figure><img src="images/oled.jpg" alt="画面の足の名前の写真" loading="lazy"><figcaption>画面（OLED）：左から GND・VDD・SCK・SDA</figcaption></figure><figure><img src="images/sensor.jpg" alt="センサーの足の名前の写真" loading="lazy"><figcaption>センサー：VDD・SDA・GND・SCL（この向きで、右から左に読みます）</figcaption></figure><figure><img src="images/sensor_back.jpg" alt="センサーの足の側の写真" loading="lazy"><figcaption>センサーの足の側。基板に書かれた名前を、虫めがねで読もう</figcaption></figure></div>
+  <p>ESP32ボードのピンの名前も、ボードの両はしに書いてあります（3V3・GND・D21・D22をさがします）。</p>
+  <div class="photos"><figure><img src="images/esp_front.jpg" alt="ボードの表の写真" loading="lazy"><figcaption>ボードの表（USBが下）</figcaption></figure><figure><img src="images/esp_back.jpg" alt="ボードの裏の写真" loading="lazy"><figcaption>ボードの裏。ピンの名前が、はしに書いてある</figcaption></figure></div>
 
   <h4>ブレッドボードの中のようす</h4>
   <p>ブレッドボードは、穴の下で、金属の板が穴どうしをつないでいます。見えないけれど、こんなふうにつながっています。</p>
@@ -160,13 +165,18 @@
     <li>画面とセンサーを、ブレッドボードのあいている場所にさす。</li>
     <li>上の表のとおりに、ワイヤーでつなぐ。</li>
   </ol>
-  <!-- TODO（要確認）: 400穴1枚にESP32と部品2つがおさまるか／ワイヤーの本数と色（同梱の色を見てから、おすすめの色分けを決める）／ブレッドボードの、ふちの長い列（電源用）が途中で切れていないか／ESP32の外側の穴だけで配線できるか。実機の写真と、穴の位置つき配線図を入れる -->
+  <h4>写真で、順番に見よう</h4>
+  <div class="photos"><figure><img src="images/c01.jpg" alt="1. ブレッドボード。まん中のみぞを見つけよう" loading="lazy"><figcaption>1. ブレッドボード。まん中のみぞを見つけよう</figcaption></figure><figure><img src="images/c02.jpg" alt="2. ESP32を、みぞをまたいでさす（USBが右）" loading="lazy"><figcaption>2. ESP32を、みぞをまたいでさす（USBが右）</figcaption></figure><figure><img src="images/c03.jpg" alt="3. 画面をさす" loading="lazy"><figcaption>3. 画面をさす</figcaption></figure><figure><img src="images/c04.jpg" alt="4. センサーをさす" loading="lazy"><figcaption>4. センサーをさす</figcaption></figure></div>
+  <div class="photos"><figure><img src="images/c05.jpg" alt="5. 電気（＋）：3V3 → 画面とセンサーの VDD" loading="lazy"><figcaption>5. 電気（＋）：3V3 → 画面とセンサーの VDD</figcaption></figure><figure><img src="images/c06.jpg" alt="6. 電気（−）：GND → 画面とセンサーの GND" loading="lazy"><figcaption>6. 電気（−）：GND → 画面とセンサーの GND</figcaption></figure><figure><img src="images/c07.jpg" alt="7. データ：D21 → 画面とセンサーの SDA" loading="lazy"><figcaption>7. データ：D21 → 画面とセンサーの SDA</figcaption></figure><figure><img src="images/c08.jpg" alt="8. 時計：D22 → 画面の SCK、センサーの SCL" loading="lazy"><figcaption>8. 時計：D22 → 画面の SCK、センサーの SCL</figcaption></figure></div>
+  <h4>できあがり</h4>
+  <div class="photos"><figure><img src="images/c09-top-1.jpg" alt="できあがり（上から）" loading="lazy"><figcaption>できあがり（上から）</figcaption></figure><figure><img src="images/c09-top-2.jpg" alt="できあがり（上から、べつの角度）" loading="lazy"><figcaption>できあがり（上から、べつの角度）</figcaption></figure></div>
+  <!-- 検証済み（写真）: 400穴1枚に、ESP32と部品2つがおさまった。 --><!-- TODO（要確認）: 400穴1枚にESP32と部品2つがおさまるか／ワイヤーの本数と色（同梱の色を見てから、おすすめの色分けを決める）／ブレッドボードの、ふちの長い列（電源用）が途中で切れていないか／ESP32の外側の穴だけで配線できるか。実機の写真と、穴の位置つき配線図を入れる -->
 
   <h3>さす前に、指さしチェック</h3>
   <ul>
     <li>電気（＋）のワイヤーが「3V3」、電気（−）のワイヤーが「GND」</li>
     <li>「D21」は SDA、「D22」は SCL</li>
-    <li>画面にも、センサーにも、4つの足（VCC・GND・SDA・SCL）のワイヤーがつながっている</li>
+    <li>画面にも、センサーにも、4つの足（VDD・GND・SDA・SCL）のワイヤーがつながっている</li>
   </ul>
 
   <h3>1-3. USBをさす</h3>
@@ -174,11 +184,15 @@
     <li>USBケーブルで、ボードとパソコンをつなぐ。（パソコンは、電気をもらうためだけに使います。まだ何もしなくてOK）</li>
     <li>2秒くらい「さぼてんきけい」の画面が出て、そのあと、こんなふうに出たら<strong>せいこう！</strong></li>
   </ol>
+  <figure><img src="images/led.jpg" alt="ボードの赤いLEDがついた写真" loading="lazy"><figcaption>USBをさすと、ボードの赤い明かり（LED）がつきます。</figcaption></figure>
   <!-- TODO（要確認）: パソコンのかわりに、スマホ用のUSB充電器でも動くか -->
+  <figure><img src="images/d01-start.jpg" alt="起動したときの画面。さぼてんきけいの文字と、さぼてんきくん。" loading="lazy"><figcaption>はじめの2秒くらいに出る画面</figcaption></figure>
   <div class="oled" role="img" aria-label="画面の例。左に、温度 24.5 C、湿度 52%、気圧 1013 hPa、かいてき。右上に、さぼてんきくんのにこにこ顔。">
     <div class="oled-text">温度 24.5 C<br>湿度 52%<br>気圧 1013 hPa<br>かいてき</div>
     <canvas class="oled-mark" width="16" height="16" data-face="kaiteki" data-color="oled" aria-hidden="true"></canvas>
   </div>
+
+  <figure><img src="images/d02-kaiteki.jpg" alt="画面に温度などが出ている写真" loading="lazy"><figcaption>実際の画面（例）。温度、湿度、気圧と、「かいてき」の文字。右上に、さぼてんきくん。</figcaption></figure>
 
   <h3>たしかめてみよう</h3>
   <ul>
@@ -194,6 +208,7 @@
     <li><canvas class="sabo m" data-face="kaiteki" aria-hidden="true"></canvas><strong>かいてき</strong><span>湿度 40〜70%</span></li>
     <li><canvas class="sabo m" data-face="jimejime" aria-hidden="true"></canvas><strong>じめじめ</strong><span>湿度 70%以上</span></li>
   </ul>
+  <figure><img src="images/d03-jimejime.jpg" alt="湿度79%のとき、画面に「じめじめ」と出て、さぼてんきくんの顔もかわった写真。" loading="lazy"><figcaption>湿度が高いと、「じめじめ」の顔になります（湿度79%のとき）。</figcaption></figure>
 
   <h3 id="pressure">気圧の数字のみかた</h3>
   <p>気圧は「hPa（ヘクトパスカル）」という単位です。</p>
@@ -220,7 +235,7 @@
     <summary>画面に何も出ない</summary>
     <div>
       <ol>
-        <li>画面の VCC が 3V3、GND が GND につながっているか。</li>
+        <li>画面の VDD が 3V3、GND が GND につながっているか。</li>
         <li>SDA が D21、SCL が D22 か（入れかわっていないか）。</li>
         <li>ワイヤーがしっかりささっているか。ゆるいときは、予備のワイヤーにかえる。</li>
       </ol>
@@ -230,7 +245,7 @@
     <summary>「センサーが つながって いません」と出る</summary>
     <div>
       <ol>
-        <li>センサーの4つの足（VCC・GND・SDA・SCL）のワイヤーをたしかめる。</li>
+        <li>センサーの4つの足（VDD・GND・SDA・SCL）のワイヤーをたしかめる。</li>
         <li>予備のワイヤーにかえてみる。</li>
       </ol>
     </div>
