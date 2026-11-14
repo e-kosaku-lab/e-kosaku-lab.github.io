@@ -148,6 +148,37 @@
     </div>
   </details>
 
+  <h2 id="blink">書き込みの練習：Lチカ（ためしてみよう）</h2>
+  <p>パソコンの準備が終わったら、まず、ボードの小さなLEDを光らせる練習プログラム「Lチカ」で、<strong>書き込みができるか</strong>を、たしかめられます。ワイヤーは、つながなくてだいじょうぶです（ボードとUSBケーブルだけ）。</p>
+  <div class="warn" role="note">
+    <strong class="t">先に読んでください</strong>
+    <p>Lチカを書き込むと、ボードに入っている「さぼてんきけい」のプログラムは、いったん消えます。あとで、下の「書き込みのやりかた」で、<code>sabotenkikei.ino</code> を書き込めば、もとにもどります。</p>
+  </div>
+  <ol class="steps">
+    <li>ボードを、USBケーブルで、パソコンにつなぐ。</li>
+    <li>Lチカのプログラム <code>blink.ino</code> を、GitHubからダウンロードする。
+      <br><a class="btn" href="https://github.com/e-kosaku-lab/sabotenkikei/blob/main/sketches/blink/blink.ino" rel="noopener">Lチカのプログラム（GitHub）</a>
+      <br>ダウンロードのしかたは、下の「書き込みのやりかた」の1番と同じです（右はしの「…」から「Download」）。ダウンロードしたファイルをダブルクリックして、Arduino IDE で開きます。</li>
+    <li>「ツール」の「ボード」が「ESP32 Dev Module」、「ポート」が選ばれていることを確かめる。</li>
+    <li>左上の <strong>→（書き込み）ボタン</strong>を押す。</li>
+    <li>下の黒い画面に「Connecting……」と出たまま進まないときは、ボードの <strong>BOOT ボタン</strong>を、「Writing」と出るまで押し続ける。</li>
+    <li>書き込みが終わると、<strong>ボードの小さなLEDが、1秒ごとに、ついたり消えたりします。</strong>（LEDの色や場所は、ボードによって、ちがうことがあります）</li>
+  </ol>
+  <div class="ok">
+    <p><strong>点滅したら、せいこうです！</strong>パソコンとボードの準備は、できています。LEDが光らなくても、書き込みが「Hard resetting」で終わっていれば、書き込み自体は、できています。ボードのLEDの場所は、ボードの写真で見てください。</p>
+  </div>
+  <h3>数字をかえてみよう</h3>
+  <p>プログラムの中の、<code>delay(1000);</code> の数字を、かえて、もう一度、書き込んでみよう。</p>
+  <pre><code>digitalWrite(LED_PIN, HIGH);  // LEDをつける
+delay(1000);                   // 1000 = 1秒まつ
+digitalWrite(LED_PIN, LOW);   // LEDを消す
+delay(1000);                   // 1000 = 1秒まつ</code></pre>
+  <ul>
+    <li><code>1000</code> を <code>200</code> にすると、はやく点滅します。<code>3000</code> にすると、ゆっくりです。</li>
+    <li>ついている時間と、消えている時間を、べつべつの数字にしてみよう。</li>
+    <li>かえたら、書き込みのたびに、「どうなったか」を、ノートに書いておこう。</li>
+  </ul>
+
   <h2 id="write">書き込みのやりかた（ステップ2から毎回）</h2>
   <ol class="steps">
     <li>プログラム <code>sabotenkikei.ino</code> を開く。（開くと、下の写真のような画面になります。「かえてみよう！」の場所は、ステップ2で書きかえます）
