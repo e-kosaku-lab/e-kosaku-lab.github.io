@@ -147,16 +147,11 @@
 
   <h2 id="write">書き込みのやりかた（ステップ2から毎回）</h2>
   <ol class="steps">
-    <li>プログラム <code>sabotenkikei.ino</code> を開く。（開くと、下の写真のような画面になります。「かえてみよう！」の場所は、ステップ2で書きかえます）
-      <br><a class="btn" href="https://github.com/e-kosaku-lab/sabotenkikei" rel="noopener">プログラムのページ（GitHub）</a>
-
+    <li>プログラムを、Arduino IDE に貼りつける。（コピーして、貼るだけです。GitHubは使いません）
+      <br><a class="btn" href="program.html">プログラムのページ（コピーして貼る）</a>
       <ol>
-        <li>GitHubのページの下のほうに、「さぼてんきけい: sketches/sabotenkikei/sabotenkikei.ino」と書いてあります。その青い文字（リンク）をクリックします。
-          <figure><img src="images/gh-1-repo.png" alt="GitHubのページ。赤い枠で、sketches/sabotenkikei/sabotenkikei.ino のリンクを囲んでいる。" loading="lazy"><figcaption>赤い枠の、青い文字をクリックします。</figcaption></figure></li>
-        <li>開いたページの、右はしの「<strong>…</strong>」（3つの点のマーク）をクリックして、「<strong>Download</strong>」を選びます。プログラム（スケッチ）が、ダウンロードされます。
-          <figure><img src="images/gh-2-file.png" alt="sabotenkikei.ino のページ。右はしの3つの点のマークを、赤い枠で囲んでいる。" loading="lazy"><figcaption>赤い枠の「…」から、「Download」を選びます。</figcaption></figure></li>
-        <li>ダウンロードしたファイルを、ダブルクリックします。Arduino IDE（ソフト）が起動します。起動しないときは、Arduino IDE の「ファイル」→「開く」で開きます。</li>
-        <li>「スケッチ用のフォルダを作りますか？」と聞かれたら、「OK」を押します。</li>
+        <li>Arduino IDE で、「ファイル」→「新規スケッチ」を選び、はじめから書いてある文字を、ぜんぶ消す。</li>
+        <li>上のページの「プログラムをコピーする」を押して、Arduino IDE の画面に、貼りつける。（開くと、下の写真のような画面になります。「かえてみよう！」の場所は、ステップ2で書きかえます）</li>
       </ol></li>
     <li>「ツール」の「ボード」が「ESP32 Dev Module」、「ポート」が選ばれていることを確かめる。</li>
     <li>画面の左上の <strong>→（書き込み）ボタン</strong>を押す。</li>
@@ -169,7 +164,7 @@
     <figure><img src="images/e10-write-ok.png" alt="書き込みが終わったときの黒い画面。Hash of data verified と Hard resetting via RTS pin と出ている。" loading="lazy"><figcaption>おわると、「Hard resetting」と出ます。</figcaption></figure>
   </div>
   <div class="ok">
-    <p><strong>元にもどしたいとき：</strong>もう一度 <code>sabotenkikei.ino</code> をダウンロードして書き込めば、出荷したときと同じ表示にもどります。</p>
+    <p><strong>元にもどしたいとき：</strong><a href="program.html">プログラムのページ</a>から、もう一度コピーして貼りつけ、書き込めば、出荷したときと同じ表示にもどります。</p>
     <p>書きかえたものを残したいときは、「ファイル」→「名前を付けて保存」で別の名前にしておくと安心です。</p>
   </div>
 
@@ -177,7 +172,7 @@
   <p>ステップ2の「かえてみよう！」に慣れたら、ボードの小さな青いLEDを光らせる、みじかいプログラム「Lチカ」を、<strong>自分で書き写して</strong>、書き込んでみましょう。ワイヤーは、つながなくてだいじょうぶです（ボードとUSBケーブルだけ）。</p>
   <div class="warn" role="note">
     <strong class="t">先に読んでください</strong>
-    <p>Lチカを書き込むと、ボードに入っている「さぼてんきけい」のプログラムは、いったん消えます。あとで、上の「書き込みのやりかた」で、<code>sabotenkikei.ino</code> を書き込めば、もとにもどります。</p>
+    <p>Lチカを書き込むと、ボードに入っている「さぼてんきけい」のプログラムは、いったん消えます。あとで、上の「書き込みのやりかた」で、<a href="program.html">さぼてんきけいのプログラム</a>を書き込めば、もとにもどります。</p>
   </div>
   <ol class="steps">
     <li>ボードを、USBケーブルで、パソコンにつなぐ。</li>
