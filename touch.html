@@ -53,6 +53,12 @@ pre.code{max-height:28em;overflow:auto;font-size:.82rem;line-height:1.5;white-sp
     </table>
   </div>
 
+  <div class="photos">
+    <figure><img src="images/touch-itai.jpg" alt="OLEDの画面。「いたい!」と出て、さぼてんきくんがびっくりした顔をしている。" loading="lazy"><figcaption>ワイヤー2を、ちょん →「いたい!」</figcaption></figure>
+    <figure><img src="images/touch-ehehe.jpg" alt="OLEDの画面。「えへへ」と出て、さぼてんきくんが目をとじて、きらきらしている。" loading="lazy"><figcaption>ながくさわる →「えへへ」</figcaption></figure>
+  </div>
+  <figure><video controls loop muted playsinline preload="metadata" poster="images/touch-pet-poster.jpg" width="720" height="405" style="max-width:100%;height:auto"><source src="videos/touch-pet.mp4" type="video/mp4">動画が見られないときは、<a href="videos/touch-pet.mp4">こちら</a>から開いてください。</video><figcaption>「いたい!」と「えへへ」に変わる様子（約9秒。指は、画面の外です）。動画では、画面に横じまが見えますが、カメラの影響です。</figcaption></figure>
+
   <h2>1. ワイヤーをつなぐ</h2>
   <div class="note"><strong>USBケーブルは、はずしてからね。</strong>ワイヤーを、1本ずつ、さします。</div>
   <div class="tablewrap">
@@ -70,6 +76,8 @@ pre.code{max-height:28em;overflow:auto;font-size:.82rem;line-height:1.5;white-sp
     <li>ESP32のピンの名前は、ボードのはしに書いてあります。「<a href="manual.html#step1">配線の図</a>」にも、D14とD27が、のっています。</li>
     <li>ワイヤーの先を、アルミホイルで巻くと、さわりやすくなります。（巻かなくても、だいじょうぶ）</li>
   </ul>
+  <figure><img src="images/touch-wires.jpg" alt="ブレッドボードにつないだ、さぼてんきけい。予備のワイヤー2本（茶色と青）が、先をあけて、のびている。" loading="lazy"><figcaption>茶色と青のワイヤーが、予備の2本です。先は、どこにもつながず、あけておきます。</figcaption></figure>
+
 
   <h2>2. プログラムを書き込む</h2>
   <p>タッチ版は、<strong>別のプログラム</strong>です。いつもの「さぼてんきけい」のプログラムとは、べつに、貼りつけて書き込みます。（書き込むと、いつものプログラムは、いったん消えます。もどすときは、<a href="program.html">プログラムのページ</a>から、もう一度、書き込みます）</p>
@@ -878,6 +886,8 @@ void loop() {
     <li><strong>むしあつさ</strong>：温度と湿度から、蒸し暑さの数字を出します（「不快指数」という、よく使われる計算です）。「ちょうどいい」「あつい」などと出ます。</li>
     <li><strong>10秒ゲーム</strong>：下を見てね。</li>
   </ul>
+  <figure><img src="images/touch-pressure.jpg" alt="OLEDの画面。「気圧 999 hPa」「きろくちゅう あと39ふん」と出ている。" loading="lazy"><figcaption>「きあつの へんか」の画面。1時間たつまで「きろくちゅう」と出ます。</figcaption></figure>
+
   <div class="tablewrap">
     <table>
       <thead><tr><th>むしあつさの数字</th><th>画面の言葉</th></tr></thead>
@@ -895,6 +905,8 @@ void loop() {
 
   <h2>4. 10秒ゲーム（親子で対決！）</h2>
   <p>「10秒」を、<strong>心の中で数えて</strong>、ぴったりに近い方が勝ちです。ワイヤー1が「1P」、ワイヤー2が「2P」です。</p>
+  <figure><img src="images/touch-game.jpg" alt="OLEDの画面。「10びょうゲーム」「ちょんと スタート」「ながおしで おわり」「ワイヤー1=1P 2=2P」と出ている。" loading="lazy"><figcaption>10秒ゲームのスタート画面。</figcaption></figure>
+
   <ol class="steps">
     <li>ワイヤー1を、ちょんとさわって、10秒ゲームの画面にする。（ワイヤー1を、<strong>ながく</strong>さわると、つぎの画面に、もどります）</li>
     <li>どちらかが、ちょんとさわると、「<strong>よーい…</strong>」と出ます。</li>
