@@ -1,0 +1,1159 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>サイコロとはんのうゲーム｜でんき工作研究室</title>
+<meta name="description" content="さぼてんきけいで、電子サイコロ・おみくじと、はんのうゲームが遊べるプログラムです。ワイヤー1〜2本だけ。コピーして貼るだけで書き込めます。">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+pre.code{max-height:28em;overflow:auto;font-size:.82rem;line-height:1.5;white-space:pre}
+.copybar{position:sticky;top:0;z-index:2;background:var(--bg,#fff);padding:6px 0}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へ</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><canvas class="sabo xs" data-face="kaiteki" aria-hidden="true"></canvas><span class="brand-text">でんき工作研究室<small>e-kosaku-lab</small></span></a>
+    <nav class="main" aria-label="メインメニュー">
+      <ul>
+        <li><a href="index.html">トップ</a></li>
+        <li><a href="manual.html">説明書</a></li>
+        <li><a href="parents.html">おうちの人へ</a></li>
+        <li><a href="next.html">つぎの一歩</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+
+  <div class="hero">
+    <canvas class="sabo l" data-face="kaiteki" role="img" aria-label="サボテンのキャラクター、さぼてんきくん"></canvas>
+    <h1>サイコロと はんのうゲーム</h1>
+  </div>
+  <p class="lead">さぼてんきけいの<strong>ボードと画面</strong>で、遊べるプログラムを2つ作りました。さぼてんきくんが、登場します。ワイヤーは、<strong>1〜2本</strong>だけ。温度・湿度のセンサーは、使いません。</p>
+
+  <div class="note">
+    これは、<strong>つぎの一歩</strong>です。まず、いつもの「さぼてんきけい」が動いてから、試してね。ボードには、ここの<strong>プログラムを、書き込みなおします</strong>。（書き込むと、いつものプログラムは、いったん消えます。<a href="program.html">プログラムのページ</a>から、もう一度、書き込めば、もどります）
+  </div>
+
+  <h2 id="wire">つなぎかた</h2>
+  <p>画面（OLED）は、いつもの「さぼてんきけい」と同じ、4本のワイヤーで、つないだままです。センサーは、つないだままでも、はずしても、だいじょうぶです。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>ワイヤー</th><th>ESP32のピン</th><th>ブレッドボードの穴</th><th>つかいみち</th></tr></thead>
+      <tbody>
+        <tr><td class="nw">ワイヤー1</td><td>D14</td><td>8j</td><td>サイコロ・はんのうゲーム（1P）</td></tr>
+        <tr><td class="nw">ワイヤー2</td><td>D27</td><td>9j</td><td>はんのうゲーム（2P）。1人で遊ぶときは、いらない</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>ワイヤーの、もう一方の先（金属の部分）は、<strong>どこにもつながず</strong>、あけておきます。ここを、<strong>さわります</strong>。くわしくは、<a href="touch.html">タッチ版のページ</a>と、同じです。</p>
+  <div class="note"><strong>USBケーブルは、はずしてからね。</strong>電源が入ったときは、ワイヤーの先に、さわらないでね。（画面に「さわらないでね」と出ている間に、さわっていない時の「ようす」を、おぼえます）</div>
+
+  <h2 id="dice">1. 電子サイコロ・おみくじ</h2>
+  <p>ワイヤー1を、ちょんとさわると、サイコロが転がります。さぼてんきくんが、見まもります。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>さわりかた</th><th>おこること</th></tr></thead>
+      <tbody>
+        <tr><td class="nw">ちょん</td><td>サイコロを ふる。6が出ると、さぼてんきくんが「えへへ」。1が出ると「いたい!」</td></tr>
+        <tr><td class="nw">ながく（1.2秒）</td><td>「サイコロ」と「おみくじ」を、きりかえる</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>かえてみよう</h3>
+  <ul>
+    <li><code>DICE_MAX</code>：サイコロの面の数。6を、8や12にしてみよう。（7からは、数字で出ます）</li>
+    <li><code>OMIKUJI</code>：おみくじの言葉。「だいきち」を、すきな言葉にしてみよう。</li>
+    <li><code>ROLL_MS</code>：転がっている時間。</li>
+    <li><code>MARK_TERE</code> など：さぼてんきくんの絵（0と1で、かきかえられます）。</li>
+  </ul>
+  <details>
+    <summary>サイコロのプログラムを、ひらく</summary>
+    <div>
+      <div class="copybar"><button type="button" class="btn copy-btn" data-copy="code-dice">サイコロをコピーする</button></div>
+<pre class="code"><code id="code-dice">// さぼてんきくんの 電子サイコロ・おみくじ（ESP32 + 0.96インチOLED）
+//
+// 「さぼてんきけい」の、追加パックの プログラムです。さぼてんきくんが、サイコロを 見まもります。
+// 部品は、ESP32 と OLED と、予備のワイヤー1本だけ。温度・湿度のセンサーは、いりません。
+//
+// このプログラムは Wi-Fi / Bluetooth を一切使いません（WiFi.h などを読み込んでいません）。
+//
+// 必要なライブラリ: U8g2 （olikraus）
+// ボード設定: ツール → ボード → esp32 → 「ESP32 Dev Module」
+//
+// 配線:
+//   ESP32 3V3     → OLED VDD
+//   ESP32 GND     → OLED GND
+//   ESP32 GPIO21  → OLED SDA
+//   ESP32 GPIO22  → OLED SCK
+//   ESP32 GPIO14（D14）→ ワイヤー1（さわる場所）。もう一方の先を、さわります。
+//
+// つかいかた:
+//   ちょん、とさわる        … サイコロを ふる（さぼてんきくんが 見まもる）
+//   ながく（1.2びょう）さわる … 「サイコロ」と「おみくじ」を きりかえる
+//   6が でると さぼてんきくんは「えへへ」、1が でると「いたい！」
+//   ※ 電源を入れる時は、ワイヤーの先に、さわらないでください。
+
+#include &lt;Wire.h&gt;
+#include &lt;U8g2lib.h&gt;
+
+// =====================================================================
+//  かえてみよう！（ここから下を書きかえると、動きがかわります）
+//  書きかえたら、もう一度「書き込み」ボタン（→）をおしてね。
+// =====================================================================
+
+// ---- ① サイコロを かえてみよう ----
+const int DICE_MAX = 6;                    // サイコロの 面の数。6を 8 や 12 にしてみよう（7からは 数字で出ます）
+const unsigned long ROLL_MS = 1500;        // ころがっている 長さ（ミリ秒）
+const unsigned long ANIME_MS = 500;        // さぼてんきくんの 絵の きりかえの間かく（ミリ秒）。50より小さくしないでね
+
+// ---- ② おみくじを かえてみよう ----
+// ひらがな・カタカナが おすすめ。むずかしい漢字は、画面に出ないことがあります。
+// 先頭が いちばん いい運、さいごが いちばん わるい運 として、さぼてんきくんが はんのうします。
+const char *OMIKUJI[] = {&quot;だいきち&quot;, &quot;ちゅうきち&quot;, &quot;しょうきち&quot;, &quot;すえきち&quot;, &quot;きょう&quot;};
+const int OMIKUJI_N = 5;                   // ↑の 言葉の かず（かえたら、おなじ数に）
+
+// ---- ③ タッチの ぐあいを かえてみよう ----
+// 0.3〜0.9 の間で。反応しすぎる時は 小さく、反応しない時は 大きく。
+const float TOUCH_RATIO = 0.6;
+const int TOUCH_CONFIRM = 3;               // 何回つづけて 同じなら さわったと みなすか
+const unsigned long LONG_MS = 1200;        // ながく さわる 長さ（ミリ秒）
+
+// ---- ④ 0と1で 絵をかえてみよう ----
+// 1 が「光るドット」、0 が「光らないドット」です。1行に16こ、16行あります。
+// 名前のさいごに 2 がついているのが、絵2 です。（交互に出して、動いて見えます）
+
+// かいてき: にこにこ顔の さぼてんきくん
+const char *MARK_KAITEKI[16] = {
+  &quot;0000000110000000&quot;,
+  &quot;0000001111000000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0110010110100000&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// かいてき（絵2）
+const char *MARK_KAITEKI2[16] = {
+  &quot;0000000110000000&quot;,
+  &quot;0000001111000000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000010110100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011001111110&quot;,
+  &quot;0111111111111100&quot;,
+  &quot;0011111111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// じめじめ: じめじめ顔の さぼてんきくん
+const char *MARK_JIMEJIME[16] = {
+  &quot;0100000110000000&quot;,
+  &quot;0011001111000110&quot;,
+  &quot;0000011111101000&quot;,
+  &quot;0011010110100000&quot;,
+  &quot;0110010110101100&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010000100110&quot;,
+  &quot;0111111111100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// じめじめ（絵2）
+const char *MARK_JIMEJIME2[16] = {
+  &quot;1000000110000000&quot;,
+  &quot;0100001111000010&quot;,
+  &quot;0000011111100100&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010000100110&quot;,
+  &quot;0111111111100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// からから: からからで あつそうな さぼてんきくん
+const char *MARK_KARAKARA[16] = {
+  &quot;0000000110001000&quot;,
+  &quot;0010001111000100&quot;,
+  &quot;0100011111101000&quot;,
+  &quot;0010011111100100&quot;,
+  &quot;0100010110100000&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0011111001111110&quot;,
+  &quot;0111110000100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// からから（絵2）
+const char *MARK_KARAKARA2[16] = {
+  &quot;0000000110000100&quot;,
+  &quot;0100001111001000&quot;,
+  &quot;0010011111100100&quot;,
+  &quot;0100011111101000&quot;,
+  &quot;0010010110100000&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0011111001111110&quot;,
+  &quot;0111110110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// いたい！: タッチして、びっくりした さぼてんきくん（絵1）
+const char *MARK_ITAI[16] = {
+  &quot;1000000110000001&quot;,
+  &quot;0100001111000010&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0110010110100000&quot;,
+  &quot;0110011001100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011001100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// いたい！（絵2）
+const char *MARK_ITAI2[16] = {
+  &quot;0100000110000010&quot;,
+  &quot;1000001111000001&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0110010110100000&quot;,
+  &quot;0110011001100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011001100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// えへへ: なでられて、うれしい さぼてんきくん（絵1）
+const char *MARK_TERE[16] = {
+  &quot;0001000110001000&quot;,
+  &quot;0011101111011100&quot;,
+  &quot;0001011111101000&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// えへへ（絵2）
+const char *MARK_TERE2[16] = {
+  &quot;0000000110000000&quot;,
+  &quot;0001001111001000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// =====================================================================
+//  かえてみよう ここまで（ここから下は、なれてきたら読んでみよう）
+// =====================================================================
+
+U8G2_SSD1306_128X64_NONAME_F_HW_I2C display(U8G2_R0, U8X8_PIN_NONE);
+
+const int MARK_SIZE = 16;
+const int MARK_SCALE = 2;
+
+struct TouchPad {
+  int pin;
+  float base;               // さわっていない時の 値（きじゅん）
+  bool down;                // いま さわっているか
+  int cnt;                  // ちょうし を みる ための かぞえ
+  unsigned long pendMs;     // さわり はじめた とき
+  unsigned long downMs;     // さわった ときこく
+  bool longFired;
+  bool pressedEdge;         // いま さわった
+  bool releasedEdge;        // いま はなした
+  bool longEdge;            // いま ながく さわった
+  unsigned long heldMs;     // はなした とき の、さわっていた 長さ
+};
+
+// ESP32 は、さわると 値が 小さくなる
+float measureBase(int pin) {
+  long sum = 0;
+  for (int i = 0; i &lt; 16; i++) {
+    sum += touchRead(pin);
+    delay(4);
+  }
+  return sum / 16.0f;
+}
+
+void padUpdate(TouchPad &amp;p, unsigned long now) {
+  p.pressedEdge = false;
+  p.releasedEdge = false;
+  p.longEdge = false;
+  float v = (float)touchRead(p.pin);
+  bool raw = v &lt; p.base * TOUCH_RATIO;
+  if (raw == p.down) {
+    p.cnt = 0;
+    // さわっていない間は、きじゅんを、ゆっくり なおす
+    if (!raw &amp;&amp; v &gt; p.base * 0.8f) p.base = p.base * 0.98f + v * 0.02f;
+  } else {
+    if (p.cnt == 0) p.pendMs = now;
+    p.cnt++;
+    if (p.cnt &gt;= TOUCH_CONFIRM) {  // 3回つづけて 同じ → きまり（ちらつき よけ。かず は TOUCH_CONFIRM）
+      p.down = raw;
+      p.cnt = 0;
+      if (raw) {
+        p.pressedEdge = true;
+        p.downMs = p.pendMs;
+        p.longFired = false;
+      } else {
+        p.releasedEdge = true;
+        p.heldMs = now - p.downMs;
+      }
+    }
+  }
+  if (p.down &amp;&amp; !p.longFired &amp;&amp; now - p.downMs &gt;= LONG_MS) {
+    p.longFired = true;
+    p.longEdge = true;
+  }
+}
+
+TouchPad pad1 = {14, 0, false, 0, 0, 0, false, false, false, false, 0};
+
+// ---- 0と1の絵を、画面にかく（scale は 1ドットを 何倍で出すか）----
+void drawMarkS(const char *const mark[], int x, int y, int scale) {
+  for (int row = 0; row &lt; MARK_SIZE; row++) {
+    const char *line = mark[row];
+    for (int col = 0; col &lt; MARK_SIZE &amp;&amp; line[col] != &#x27;\0&#x27;; col++) {
+      if (line[col] == &#x27;1&#x27;) {
+        display.drawBox(x + col * scale, y + row * scale, scale, scale);
+      }
+    }
+  }
+}
+void drawMark(const char *const mark[], int x, int y) {
+  drawMarkS(mark, x, y, MARK_SCALE);
+}
+
+const int MODE_DICE = 0;
+const int MODE_OMIKUJI = 1;
+int mode = MODE_DICE;
+
+bool rolling = false;
+unsigned long rollStart = 0;
+unsigned long nextChange = 0;
+int shown = 1;    // いま 画面に出している 目（または おみくじの ばんごう）
+int result = 0;   // さいごに きまった 目
+bool hasResult = false;
+
+int pickValue() {
+  if (mode == MODE_DICE) return random(1, DICE_MAX + 1);
+  return random(0, OMIKUJI_N);
+}
+
+void drawPip(int cx, int cy) {
+  display.drawDisc(cx, cy, 4);
+}
+
+// サイコロの 面（左上が x,y。大きさ s）
+void drawDiceFace(int v, int x, int y, int s) {
+  display.drawRFrame(x, y, s, s, 6);
+  if (v &gt; 6) {
+    char t[8];
+    snprintf(t, sizeof(t), &quot;%d&quot;, v);
+    display.setFont(u8g2_font_logisoso28_tn);
+    int w = display.getStrWidth(t);
+    display.drawStr(x + (s - w) / 2, y + s / 2 + 14, t);
+    display.setFont(u8g2_font_b12_t_japanese2);
+    return;
+  }
+  int a = x + 12, b = x + s / 2, c = x + s - 12;
+  int r1 = y + 12, r2 = y + s / 2, r3 = y + s - 12;
+  switch (v) {
+    case 1: drawPip(b, r2); break;
+    case 2: drawPip(a, r1); drawPip(c, r3); break;
+    case 3: drawPip(a, r1); drawPip(b, r2); drawPip(c, r3); break;
+    case 4: drawPip(a, r1); drawPip(c, r1); drawPip(a, r3); drawPip(c, r3); break;
+    case 5: drawPip(a, r1); drawPip(c, r1); drawPip(b, r2); drawPip(a, r3); drawPip(c, r3); break;
+    default:
+      drawPip(a, r1); drawPip(a, r2); drawPip(a, r3);
+      drawPip(c, r1); drawPip(c, r2); drawPip(c, r3);
+      break;
+  }
+}
+
+// さぼてんきくんの 顔（ころがっている間は ぴょんぴょん）
+void drawCactus(unsigned long now) {
+  const char *const *m;
+  int hop = 0;
+  int frame = (now / ANIME_MS) % 2;
+  if (rolling) {
+    frame = (now / 120) % 2;
+    hop = frame ? -3 : 0;
+    m = frame ? MARK_KAITEKI2 : MARK_KAITEKI;
+  } else if (hasResult) {
+    bool great = (mode == MODE_DICE) ? (result == DICE_MAX) : (result == 0);
+    bool bad = (mode == MODE_DICE) ? (result == 1 &amp;&amp; DICE_MAX &gt; 1) : (result == OMIKUJI_N - 1);
+    if (great) m = frame ? MARK_TERE2 : MARK_TERE;
+    else if (bad) m = frame ? MARK_ITAI2 : MARK_ITAI;
+    else m = frame ? MARK_KAITEKI2 : MARK_KAITEKI;
+  } else {
+    m = frame ? MARK_KAITEKI2 : MARK_KAITEKI;
+  }
+  drawMarkS(m, 84, 4 + hop, MARK_SCALE);
+}
+
+void drawScreen(unsigned long now) {
+  char line[32];
+  display.clearBuffer();
+  display.setFont(u8g2_font_b12_t_japanese2);
+  if (mode == MODE_DICE) {
+    drawDiceFace(rolling || hasResult ? shown : 1, 6, 8, 48);
+    if (rolling) {
+      display.drawUTF8(56, 62, &quot;ごろごろ…&quot;);
+    } else if (hasResult) {
+      snprintf(line, sizeof(line), &quot;%d が でた!&quot;, result);
+      display.drawUTF8(56, 62, line);
+    } else {
+      display.drawUTF8(56, 62, &quot;さわって!&quot;);
+    }
+  } else {
+    display.drawUTF8(4, 20, &quot;きょうは…&quot;);
+    if (rolling) display.drawUTF8(4, 44, OMIKUJI[shown]);
+    else if (hasResult) display.drawUTF8(4, 44, OMIKUJI[result]);
+    else display.drawUTF8(4, 44, &quot;？&quot;);
+    display.drawUTF8(56, 62, rolling ? &quot;ごろごろ…&quot; : &quot;おみくじ&quot;);
+  }
+  drawCactus(now);
+  display.sendBuffer();
+}
+
+void setup() {
+  Serial.begin(115200);
+  Wire.begin(21, 22);
+  display.begin();
+  display.setBusClock(400000);
+  display.enableUTF8Print();
+  display.setFont(u8g2_font_b12_t_japanese2);
+
+  display.clearBuffer();
+  display.drawUTF8(0, 30, &quot;さいころ&quot;);
+  drawMarkS(MARK_KAITEKI, 84, 4, MARK_SCALE);
+  display.drawUTF8(0, 62, &quot;さわらないでね&quot;);
+  display.sendBuffer();
+
+  pad1.base = measureBase(pad1.pin);
+  Serial.printf(&quot;タッチの きじゅん=%.0f\n&quot;, pad1.base);
+  randomSeed(esp_random() ^ micros());
+}
+
+void loop() {
+  unsigned long now = millis();
+  padUpdate(pad1, now);
+
+  if (pad1.longEdge) {
+    mode = (mode == MODE_DICE) ? MODE_OMIKUJI : MODE_DICE;
+    rolling = false;
+    hasResult = false;
+  } else if (pad1.releasedEdge &amp;&amp; pad1.heldMs &lt; LONG_MS &amp;&amp; !rolling) {
+    // ちょん（はなした とき）で ふる
+    rolling = true;
+    hasResult = false;
+    rollStart = now;
+    nextChange = now;
+  }
+
+  if (rolling) {
+    if (now &gt;= nextChange) {
+      shown = pickValue();
+      float progress = (float)(now - rollStart) / ROLL_MS;
+      if (progress &gt; 1) progress = 1;
+      nextChange = now + 60 + (unsigned long)(progress * 220);  // だんだん ゆっくりに
+    }
+    if (now - rollStart &gt;= ROLL_MS) {
+      rolling = false;
+      hasResult = true;
+      result = pickValue();
+      shown = result;
+      Serial.printf(&quot;けっか=%d\n&quot;, result);
+    }
+  }
+
+  drawScreen(now);
+  delay(30);
+}
+</code></pre>
+    </div>
+  </details>
+
+  <h2 id="reaction">2. はんのうゲーム</h2>
+  <p>さぼてんきくんが「<strong>！</strong>」になったら、すぐに、ワイヤーをさわります。はやさを、きそいます。</p>
+  <ol class="steps">
+    <li>ワイヤー1を、ちょんとさわって、スタート。「まってね…」と出ます。</li>
+    <li>2〜5秒あとに、画面が、<strong>白く</strong>なって、「いま!」と出ます。</li>
+    <li>そのしゅんかんに、ワイヤーを、ちょん！ はやさ（びょう）が、出ます。</li>
+    <li>「いま!」の前にさわると、<strong>フライング</strong>です。</li>
+  </ol>
+  <ul>
+    <li>ワイヤー1が「1P」、ワイヤー2が「2P」です。先にさわった人の、はやさが出ます。</li>
+    <li>いちばんはやい記録は、ボードの中に、のこります。電源を切っても、のこります。</li>
+    <li>けっかの画面で、ちょんとさわると、もう一度、遊べます。ワイヤー1を、ながくさわると、はじめの画面にもどります。</li>
+  </ul>
+  <h3>かえてみよう</h3>
+  <ul>
+    <li><code>WAIT_MIN_MS</code> と <code>WAIT_MAX_MS</code>：「いま!」までの、時間のはば。</li>
+    <li><code>RATE_GREAT</code> など：「すごい!」「はやい!」になる、はやさの線。</li>
+    <li><code>WORD_GREAT</code> など：画面に出る言葉。</li>
+  </ul>
+  <details>
+    <summary>はんのうゲームのプログラムを、ひらく</summary>
+    <div>
+      <div class="copybar"><button type="button" class="btn copy-btn" data-copy="code-reaction">はんのうゲームをコピーする</button></div>
+<pre class="code"><code id="code-reaction">// さぼてんきくんの はんのうゲーム（ESP32 + 0.96インチOLED）
+//
+// 「さぼてんきけい」の、追加パックの プログラムです。
+// 画面の さぼてんきくんが「！」と なったら、すぐに ワイヤーを さわります。はやさを きそいます。
+// 部品は、ESP32 と OLED と、予備のワイヤー2本だけ。温度・湿度のセンサーは、いりません。
+//
+// このプログラムは Wi-Fi / Bluetooth を一切使いません（WiFi.h などを読み込んでいません）。
+//
+// 必要なライブラリ: U8g2 （olikraus）
+// ボード設定: ツール → ボード → esp32 → 「ESP32 Dev Module」
+//
+// 配線:
+//   ESP32 3V3     → OLED VDD
+//   ESP32 GND     → OLED GND
+//   ESP32 GPIO21  → OLED SDA
+//   ESP32 GPIO22  → OLED SCK
+//   ESP32 GPIO14（D14）→ ワイヤー1（1P）
+//   ESP32 GPIO27（D27）→ ワイヤー2（2P）  ※ 1人で あそぶ ときは、なくても だいじょうぶ
+//   ワイヤーの、もう一方の先（金属の部分）を、さわります。
+//
+// つかいかた:
+//   ① ちょん、とさわると スタート。「まってね…」と 出ます。
+//   ② 2〜5びょうの あと、さぼてんきくんが「！」になって、画面が 白くなります（「いま！」）。
+//   ③ そのしゅんかんに、ワイヤーを ちょん！ はやさ（びょう）が 出ます。
+//   ④ 「いま！」の まえに さわると「フライング」。
+//   ⑤ いちばん はやい きろくは、ボードの 中に のこります（電源を切っても のこります）。
+//   ※ 電源を入れる時は、ワイヤーの先に、さわらないでください。
+
+#include &lt;Wire.h&gt;
+#include &lt;U8g2lib.h&gt;
+#include &lt;Preferences.h&gt;
+
+// =====================================================================
+//  かえてみよう！（ここから下を書きかえると、ゲームがかわります）
+//  書きかえたら、もう一度「書き込み」ボタン（→）をおしてね。
+// =====================================================================
+
+// ---- ① ゲームを かえてみよう ----
+const unsigned long WAIT_MIN_MS = 2000;   // 「いま！」までの、いちばん みじかい 時間（ミリ秒）
+const unsigned long WAIT_MAX_MS = 5000;   // 「いま！」までの、いちばん ながい 時間（ミリ秒）
+const unsigned long RATE_GREAT = 250;     // これより はやいと「すごい！」（ミリ秒）
+const unsigned long RATE_GOOD = 400;      // これより はやいと「はやい！」
+const unsigned long RATE_NORMAL = 600;    // これより はやいと「ふつう」。それより おそいと「ねむそう」
+
+// ---- ② 言葉を かえてみよう ----
+const char *WORD_GREAT = &quot;すごい!&quot;;
+const char *WORD_GOOD = &quot;はやい!&quot;;
+const char *WORD_NORMAL = &quot;ふつう&quot;;
+const char *WORD_SLOW = &quot;ねむそう&quot;;
+
+// ---- ③ タッチの ぐあいを かえてみよう ----
+// 0.3〜0.9 の間で。反応しすぎる時は 小さく、反応しない時は 大きく。
+const float TOUCH_RATIO = 0.6;
+const int TOUCH_CONFIRM = 3;               // 何回つづけて 同じなら さわったと みなすか
+const unsigned long LONG_MS = 1200;        // ながく さわる 長さ（ミリ秒）
+const unsigned long ANIME_MS = 500;        // さぼてんきくんの 絵の きりかえの間かく（ミリ秒）。50より小さくしないでね
+
+// ---- ④ 0と1で 絵をかえてみよう ----
+// 1 が「光るドット」、0 が「光らないドット」です。1行に16こ、16行あります。
+// 名前のさいごに 2 がついているのが、絵2 です。（交互に出して、動いて見えます）
+
+// かいてき: にこにこ顔の さぼてんきくん
+const char *MARK_KAITEKI[16] = {
+  &quot;0000000110000000&quot;,
+  &quot;0000001111000000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0110010110100000&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// かいてき（絵2）
+const char *MARK_KAITEKI2[16] = {
+  &quot;0000000110000000&quot;,
+  &quot;0000001111000000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000010110100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011001111110&quot;,
+  &quot;0111111111111100&quot;,
+  &quot;0011111111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// じめじめ: じめじめ顔の さぼてんきくん
+const char *MARK_JIMEJIME[16] = {
+  &quot;0100000110000000&quot;,
+  &quot;0011001111000110&quot;,
+  &quot;0000011111101000&quot;,
+  &quot;0011010110100000&quot;,
+  &quot;0110010110101100&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010000100110&quot;,
+  &quot;0111111111100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// じめじめ（絵2）
+const char *MARK_JIMEJIME2[16] = {
+  &quot;1000000110000000&quot;,
+  &quot;0100001111000010&quot;,
+  &quot;0000011111100100&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010000100110&quot;,
+  &quot;0111111111100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// からから: からからで あつそうな さぼてんきくん
+const char *MARK_KARAKARA[16] = {
+  &quot;0000000110001000&quot;,
+  &quot;0010001111000100&quot;,
+  &quot;0100011111101000&quot;,
+  &quot;0010011111100100&quot;,
+  &quot;0100010110100000&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0011111001111110&quot;,
+  &quot;0111110000100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// からから（絵2）
+const char *MARK_KARAKARA2[16] = {
+  &quot;0000000110000100&quot;,
+  &quot;0100001111001000&quot;,
+  &quot;0010011111100100&quot;,
+  &quot;0100011111101000&quot;,
+  &quot;0010010110100000&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0011111001111110&quot;,
+  &quot;0111110110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// いたい！: タッチして、びっくりした さぼてんきくん（絵1）
+const char *MARK_ITAI[16] = {
+  &quot;1000000110000001&quot;,
+  &quot;0100001111000010&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0110010110100000&quot;,
+  &quot;0110011001100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011001100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// いたい！（絵2）
+const char *MARK_ITAI2[16] = {
+  &quot;0100000110000010&quot;,
+  &quot;1000001111000001&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0110010110100000&quot;,
+  &quot;0110011001100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011001100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// えへへ: なでられて、うれしい さぼてんきくん（絵1）
+const char *MARK_TERE[16] = {
+  &quot;0001000110001000&quot;,
+  &quot;0011101111011100&quot;,
+  &quot;0001011111101000&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// えへへ（絵2）
+const char *MARK_TERE2[16] = {
+  &quot;0000000110000000&quot;,
+  &quot;0001001111001000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// =====================================================================
+//  かえてみよう ここまで（ここから下は、なれてきたら読んでみよう）
+// =====================================================================
+
+U8G2_SSD1306_128X64_NONAME_F_HW_I2C display(U8G2_R0, U8X8_PIN_NONE);
+Preferences prefs;
+
+const int MARK_SIZE = 16;
+const int MARK_SCALE = 2;
+
+struct TouchPad {
+  int pin;
+  float base;               // さわっていない時の 値（きじゅん）
+  bool down;                // いま さわっているか
+  int cnt;                  // ちょうし を みる ための かぞえ
+  unsigned long pendMs;     // さわり はじめた とき
+  unsigned long downMs;     // さわった ときこく
+  bool longFired;
+  bool pressedEdge;         // いま さわった
+  bool releasedEdge;        // いま はなした
+  bool longEdge;            // いま ながく さわった
+  unsigned long heldMs;     // はなした とき の、さわっていた 長さ
+};
+
+// ESP32 は、さわると 値が 小さくなる
+float measureBase(int pin) {
+  long sum = 0;
+  for (int i = 0; i &lt; 16; i++) {
+    sum += touchRead(pin);
+    delay(4);
+  }
+  return sum / 16.0f;
+}
+
+void padUpdate(TouchPad &amp;p, unsigned long now) {
+  p.pressedEdge = false;
+  p.releasedEdge = false;
+  p.longEdge = false;
+  float v = (float)touchRead(p.pin);
+  bool raw = v &lt; p.base * TOUCH_RATIO;
+  if (raw == p.down) {
+    p.cnt = 0;
+    // さわっていない間は、きじゅんを、ゆっくり なおす
+    if (!raw &amp;&amp; v &gt; p.base * 0.8f) p.base = p.base * 0.98f + v * 0.02f;
+  } else {
+    if (p.cnt == 0) p.pendMs = now;
+    p.cnt++;
+    if (p.cnt &gt;= TOUCH_CONFIRM) {  // 3回つづけて 同じ → きまり（ちらつき よけ。かず は TOUCH_CONFIRM）
+      p.down = raw;
+      p.cnt = 0;
+      if (raw) {
+        p.pressedEdge = true;
+        p.downMs = p.pendMs;
+        p.longFired = false;
+      } else {
+        p.releasedEdge = true;
+        p.heldMs = now - p.downMs;
+      }
+    }
+  }
+  if (p.down &amp;&amp; !p.longFired &amp;&amp; now - p.downMs &gt;= LONG_MS) {
+    p.longFired = true;
+    p.longEdge = true;
+  }
+}
+
+TouchPad pad1 = {14, 0, false, 0, 0, 0, false, false, false, false, 0};
+TouchPad pad2 = {27, 0, false, 0, 0, 0, false, false, false, false, 0};
+
+// ---- 0と1の絵を、画面にかく（scale は 1ドットを 何倍で出すか）----
+void drawMarkS(const char *const mark[], int x, int y, int scale) {
+  for (int row = 0; row &lt; MARK_SIZE; row++) {
+    const char *line = mark[row];
+    for (int col = 0; col &lt; MARK_SIZE &amp;&amp; line[col] != &#x27;\0&#x27;; col++) {
+      if (line[col] == &#x27;1&#x27;) {
+        display.drawBox(x + col * scale, y + row * scale, scale, scale);
+      }
+    }
+  }
+}
+void drawMark(const char *const mark[], int x, int y) {
+  drawMarkS(mark, x, y, MARK_SCALE);
+}
+
+const int S_IDLE = 0;    // はじめの画面
+const int S_WAIT = 1;    // まってね…
+const int S_GO = 2;      // いま！
+const int S_RESULT = 3;  // けっか
+int state = S_IDLE;
+
+unsigned long stateMs = 0;    // この状態に なった とき
+unsigned long waitMs = 0;     // 「いま！」までの 時間
+unsigned long goMs = 0;       // 「いま！」を 出した とき
+unsigned long bestMs = 99999; // いちばん はやい きろく
+bool fly = false;             // フライング だったか
+int who = 0;                  // さわった人（1 か 2）
+unsigned long reactMs = 0;    // はんのう 時間
+bool newBest = false;
+bool needDraw = true;
+
+void drawMarkFrame(const char *const a[], const char *const b[], int x, int y, int scale, unsigned long now) {
+  int frame = (now / ANIME_MS) % 2;
+  drawMarkS(frame ? b : a, x, y, scale);
+}
+
+void formatSec(char *out, size_t n, unsigned long ms) {
+  snprintf(out, n, &quot;%.2fびょう&quot;, ms / 1000.0f);
+}
+
+void drawScreen(unsigned long now) {
+  char line[40];
+  display.clearBuffer();
+  display.setFont(u8g2_font_b12_t_japanese2);
+
+  if (state == S_IDLE) {
+    drawMarkFrame(MARK_KAITEKI, MARK_KAITEKI2, 96, 4, MARK_SCALE, now);
+    display.drawUTF8(0, 13, &quot;はんのうゲーム&quot;);
+    display.drawUTF8(0, 29, &quot;ちょんと&quot;);
+    display.drawUTF8(0, 45, &quot;スタート!&quot;);
+    if (bestMs &lt; 99999) {
+      char t[24];
+      formatSec(t, sizeof(t), bestMs);
+      snprintf(line, sizeof(line), &quot;ベスト %s&quot;, t);
+      display.drawUTF8(0, 62, line);
+    } else {
+      display.drawUTF8(0, 62, &quot;ベスト ---&quot;);
+    }
+  } else if (state == S_WAIT) {
+    drawMarkS(MARK_KAITEKI, 48, 4, 3);
+    display.drawUTF8(0, 62, &quot;まってね…&quot;);
+  } else if (state == S_GO) {
+    // 画面が 白くなる（さぼてんきくんは びっくり）
+    display.drawBox(0, 0, 128, 64);
+    display.setDrawColor(0);
+    drawMarkS(MARK_ITAI, 8, 8, 3);
+    display.setFont(u8g2_font_logisoso28_tn);
+    display.setDrawColor(0);
+    display.drawStr(76, 40, &quot;!&quot;);
+    display.setFont(u8g2_font_b12_t_japanese2);
+    display.drawUTF8(60, 62, &quot;いま!&quot;);
+    display.setDrawColor(1);
+  } else {
+    // けっか
+    const char *const *m = fly ? MARK_ITAI : MARK_KAITEKI;
+    const char *const *m2 = fly ? MARK_ITAI2 : MARK_KAITEKI2;
+    const char *word = &quot;&quot;;
+    if (!fly) {
+      if (reactMs &lt; RATE_GREAT) { m = MARK_TERE; m2 = MARK_TERE2; word = WORD_GREAT; }
+      else if (reactMs &lt; RATE_GOOD) word = WORD_GOOD;
+      else if (reactMs &lt; RATE_NORMAL) word = WORD_NORMAL;
+      else { m = MARK_KARAKARA; m2 = MARK_KARAKARA2; word = WORD_SLOW; }
+    }
+    drawMarkFrame(m, m2, 96, 4, MARK_SCALE, now);
+    if (fly) {
+      snprintf(line, sizeof(line), &quot;%dP フライング!&quot;, who);
+      display.drawUTF8(0, 13, line);
+      display.drawUTF8(0, 29, &quot;はやすぎ!&quot;);
+    } else {
+      char t[24];
+      formatSec(t, sizeof(t), reactMs);
+      snprintf(line, sizeof(line), &quot;%dP&quot;, who);
+      display.drawUTF8(0, 13, line);
+      display.drawUTF8(0, 29, t);
+      display.drawUTF8(0, 45, word);
+    }
+    if (newBest) {
+      display.drawUTF8(0, 62, &quot;しんきろく!&quot;);
+    } else if (bestMs &lt; 99999) {
+      char t[24];
+      formatSec(t, sizeof(t), bestMs);
+      snprintf(line, sizeof(line), &quot;ベスト %s&quot;, t);
+      display.drawUTF8(0, 62, line);
+    }
+  }
+  display.sendBuffer();
+}
+
+void startWait(unsigned long now) {
+  state = S_WAIT;
+  stateMs = now;
+  waitMs = WAIT_MIN_MS + random(0, (long)(WAIT_MAX_MS - WAIT_MIN_MS + 1));
+  needDraw = true;
+}
+
+void setup() {
+  Serial.begin(115200);
+  Wire.begin(21, 22);
+  display.begin();
+  display.setBusClock(400000);
+  display.enableUTF8Print();
+  display.setFont(u8g2_font_b12_t_japanese2);
+
+  display.clearBuffer();
+  display.drawUTF8(0, 30, &quot;はんのうゲーム&quot;);
+  drawMarkS(MARK_KAITEKI, 96, 4, MARK_SCALE);
+  display.drawUTF8(0, 62, &quot;さわらないでね&quot;);
+  display.sendBuffer();
+
+  pad1.base = measureBase(pad1.pin);
+  pad2.base = measureBase(pad2.pin);
+  Serial.printf(&quot;タッチの きじゅん 1=%.0f 2=%.0f\n&quot;, pad1.base, pad2.base);
+
+  prefs.begin(&quot;hannou&quot;, false);
+  bestMs = prefs.getULong(&quot;best&quot;, 99999);
+  randomSeed(esp_random() ^ micros());
+}
+
+void loop() {
+  unsigned long now = millis();
+  padUpdate(pad1, now);
+  padUpdate(pad2, now);
+  bool p1 = pad1.pressedEdge;
+  bool p2 = pad2.pressedEdge;
+
+  if (state == S_IDLE) {
+    if (p1 || p2) startWait(now);
+  } else if (state == S_WAIT) {
+    if (p1 || p2) {
+      // 「いま！」の まえに さわった → フライング
+      fly = true;
+      who = p1 ? 1 : 2;
+      newBest = false;
+      state = S_RESULT;
+      stateMs = now;
+      needDraw = true;
+    } else if (now - stateMs &gt;= waitMs) {
+      state = S_GO;
+      drawScreen(now);   // 先に 画面を 出してから、時間を はかりはじめる
+      goMs = millis();
+      stateMs = goMs;
+    }
+  } else if (state == S_GO) {
+    if (p1 || p2) {
+      who = p1 ? 1 : 2;
+      unsigned long t = (who == 1) ? pad1.downMs : pad2.downMs;
+      reactMs = (t &gt; goMs) ? (t - goMs) : 0;
+      fly = false;
+      newBest = false;
+      if (reactMs &gt; 0 &amp;&amp; reactMs &lt; bestMs) {
+        bestMs = reactMs;
+        prefs.putULong(&quot;best&quot;, bestMs);
+        newBest = true;
+      }
+      Serial.printf(&quot;%dP %lu ミリびょう\n&quot;, who, reactMs);
+      state = S_RESULT;
+      stateMs = now;
+      needDraw = true;
+    } else if (now - stateMs &gt;= 5000) {
+      // 5びょう たっても さわらない → もどる
+      state = S_IDLE;
+      needDraw = true;
+    }
+  } else {  // S_RESULT
+    if ((p1 || p2) &amp;&amp; now - stateMs &gt;= 800) startWait(now);   // すぐ もういちど
+    if (pad1.longEdge) { state = S_IDLE; needDraw = true; }    // ながく さわると はじめの画面へ
+  }
+
+  if (state != S_WAIT &amp;&amp; state != S_GO) needDraw = true;       // 絵を うごかすため
+  if (state == S_WAIT) needDraw = true;
+  if (needDraw &amp;&amp; state != S_GO) {
+    drawScreen(now);
+    needDraw = false;
+  }
+  delay(8);
+}
+</code></pre>
+    </div>
+  </details>
+
+  <h2 id="howto">書き込みのやりかた</h2>
+  <ol class="steps">
+    <li>Arduino IDE で、「ファイル」→「新規スケッチ」を選び、はじめから書いてある文字を、ぜんぶ消す。</li>
+    <li>上の「…をコピーする」を押して、貼りつける。</li>
+    <li>ボードとポートを選んで、→（書き込み）ボタンを押す。（くわしくは、<a href="program.html#steps">書き込みのやりかた</a>）名前は「dice」「reaction」などで、保存する。</li>
+  </ol>
+
+  <h2 id="trouble">さわっても反応しない・反応しすぎるとき</h2>
+  <p><a href="touch.html">タッチ版のページ</a>と、同じです。プログラムの先頭の <code>TOUCH_RATIO</code> の数字を、かえてみてください。<strong>反応しすぎる時は 小さく、反応しない時は 大きく</strong>（0.3〜0.9の間）。</p>
+
+  <p><a class="btn" href="next.html">つぎの一歩へ</a> <a class="btn ghost" href="manual.html">説明書へもどる</a></p>
+
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <ul>
+      <li><a href="index.html">トップ</a></li>
+      <li><a href="manual.html">説明書</a></li>
+      <li><a href="parents.html">おうちの人へ</a></li>
+      <li><a href="next.html">つぎの一歩</a></li>
+      <li><a href="index.html#about">このサイトについて</a></li>
+    </ul>
+    <p>学習用の個人制作です。動作や安全についての保証はありません。小さな部品があります。小さなお子さまの誤飲にご注意ください。</p>
+    <p class="foot-sabo"><canvas class="sabo xs" data-face="kaiteki" aria-hidden="true"></canvas><span>&copy; 2026 でんき工作研究室（e-kosaku-lab）</span></p>
+  </div>
+</footer>
+<script src="sabo.js"></script>
+<script src="lightbox.js" defer></script>
+<script>
+document.addEventListener('click',function(e){
+  var b=e.target.closest('.copy-btn'); if(!b) return;
+  var el=document.getElementById(b.getAttribute('data-copy')); if(!el) return;
+  var t=el.textContent, o=b.getAttribute('data-label')||b.textContent; b.setAttribute('data-label',o);
+  function done(m){ b.textContent=m; setTimeout(function(){ b.textContent=o; },3000); }
+  function pick(){ var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r); done('文字を選びました。Ctrl+C（Macは⌘+C）でコピーしてください'); }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(function(){ done('コピーしました'); }, pick); } else { pick(); }
+});
+</script>
+</body>
+</html>
