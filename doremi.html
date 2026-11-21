@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>さわってドレミを作る｜でんき工作研究室</title>
+<meta name="description" content="ワイヤーをさわると、ドレミの音が鳴り、さぼてんきくんがおどります。お手本モードで曲も弾けます。プログラムと配線の説明です。">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+pre.code{max-height:28em;overflow:auto;font-size:.82rem;line-height:1.5;white-space:pre}
+.copybar{position:sticky;top:0;z-index:2;background:var(--bg,#fff);padding:6px 0}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へ</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><canvas class="sabo xs" data-face="kaiteki" aria-hidden="true"></canvas><span class="brand-text">でんき工作研究室<small>e-kosaku-lab</small></span></a>
+    <nav class="main" aria-label="メインメニュー">
+      <ul>
+        <li><a href="index.html">トップ</a></li>
+        <li><a href="manual.html">説明書</a></li>
+        <li><a href="parents.html">おうちの人へ</a></li>
+        <li><a href="next.html">つぎの一歩</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+
+  <div class="hero">
+    <canvas class="sabo l" data-face="kaiteki" role="img" aria-label="サボテンのキャラクター、さぼてんきくん"></canvas>
+    <h1>さわって ドレミ</h1>
+  </div>
+  <p class="lead">ワイヤーを、さわると、その音が鳴ります。さぼてんきくんは、音の場所へ行って、おどります。「お手本モード」で、曲も弾けます。</p>
+  <div class="note">
+    これは、<strong>つぎの一歩</strong>です。まず、いつもの「さぼてんきけい」が動いてから、試してね。<strong>部品を足して、プログラムを、書き込みなおします。</strong>配線は、<strong>おうちの人と一緒に</strong>、やってください。（書き込むと、いつものプログラムは、いったん消えます。<a href="program.html">プログラムのページ</a>から、もう一度、書き込めば、もどります）
+  </div>
+
+  <h2 id="parts">必要な部品（キットのほかに）</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>部品</th><th>かず</th></tr></thead>
+      <tbody>
+        <tr><td class="nw">アンプ MAX98357A（I2S）</td><td>1</td></tr>
+        <tr><td class="nw">小さなスピーカー</td><td>1</td></tr>
+        <tr><td class="nw">ワイヤー（さわる場所用）</td><td>6</td></tr>
+        <tr><td class="nw">ワイヤー（アンプ用）</td><td>いくつか（メスつきがあると、らくです）</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>さわる場所には、ワイヤーのかわりに、アルミホイルや、くだものを使うことも、できます。</p>
+
+  <h2 id="wire">つなぎかた</h2>
+  <div class="note"><strong>USBケーブルは、はずしてからね。</strong>ワイヤーを、1本ずつ、さします。</div>
+
+  <h3>つなぐ順番</h3>
+  <ol class="steps">
+    <li><strong>アンプとスピーカーを、つなぐ。</strong>（下の表）</li>
+    <li>USBをさして、ドレミのプログラムを書き込む。（音は、まだ、鳴りません）</li>
+    <li><strong>さわるワイヤーを、1本ずつ、つなぐ。</strong>1本つなぐたびに、さわって、音が鳴るか、確かめると、まちがいが見つけやすいです。</li>
+    <li>ワイヤーの根もとに、<strong>マスキングテープで、「ド」「レ」…と書いて</strong>貼ると、わかりやすくなります。</li>
+  </ol>
+  <h3>アンプとスピーカー</h3>
+  <p>アンプ（MAX98357A）の足には、「LRC」「BCLK」「DIN」「GAIN」「SD」「GND」「VIN」と、文字が書いてあります。<strong>文字を見て</strong>、つないでください。「GAIN」と「SD」は、つながなくて、だいじょうぶです。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>ESP32</th><th>穴</th><th>アンプ</th></tr></thead>
+      <tbody>
+        <tr><td>GPIO26</td><td>10j</td><td>BCLK</td></tr>
+        <tr><td>GPIO25</td><td>11j</td><td>LRC</td></tr>
+        <tr><td>GPIO18</td><td>11a</td><td>DIN</td></tr>
+        <tr><td>5V（VIN）</td><td>1j</td><td>VIN</td></tr>
+        <tr><td>GND</td><td>6j、13a、19a のどれか</td><td>GND</td></tr>
+        <tr><td colspan="3">アンプの出力（＋と−）→ スピーカー（＋と−）</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>アンプは、ブレッドボードに、さしても、ワイヤー（メスつき）で、つないでも、かまいません。<strong>場所がせまいときは、アンプを、ブレッドボードの外に置いて、メスつきのワイヤーで、つなぐ</strong>と、らくです。</p>
+
+  <h3>さわる場所（ワイヤー6本）</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>音</th><th>ESP32のピン</th><th>穴</th></tr></thead>
+      <tbody>
+        <tr><td>ド</td><td>GPIO4</td><td>7a</td></tr>
+        <tr><td>レ</td><td>GPIO13</td><td>5j</td></tr>
+        <tr><td>ミ</td><td>GPIO14</td><td>8j</td></tr>
+        <tr><td>ファ</td><td>GPIO27</td><td>9j</td></tr>
+        <tr><td>ソ</td><td>GPIO32</td><td>13j</td></tr>
+        <tr><td>ラ</td><td>GPIO33</td><td>12j</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>ワイヤーの、もう一方の先（金属の部分）は、<strong>どこにもつながず</strong>、あけておきます。ここを、<strong>さわります</strong>。くわしくは、<a href="touch.html">タッチ版のページ</a>と同じです。</p>
+  <h3>ESP32のピンと、ブレッドボードの穴</h3>
+  <p>「さぼてんきけい」と同じように、ESP32を、<strong>USBが「1」の側（右）になる向き</strong>にさしたときの、穴の番号です。ESP32の足は、b と i の行に入っているので、すぐ外がわの <strong>a と j の穴</strong>を使います。（<a href="manual.html#step1">説明書の配線図</a>と同じ向きです）</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>ESP32のピン</th><th>穴</th></tr></thead>
+      <tbody>
+        <tr><td>GPIO4</td><td>7a</td></tr>
+        <tr><td>GPIO13</td><td>5j</td></tr>
+        <tr><td>GPIO14</td><td>8j</td></tr>
+        <tr><td>GPIO27</td><td>9j</td></tr>
+        <tr><td>GPIO32</td><td>13j</td></tr>
+        <tr><td>GPIO33</td><td>12j</td></tr>
+        <tr><td>GPIO18</td><td>11a</td></tr>
+        <tr><td>GPIO25</td><td>11j</td></tr>
+        <tr><td>GPIO26</td><td>10j</td></tr>
+        <tr><td>5V（VIN）</td><td>1j</td></tr>
+        <tr><td>GND</td><td>6j、13a、19a</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>同じ列の a〜e の穴は、つながっています（f〜j も同じ）。ESP32の足の列の、c・d・e（または g・h）の穴を、使うこともできます。</p>
+
+  <div class="note"><strong>電源が入ったときは、ワイヤーの先に、さわらないでね。</strong>（画面に「さわらないでね」と出ている間に、さわっていない時の「ようす」を、おぼえます）</div>
+
+  <h2 id="use">つかいかた</h2>
+  <ul>
+    <li>ワイヤーの先を、さわると、その音が鳴ります。</li>
+    <li>2本いっしょにさわったときは、あとからさわったほうの音が、鳴ります。</li>
+    <li>音は、ド・レ・ミ・ファ・ソ・ラ の6つです。</li>
+  </ul>
+
+  <h3>お手本モード（曲が弾けます）</h3>
+  <ol class="steps">
+    <li>「ド」のワイヤーを、<strong>2秒</strong>さわりつづける。「お手本モード」になります。</li>
+    <li>画面に、曲の名前と、<strong>▼</strong>の印が出ます。▼が出ている鍵盤を、さわります。</li>
+    <li>じゅんばんにさわると、曲が弾けます。さいごまで弾くと、「できた!」と出て、さぼてんきくんが、喜びます。</li>
+    <li>違う鍵盤をさわると、さぼてんきくんが、「いたい!」の顔になります。（その音は鳴ります）</li>
+    <li>もう一度、「ド」を2秒さわると、つぎの曲になります。</li>
+  </ol>
+  <p>曲は、「めりーさんの ひつじ」「きらきらぼし」「ちょうちょう」の3つです。同じ音がつづくところは、1回ずつ、ワイヤーから指をはなして、さわり直します。</p>
+
+  <h3>かえてみよう</h3>
+  <ul>
+    <li><code>NOTE_HZ</code>：音の高さ（Hz）。数字が大きいほど、高い音です。</li>
+    <li><code>SONG_MARY</code> など：曲の音の並び。<strong>ド=0、レ=1、ミ=2、ファ=3、ソ=4、ラ=5</strong>の数字を、じゅんばんに書くと、<strong>自分の曲</strong>が作れます。</li>
+    <li><code>VOLUME</code>：音の大きさ。</li>
+  </ul>
+
+  <h2 id="code">プログラム</h2>
+  <p>コピーして、Arduino IDE に貼りつけます。<a href="program.html#steps">書き込みのやりかた</a>は、いつもと同じです。名前は「doremi」などで、保存してね。</p>
+  <details>
+    <summary>ドレミのプログラムを、ひらく</summary>
+    <div>
+      <div class="copybar"><button type="button" class="btn copy-btn" data-copy="code-doremi">ドレミをコピーする</button></div>
+<pre class="code"><code id="code-doremi">// さぼてんきくんの さわってドレミ（ESP32 + 0.96インチOLED + アンプ・スピーカー）
+//
+// 「さぼてんきけい」の、追加パックの プログラムです。
+// ワイヤー（や、アルミホイル、くだものなど）を さわると、「ドレミ」の音が 鳴ります。
+// 音に あわせて、さぼてんきくんが おどります。
+//
+// このプログラムは Wi-Fi / Bluetooth を一切使いません（WiFi.h などを読み込んでいません）。
+//
+// 必要なライブラリ: U8g2 （olikraus）
+// ボード設定: ツール → ボード → esp32 → 「ESP32 Dev Module」
+//
+// 必要な部品（キットのほかに）:
+//   ・アンプ MAX98357A モジュール（I2S）と、スピーカー
+//   ・ワイヤー 6本（さわる場所 用。ジャンパーワイヤーの オス側）
+//
+// 配線:
+//   ESP32 3V3     → OLED VDD
+//   ESP32 GND     → OLED GND
+//   ESP32 GPIO21  → OLED SDA
+//   ESP32 GPIO22  → OLED SCK
+//   ESP32 GPIO26  → アンプ BCLK
+//   ESP32 GPIO25  → アンプ LRC
+//   ESP32 GPIO18  → アンプ DIN
+//   ESP32 5V（VIN）→ アンプ VIN（アンプは、5Vでも 3.3Vでも 動きます）
+//   ESP32 GND     → アンプ GND
+//   アンプの 出力 → スピーカー（＋と −）
+//   さわる場所（ワイヤーの、もう一方の先は、どこにも つながない）:
+//     GPIO4  → ド     GPIO13 → レ     GPIO14 → ミ
+//     GPIO27 → ファ   GPIO32 → ソ     GPIO33 → ラ
+//
+// つかいかた:
+//   ワイヤーの先を さわると、その音が 鳴ります。さぼてんきくんは、音の 場所へ 行って おどります。
+//   2本いっしょに さわった ときは、あとから さわった ほうの 音が 鳴ります。
+//   「ド」の ワイヤーを 2びょう さわりつづけると、「お手本モード」に なります。
+//     お手本モードでは、つぎに さわる 鍵盤の 上に ▼ が 出ます。じゅんばんに さわると、曲が 弾けます。
+//     曲は、「めりーさんの ひつじ」「きらきらぼし」「ちょうちょう」の 3つ。
+//     もういちど 2びょう さわりつづけると、つぎの 曲 → ... → じゆうに ひく、と きりかわります。
+//   ※ 電源を入れる時は、ワイヤーの先に、さわらないでください。
+
+#include &lt;Wire.h&gt;
+#include &lt;U8g2lib.h&gt;
+#include &lt;ESP_I2S.h&gt;
+
+// =====================================================================
+//  かえてみよう！（ここから下を書きかえると、音や 動きがかわります）
+//  書きかえたら、もう一度「書き込み」ボタン（→）をおしてね。
+// =====================================================================
+
+// ---- ① 音を かえてみよう ----
+// 音の 高さ（Hz）。数字が 大きいほど 高い音です。ド・レ・ミ・ファ・ソ・ラ の じゅんばん。
+const int NOTE_HZ[6] = {523, 587, 659, 698, 784, 880};
+// 画面の 鍵盤に 出る 文字（ひらがな・カタカナが おすすめ）
+const char *NOTE_NAME[6] = {&quot;ド&quot;, &quot;レ&quot;, &quot;ミ&quot;, &quot;ファ&quot;, &quot;ソ&quot;, &quot;ラ&quot;};
+const int VOLUME = 4000;   // 音の 大きさ（0〜20000。大きすぎると ひずみます）
+
+// ---- ② お手本の 曲を かえてみよう ----
+// 音の ばんごう: ド=0  レ=1  ミ=2  ファ=3  ソ=4  ラ=5
+// 同じ 音が つづく ところは、1回ずつ、はなして、さわりなおします。
+// 曲の 名前は、画面の 左上に 出ます（ぜんぶで 6もじ まで）。
+const uint8_t SONG_MARY[] = {              // めりーさんの ひつじ
+  2, 1, 0, 1, 2, 2, 2,   1, 1, 1,   2, 4, 4,
+  2, 1, 0, 1, 2, 2, 2, 2,   1, 1, 2, 1, 0};
+const uint8_t SONG_KIRAKIRA[] = {          // きらきらぼし
+  0, 0, 4, 4, 5, 5, 4,   3, 3, 2, 2, 1, 1, 0,
+  4, 4, 3, 3, 2, 2, 1,   4, 4, 3, 3, 2, 2, 1,
+  0, 0, 4, 4, 5, 5, 4,   3, 3, 2, 2, 1, 1, 0};
+const uint8_t SONG_CHOUCHOU[] = {          // ちょうちょう
+  4, 2, 2,   3, 1, 1,   0, 1, 2, 3, 4, 4, 4,
+  4, 2, 2, 2,   3, 1, 1, 1,   0, 2, 4, 4, 2,
+  1, 1, 1, 1, 1, 2, 3,   2, 2, 2, 2, 2, 3, 4,
+  4, 2, 2,   3, 1, 1,   0, 2, 4, 4, 0};
+struct Song {
+  const char *name;
+  const uint8_t *notes;
+  int n;
+};
+const Song SONGS[] = {
+  {&quot;めりーさん&quot;, SONG_MARY, (int)sizeof(SONG_MARY)},
+  {&quot;きらきらぼし&quot;, SONG_KIRAKIRA, (int)sizeof(SONG_KIRAKIRA)},
+  {&quot;ちょうちょう&quot;, SONG_CHOUCHOU, (int)sizeof(SONG_CHOUCHOU)},
+};
+const int SONG_N = 3;                      // 曲の かず（かえたら、おなじ数に）
+const unsigned long MODE_HOLD_MS = 2000;   // 「ド」を これだけ さわりつづけると、お手本モードが きりかわる（ミリ秒）
+
+// ---- ③ さぼてんきくんの うごきを かえてみよう ----
+const unsigned long DANCE_MS = 120;   // おどりの 絵の きりかえの間かく（ミリ秒）。小さいほど はやい
+const unsigned long ANIME_MS = 500;   // 音が ない ときの 絵の きりかえの間かく（ミリ秒）
+
+// ---- ④ タッチの ぐあいを かえてみよう ----
+// 0.3〜0.9 の間で。反応しすぎる時は 小さく、反応しない時は 大きく。
+const float TOUCH_RATIO = 0.6;
+const int TOUCH_CONFIRM = 2;               // 何回つづけて 同じなら さわったと みなすか（小さいほど すばやい）
+const unsigned long LONG_MS = 1200;
+
+// ---- ⑤ 0と1で 絵をかえてみよう ----
+// 1 が「光るドット」、0 が「光らないドット」です。1行に16こ、16行あります。
+// 名前のさいごに 2 がついているのが、絵2 です。（交互に出して、おどって見えます）
+
+// かいてき: にこにこ顔の さぼてんきくん
+const char *MARK_KAITEKI[16] = {
+  &quot;0000000110000000&quot;,
+  &quot;0000001111000000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0110010110100000&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// かいてき（絵2）
+const char *MARK_KAITEKI2[16] = {
+  &quot;0000000110000000&quot;,
+  &quot;0000001111000000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000010110100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011001111110&quot;,
+  &quot;0111111111111100&quot;,
+  &quot;0011111111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// じめじめ: じめじめ顔の さぼてんきくん
+const char *MARK_JIMEJIME[16] = {
+  &quot;0100000110000000&quot;,
+  &quot;0011001111000110&quot;,
+  &quot;0000011111101000&quot;,
+  &quot;0011010110100000&quot;,
+  &quot;0110010110101100&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010000100110&quot;,
+  &quot;0111111111100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// じめじめ（絵2）
+const char *MARK_JIMEJIME2[16] = {
+  &quot;1000000110000000&quot;,
+  &quot;0100001111000010&quot;,
+  &quot;0000011111100100&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010000100110&quot;,
+  &quot;0111111111100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// からから: からからで あつそうな さぼてんきくん
+const char *MARK_KARAKARA[16] = {
+  &quot;0000000110001000&quot;,
+  &quot;0010001111000100&quot;,
+  &quot;0100011111101000&quot;,
+  &quot;0010011111100100&quot;,
+  &quot;0100010110100000&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0011111001111110&quot;,
+  &quot;0111110000100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// からから（絵2）
+const char *MARK_KARAKARA2[16] = {
+  &quot;0000000110000100&quot;,
+  &quot;0100001111001000&quot;,
+  &quot;0010011111100100&quot;,
+  &quot;0100011111101000&quot;,
+  &quot;0010010110100000&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0011111001111110&quot;,
+  &quot;0111110110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// いたい！: タッチして、びっくりした さぼてんきくん（絵1）
+const char *MARK_ITAI[16] = {
+  &quot;1000000110000001&quot;,
+  &quot;0100001111000010&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0110010110100000&quot;,
+  &quot;0110011001100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011001100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// いたい！（絵2）
+const char *MARK_ITAI2[16] = {
+  &quot;0100000110000010&quot;,
+  &quot;1000001111000001&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0110010110100000&quot;,
+  &quot;0110011001100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011001100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// えへへ: なでられて、うれしい さぼてんきくん（絵1）
+const char *MARK_TERE[16] = {
+  &quot;0001000110001000&quot;,
+  &quot;0011101111011100&quot;,
+  &quot;0001011111101000&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// えへへ（絵2）
+const char *MARK_TERE2[16] = {
+  &quot;0000000110000000&quot;,
+  &quot;0001001111001000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0110011111100000&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0110011111100110&quot;,
+  &quot;0110010110100110&quot;,
+  &quot;0111111001100110&quot;,
+  &quot;0011111111111110&quot;,
+  &quot;0000011111111100&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0000011111100000&quot;,
+  &quot;0011111111111100&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0001000000001000&quot;,
+  &quot;0000111111110000&quot;,
+};
+
+// =====================================================================
+//  かえてみよう ここまで（ここから下は、なれてきたら読んでみよう）
+// =====================================================================
+
+U8G2_SSD1306_128X64_NONAME_F_HW_I2C display(U8G2_R0, U8X8_PIN_NONE);
+
+const int MARK_SIZE = 16;
+const int MARK_SCALE = 2;
+
+const int I2S_BCLK = 26;
+const int I2S_LRC = 25;
+const int I2S_DIN = 18;
+
+struct TouchPad {
+  int pin;
+  float base;               // さわっていない時の 値（きじゅん）
+  bool down;                // いま さわっているか
+  int cnt;                  // ちょうし を みる ための かぞえ
+  unsigned long pendMs;     // さわり はじめた とき
+  unsigned long downMs;     // さわった ときこく
+  bool longFired;
+  bool pressedEdge;         // いま さわった
+  bool releasedEdge;        // いま はなした
+  bool longEdge;            // いま ながく さわった
+  unsigned long heldMs;     // はなした とき の、さわっていた 長さ
+};
+
+// ESP32 は、さわると 値が 小さくなる
+float measureBase(int pin) {
+  long sum = 0;
+  for (int i = 0; i &lt; 16; i++) {
+    sum += touchRead(pin);
+    delay(4);
+  }
+  return sum / 16.0f;
+}
+
+void padUpdate(TouchPad &amp;p, unsigned long now) {
+  p.pressedEdge = false;
+  p.releasedEdge = false;
+  p.longEdge = false;
+  float v = (float)touchRead(p.pin);
+  bool raw = v &lt; p.base * TOUCH_RATIO;
+  if (raw == p.down) {
+    p.cnt = 0;
+    // さわっていない間は、きじゅんを、ゆっくり なおす
+    if (!raw &amp;&amp; v &gt; p.base * 0.8f) p.base = p.base * 0.98f + v * 0.02f;
+  } else {
+    if (p.cnt == 0) p.pendMs = now;
+    p.cnt++;
+    if (p.cnt &gt;= TOUCH_CONFIRM) {  // 3回つづけて 同じ → きまり（ちらつき よけ。かず は TOUCH_CONFIRM）
+      p.down = raw;
+      p.cnt = 0;
+      if (raw) {
+        p.pressedEdge = true;
+        p.downMs = p.pendMs;
+        p.longFired = false;
+      } else {
+        p.releasedEdge = true;
+        p.heldMs = now - p.downMs;
+      }
+    }
+  }
+  if (p.down &amp;&amp; !p.longFired &amp;&amp; now - p.downMs &gt;= LONG_MS) {
+    p.longFired = true;
+    p.longEdge = true;
+  }
+}
+
+// ---- 音を出す（MAX98357A アンプ + スピーカー）----
+// 音は、「音のたんとう」の仕事（別の仕事）が、ずっと出しつづけます。
+// g_freq に、音の高さ（Hz）を入れると、その音が鳴りつづけます。0 を入れると、しずかになります。
+// g_bellHz に、音の高さ（Hz）を入れると、かねを「カーン」と 1回 たたいた音が 鳴ります（すぐ 0 にもどります）。
+const int SAMPLE_RATE = 16000;
+I2SClass i2s;
+volatile int g_freq = 0;
+volatile int g_bellHz = 0;
+
+void audioTask(void *arg) {
+  static int16_t buf[160];
+  float phase = 0, amp = 0;
+  float bellPhase = 0, bellStep = 0, bellAmp = 0;
+  while (true) {
+    int bh = g_bellHz;
+    if (bh &gt; 0) {                 // かねを たたく
+      bellStep = 2.0f * 3.14159265f * bh / SAMPLE_RATE;
+      bellPhase = 0;
+      bellAmp = 1.0f;
+      g_bellHz = 0;
+    }
+    int f = g_freq;
+    float target = (f &gt; 0) ? (float)VOLUME : 0.0f;
+    float step = (f &gt; 0) ? (2.0f * 3.14159265f * f / SAMPLE_RATE) : 0.0f;
+    for (int i = 0; i &lt; 160; i++) {
+      amp += (target - amp) * 0.02f;   // ふわっと 大きく・小さく（ぶつっ という音を へらす）
+      phase += step;
+      if (phase &gt; 6.2831853f) phase -= 6.2831853f;
+      float v = (sinf(phase) + 0.3f * sinf(phase * 3.0f)) * amp * 0.75f;
+      if (bellAmp &gt; 0.001f) {       // かねの 音: 高い 音が まざって、だんだん 小さくなる
+        bellPhase += bellStep;
+        float b = sinf(bellPhase) + 0.5f * sinf(bellPhase * 2.76f) + 0.25f * sinf(bellPhase * 5.4f);
+        v += b * bellAmp * VOLUME * 0.5f;
+        bellAmp *= 0.9993f;         // 「カーン」の 長さ（1に ちかいほど 長い）
+      }
+      buf[i] = (int16_t)v;
+    }
+    i2s.write((uint8_t *)buf, sizeof(buf));
+  }
+}
+
+void audioBegin() {
+  i2s.setPins(I2S_BCLK, I2S_LRC, I2S_DIN);
+  if (!i2s.begin(I2S_MODE_STD, SAMPLE_RATE, I2S_DATA_BIT_WIDTH_16BIT, I2S_SLOT_MODE_MONO)) {
+    Serial.println(&quot;アンプ（MAX98357A）が はじめられません。配線を たしかめてください&quot;);
+    return;
+  }
+  xTaskCreatePinnedToCore(audioTask, &quot;audio&quot;, 4096, NULL, 1, NULL, 0);
+}
+
+const int NPADS = 6;
+TouchPad pads[NPADS] = {
+  {4, 0, false, 0, 0, 0, false, false, false, false, 0},
+  {13, 0, false, 0, 0, 0, false, false, false, false, 0},
+  {14, 0, false, 0, 0, 0, false, false, false, false, 0},
+  {27, 0, false, 0, 0, 0, false, false, false, false, 0},
+  {32, 0, false, 0, 0, 0, false, false, false, false, 0},
+  {33, 0, false, 0, 0, 0, false, false, false, false, 0},
+};
+unsigned long lastPress[NPADS] = {0, 0, 0, 0, 0, 0};
+
+// ---- 0と1の絵を、画面にかく（scale は 1ドットを 何倍で出すか）----
+void drawMarkS(const char *const mark[], int x, int y, int scale) {
+  for (int row = 0; row &lt; MARK_SIZE; row++) {
+    const char *line = mark[row];
+    for (int col = 0; col &lt; MARK_SIZE &amp;&amp; line[col] != &#x27;\0&#x27;; col++) {
+      if (line[col] == &#x27;1&#x27;) {
+        display.drawBox(x + col * scale, y + row * scale, scale, scale);
+      }
+    }
+  }
+}
+void drawMark(const char *const mark[], int x, int y) {
+  drawMarkS(mark, x, y, MARK_SCALE);
+}
+
+int current = -1;          // いま 鳴っている 音（-1 は しずか）
+float cactusX = 48;        // さぼてんきくんの よこいち
+
+const int KEY_W = 20;
+const int KEY_X0 = 1;      // 6こ × 21 ドット = 126
+const int KEY_Y = 48;
+
+// ---- お手本モード ----
+int songMode = -1;         // -1: じゆうに ひく　0〜: お手本の 曲ばんごう
+int songPos = 0;           // 何ばんめの 音か
+bool songDone = false;     // 弾きおわった
+unsigned long doneMs = 0;
+unsigned long missUntil = 0;   // まちがえた ときの 顔の 長さ
+bool modeFired = false;
+
+void drawScene(unsigned long now) {
+  display.clearBuffer();
+  display.setFont(u8g2_font_b12_t_japanese2);
+  bool teach = (songMode &gt;= 0);
+
+  // さぼてんきくん
+  const char *const *m;
+  int hop = 0;
+  bool dance = (current &gt;= 0) || songDone;
+  int f = (now / DANCE_MS) % 2;
+  if (teach &amp;&amp; now &lt; missUntil) {
+    m = f ? MARK_ITAI2 : MARK_ITAI;
+  } else if (dance) {
+    hop = f ? -5 : 0;
+    m = f ? MARK_TERE2 : MARK_KAITEKI2;
+    if (current &gt;= 3 || songDone) m = f ? MARK_TERE : MARK_TERE2;
+  } else {
+    m = ((now / ANIME_MS) % 2) ? MARK_KAITEKI2 : MARK_KAITEKI;
+  }
+  int cy = teach ? 6 : 11;
+  drawMarkS(m, (int)cactusX, cy + (hop &lt; 0 ? hop : 0), MARK_SCALE);
+
+  // お手本の 表示
+  if (teach) {
+    char t[24];
+    display.drawUTF8(0, 13, SONGS[songMode].name);
+    if (songDone) snprintf(t, sizeof(t), &quot;できた!&quot;);
+    else snprintf(t, sizeof(t), &quot;%d/%d&quot;, songPos + 1, SONGS[songMode].n);
+    display.drawUTF8(0, 29, t);
+    if (!songDone &amp;&amp; (now / 300) % 2 == 0) {
+      int tn = SONGS[songMode].notes[songPos];
+      int cx = KEY_X0 + tn * (KEY_W + 1) + KEY_W / 2;
+      display.drawTriangle(cx - 4, 40, cx + 4, 40, cx, 46);   // つぎは ここ！
+    }
+  }
+
+  // 鍵盤
+  display.setFont(u8g2_font_b10_t_japanese1);
+  for (int i = 0; i &lt; NPADS; i++) {
+    int x = KEY_X0 + i * (KEY_W + 1);
+    bool on = (i == current);
+    if (on) display.drawBox(x, KEY_Y, KEY_W, 16);
+    else display.drawFrame(x, KEY_Y, KEY_W, 16);
+    display.setDrawColor(on ? 0 : 1);
+    int w = display.getUTF8Width(NOTE_NAME[i]);
+    display.drawUTF8(x + (KEY_W - w) / 2, KEY_Y + 12, NOTE_NAME[i]);
+    display.setDrawColor(1);
+  }
+  display.sendBuffer();
+}
+
+void setup() {
+  Serial.begin(115200);
+  Wire.begin(21, 22);
+  display.begin();
+  display.setBusClock(400000);
+  display.enableUTF8Print();
+  display.setFont(u8g2_font_b12_t_japanese2);
+
+  display.clearBuffer();
+  display.drawUTF8(0, 30, &quot;さわってドレミ&quot;);
+  drawMarkS(MARK_KAITEKI, 48, 4, 1);
+  display.drawUTF8(0, 62, &quot;さわらないでね&quot;);
+  display.sendBuffer();
+
+  audioBegin();
+  for (int i = 0; i &lt; NPADS; i++) pads[i].base = measureBase(pads[i].pin);
+  Serial.println(&quot;タッチの きじゅん:&quot;);
+  for (int i = 0; i &lt; NPADS; i++) Serial.printf(&quot;  GPIO%d = %.0f\n&quot;, pads[i].pin, pads[i].base);
+}
+
+void loop() {
+  unsigned long now = millis();
+  for (int i = 0; i &lt; NPADS; i++) {
+    padUpdate(pads[i], now);
+    if (pads[i].pressedEdge) lastPress[i] = now;
+  }
+
+  // 「ド」を 2びょう さわりつづけると、お手本モードを きりかえる
+  if (pads[0].pressedEdge) modeFired = false;
+  if (pads[0].down &amp;&amp; !modeFired &amp;&amp; now - pads[0].downMs &gt;= MODE_HOLD_MS) {
+    modeFired = true;
+    songMode++;
+    if (songMode &gt;= SONG_N) songMode = -1;
+    songPos = 0;
+    songDone = false;
+    Serial.printf(&quot;お手本モード = %d\n&quot;, songMode);
+  }
+
+  // さわっている 中で、いちばん あとから さわった ものの 音を 鳴らす
+  // （モードを きりかえている 間の「ド」は、しずかに する）
+  int best = -1;
+  for (int i = 0; i &lt; NPADS; i++) {
+    if (!pads[i].down) continue;
+    if (i == 0 &amp;&amp; modeFired) continue;
+    if (best &lt; 0 || lastPress[i] &gt; lastPress[best]) best = i;
+  }
+  current = best;
+  g_freq = (best &gt;= 0) ? NOTE_HZ[best] : 0;
+
+  // お手本: つぎの 音を さわったら すすむ
+  if (songMode &gt;= 0) {
+    if (songDone) {
+      if (now - doneMs &gt; 3000) { songDone = false; songPos = 0; }   // 3びょう あと、さいしょから
+    } else {
+      for (int i = 0; i &lt; NPADS; i++) {
+        if (!pads[i].pressedEdge || (i == 0 &amp;&amp; modeFired)) continue;
+        if (i == SONGS[songMode].notes[songPos]) {
+          songPos++;
+          if (songPos &gt;= SONGS[songMode].n) { songDone = true; doneMs = now; }
+        } else {
+          missUntil = now + 400;      // ちがう 音
+        }
+      }
+    }
+  }
+
+  // さぼてんきくんは、音の 場所へ（お手本モードでは 右がわに いる）
+  float target = cactusX;
+  if (songMode &gt;= 0) {
+    target = 92;
+  } else if (current &gt;= 0) {
+    target = KEY_X0 + current * (KEY_W + 1) + KEY_W / 2 - MARK_SIZE * MARK_SCALE / 2;
+  }
+  if (target &lt; 0) target = 0;
+  if (target &gt; 128 - MARK_SIZE * MARK_SCALE) target = 128 - MARK_SIZE * MARK_SCALE;
+  cactusX += (target - cactusX) * 0.35f;
+
+  drawScene(now);
+}
+</code></pre>
+    </div>
+  </details>
+
+  <h2 id="trouble">うまくいかないとき</h2>
+  <ul>
+    <li><strong>音が出ない</strong>：アンプの配線（BCLK・LRC・DIN・VIN・GND）と、スピーカーの＋−を、たしかめます。<code>VOLUME</code>の数字を、大きくしてみます。シリアルモニター（115200）に「アンプが はじめられません」と出ていないかも、見ます。</li>
+    <li><strong>音がひずむ</strong>：<code>VOLUME</code>の数字を、小さくします。</li>
+    <li><strong>さわっても反応しない・反応しすぎる</strong>：プログラムの先頭の <code>TOUCH_RATIO</code> の数字を、かえてみます。<strong>反応しすぎる時は 小さく、反応しない時は 大きく</strong>（0.3〜0.9の間）。</li>
+    <li><strong>音が、ちがうワイヤーで鳴る</strong>：表の「ESP32のピン」と、ワイヤーの穴が、合っているか、たしかめます。</li>
+  </ul>
+
+  <p><a class="btn" href="sound.html">音が出るプログラムへ</a> <a class="btn ghost" href="next.html">つぎの一歩へ</a></p>
+
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <ul>
+      <li><a href="index.html">トップ</a></li>
+      <li><a href="manual.html">説明書</a></li>
+      <li><a href="parents.html">おうちの人へ</a></li>
+      <li><a href="next.html">つぎの一歩</a></li>
+      <li><a href="index.html#about">このサイトについて</a></li>
+    </ul>
+    <p>学習用の個人制作です。動作や安全についての保証はありません。小さな部品があります。小さなお子さまの誤飲にご注意ください。</p>
+    <p class="foot-sabo"><canvas class="sabo xs" data-face="kaiteki" aria-hidden="true"></canvas><span>&copy; 2026 でんき工作研究室（e-kosaku-lab）</span></p>
+  </div>
+</footer>
+<script src="sabo.js"></script>
+<script src="lightbox.js" defer></script>
+<script>
+document.addEventListener('click',function(e){
+  var b=e.target.closest('.copy-btn'); if(!b) return;
+  var el=document.getElementById(b.getAttribute('data-copy')); if(!el) return;
+  var t=el.textContent, o=b.getAttribute('data-label')||b.textContent; b.setAttribute('data-label',o);
+  function done(m){ b.textContent=m; setTimeout(function(){ b.textContent=o; },3000); }
+  function pick(){ var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r); done('文字を選びました。Ctrl+C（Macは⌘+C）でコピーしてください'); }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(function(){ done('コピーしました'); }, pick); } else { pick(); }
+});
+</script>
+</body>
+</html>
