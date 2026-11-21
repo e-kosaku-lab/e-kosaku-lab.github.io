@@ -49,8 +49,7 @@ pre.code{max-height:28em;overflow:auto;font-size:.82rem;line-height:1.5;white-sp
         <tr><td class="nw">小さなスピーカー</td><td>1</td></tr>
         <tr><td class="nw">赤いLED</td><td>2</td></tr>
         <tr><td class="nw">220Ωくらいの抵抗</td><td>2</td></tr>
-        <tr><td class="nw">ワイヤー（さわる場所用）</td><td>2</td></tr>
-        <tr><td class="nw">ワイヤー（LED・アンプ用）</td><td>いくつか（メスつきがあると、らくです）</td></tr>
+        <tr><td class="nw">ワイヤー</td><td>13本（キットの10本と、追加パックの10本から、使います）</td></tr>
       </tbody>
     </table>
   </div>
@@ -58,74 +57,74 @@ pre.code{max-height:28em;overflow:auto;font-size:.82rem;line-height:1.5;white-sp
   <h2 id="wire">つなぎかた</h2>
   <div class="note"><strong>USBケーブルは、はずしてからね。</strong>ブレッドボードは、せまいので、<strong>場所を、いちばんとる「LEDと抵抗」を、先にさします。</strong>そのあと、ワイヤーで、つなぎます。</div>
 
+  <figure>
+    <div class="scrollx"><img src="images/fumikiri-wiring.svg" width="1040" height="1095" alt="ふみきりの配線図。ブレッドボードの上に、ESP32、画面、アンプ、LED2個、抵抗2本があり、13本のワイヤーでつながっている。" loading="lazy"></div>
+    <figcaption>ふみきりの配線図（ブレッドボードを上から見たところ）。スマホでは、横にずらして見られます。<a href="images/fumikiri-wiring.svg" target="_blank" rel="noopener">図を大きく開く</a></figcaption>
+  </figure>
+
   <h3>つなぐ順番</h3>
   <ol class="steps">
-    <li><strong>LEDと抵抗を、先に、ブレッドボードにさす。</strong>「さぼてんきけい」の配線（センサーと画面の列）を、さけて、あいている場所にさします。
-      <ul>
-        <li>赤LEDは、<strong>足の長い方が ＋</strong>、短い方が − です。</li>
-        <li>LEDの＋の足に、<strong>抵抗を1本ずつ、つなぎます</strong>（LEDと抵抗が、同じ列になるように）。<strong>抵抗なしでつなぐと、LEDやボードが、こわれることがあります。</strong></li>
-      </ul></li>
-    <li><strong>LEDを、ESP32につなぐ。</strong>抵抗の、もう一方の足を、ESP32のピンへ。LEDの−の足を、GNDへ。
+    <li><strong>LEDと抵抗を、先に、ブレッドボードにさす。</strong>ESP32は、いつもの向き（USBが右）に、さしておきます。
       <div class="tablewrap"><table>
-        <thead><tr><th>ESP32</th><th>穴</th><th>つなぐもの</th></tr></thead>
+        <thead><tr><th>部品</th><th>さす穴</th></tr></thead>
         <tbody>
-          <tr><td>GPIO16</td><td>8a</td><td>抵抗 → 赤LED（左）の ＋</td></tr>
-          <tr><td>GPIO17</td><td>9a</td><td>抵抗 → 赤LED（右）の ＋</td></tr>
-          <tr><td>GND</td><td>13a または 19a</td><td>2つのLEDの − の足</td></tr>
+          <tr><td class="nw">赤LED①（左のランプ）</td><td>＋（足の長い方）が c23、−（短い方）が c27</td></tr>
+          <tr><td class="nw">赤LED②（右のランプ）</td><td>＋が d24、− が d27</td></tr>
+          <tr><td class="nw">抵抗①</td><td>e23 と i22（LED①の ＋と、同じ列から、まん中のみぞを、またぎます）</td></tr>
+          <tr><td class="nw">抵抗②</td><td>e24 と i23（LED②の ＋と、同じ列から）</td></tr>
         </tbody>
-      </table></div></li>
-    <li><strong>ここで、一度、確かめる。</strong>USBをさして、ふみきりのプログラムを書き込みます。ワイヤーのかわりに、まだ音は出なくても、<strong>LEDが、かわりばんこに光れば、ここまで成功</strong>です。（ワイヤーは、次の手順でつなぎます。LEDだけ見たいときは、D14の穴「8j」に、ワイヤーを1本さして、先をさわります）</li>
-    <li><strong>アンプとスピーカーを、つなぐ。</strong>（下の表）</li>
-    <li><strong>さわるワイヤーを、2本つなぐ。</strong>D14（8j）と D27（9j）。</li>
+      </table></div>
+      <strong>抵抗なしでつなぐと、LEDやボードが、こわれることがあります。</strong></li>
+    <li><strong>アンプと画面を、さす。</strong>（アンプは j24〜j30、画面は a27〜a30。下の「アンプと画面を、さす場所」）</li>
+    <li><strong>電気のワイヤーを、つなぐ。</strong>下の表の<strong>1〜4</strong>。（LEDの − は、画面の GND と、同じ27列なので、これで、GNDにつながります）</li>
+    <li><strong>画面のワイヤーを、つなぐ。</strong>表の<strong>5・6</strong>。</li>
+    <li><strong>LEDを、ESP32につなぐ。</strong>表の<strong>7・8</strong>。</li>
+    <li><strong>ここで、一度、確かめる。</strong>USBをさして、ふみきりのプログラムを書き込みます。画面が出て、「さわらないでね」のあと、ワイヤーの先をさわれば、<strong>LEDが、かわりばんこに光ります</strong>。（まだ音は出ません。さわるワイヤーは、あとでつなぐので、D14の穴「j8」に、ワイヤーを1本さして、その先を、さわります）</li>
+    <li><strong>アンプを、ESP32につなぐ。</strong>表の<strong>9〜11</strong>。スピーカーを、アンプのねじ端子につなぎます。</li>
+    <li><strong>さわるワイヤーを、2本つなぐ。</strong>表の<strong>12・13</strong>。</li>
     <li>USBをさして、ワイヤーの先を、さわってみよう。</li>
   </ol>
-  <h3>アンプとスピーカー</h3>
-  <p>アンプ（MAX98357A）の足には、「LRC」「BCLK」「DIN」「GAIN」「SD」「GND」「VIN」と、文字が書いてあります。<strong>文字を見て</strong>、つないでください。「GAIN」と「SD」は、つながなくて、だいじょうぶです。</p>
-  <div class="tablewrap">
-    <table>
-      <thead><tr><th>ESP32</th><th>穴</th><th>アンプ</th></tr></thead>
-      <tbody>
-        <tr><td>GPIO26</td><td>10j</td><td>BCLK</td></tr>
-        <tr><td>GPIO25</td><td>11j</td><td>LRC</td></tr>
-        <tr><td>GPIO18</td><td>11a</td><td>DIN</td></tr>
-        <tr><td>5V（VIN）</td><td>1j</td><td>VIN</td></tr>
-        <tr><td>GND</td><td>6j、13a、19a のどれか</td><td>GND</td></tr>
-        <tr><td colspan="3">アンプの出力（＋と−）→ スピーカー（＋と−）</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p>アンプは、ブレッドボードに、さしても、ワイヤー（メスつき）で、つないでも、かまいません。<strong>場所がせまいときは、アンプを、ブレッドボードの外に置いて、メスつきのワイヤーで、つなぐ</strong>と、らくです。</p>
 
-  <h3>さわる場所（ワイヤー）</h3>
+  <h3>アンプと画面を、さす場所</h3>
+  <p>アンプ（MAX98357A）の足には、「LRC」「BCLK」「DIN」「GAIN」「SD」「GND」「VIN」と、文字が書いてあります。<strong>文字を見て</strong>、さしてください。「GAIN」と「SD」は、つながなくて、だいじょうぶです。</p>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>ESP32のピン</th><th>穴</th><th>はたらき</th></tr></thead>
+      <thead><tr><th>部品</th><th>さす穴</th></tr></thead>
       <tbody>
-        <tr><td>GPIO14（D14）</td><td>8j</td><td>ふみきりが はじまる</td></tr>
-        <tr><td>GPIO27（D27）</td><td>9j</td><td>さぼてんきくんが 通る</td></tr>
+        <tr><td class="nw">アンプ（MAX98357A）</td><td>下の j24〜j30（j24が LRC、j25が BCLK、j26が DIN、j27が GAIN、j28が SD、j29が GND、j30が VIN）。本体は、ブレッドボードの外（下）に、はみだします</td></tr>
+        <tr><td class="nw">画面（OLED）</td><td>上の a27〜a30（a27が GND、a28が VDD、a29が SCK、a30が SDA）。本体は、ブレッドボードの外（上）に、はみだします</td></tr>
       </tbody>
     </table>
   </div>
-  <p>ワイヤーの、もう一方の先（金属の部分）は、<strong>どこにもつながず</strong>、あけておきます。ここを、<strong>さわります</strong>。くわしくは、<a href="touch.html">タッチ版のページ</a>と同じです。</p>
-  <h3>ESP32のピンと、ブレッドボードの穴</h3>
-  <p>「さぼてんきけい」と同じように、ESP32を、<strong>USBが「1」の側（右）になる向き</strong>にさしたときの、穴の番号です。ESP32の足は、b と i の行に入っているので、すぐ外がわの <strong>a と j の穴</strong>を使います。（<a href="manual.html#step1">説明書の配線図</a>と同じ向きです）</p>
+  <p>アンプが、下の場所を、使うので、<strong>画面は、上の a27〜a30 に、さし直します</strong>。温度・湿度のセンサーは、使わないので、はずしてください。</p>
+
+  <h3>ワイヤー13本の表</h3>
+  <p>穴の番号は、ESP32を、<strong>USBが「1」の側（右）になる向き</strong>にさしたときのものです。ESP32の足は b と i の行に入っているので、すぐ外がわの <strong>a と j の穴</strong>を使います。同じ列の a〜e の穴は、つながっています（f〜j も同じ）。（<a href="manual.html#step1">説明書の配線図</a>と同じ向きです）</p>
+  <p>色は、追加パックの10色セット（黒・白・灰・紫・青・緑・黄・オレンジ・赤・茶）に合わせた<strong>目安</strong>です。色をそろえると、まちがえにくくなります。</p>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>ESP32のピン</th><th>穴</th></tr></thead>
+      <thead><tr><th>#</th><th>色</th><th>どこから</th><th>どこへ</th><th>はたらき</th></tr></thead>
       <tbody>
-        <tr><td>GPIO16</td><td>8a</td></tr>
-        <tr><td>GPIO17</td><td>9a</td></tr>
-        <tr><td>GPIO18</td><td>11a</td></tr>
-        <tr><td>GPIO25</td><td>11j</td></tr>
-        <tr><td>GPIO26</td><td>10j</td></tr>
-        <tr><td>GPIO14</td><td>8j</td></tr>
-        <tr><td>GPIO27</td><td>9j</td></tr>
-        <tr><td>5V（VIN）</td><td>1j</td></tr>
-        <tr><td>GND</td><td>6j、13a、19a</td></tr>
+        <tr><td>1</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#d62828;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>赤</td><td>ESP32の 3V3（j19）</td><td>アンプの VIN（h30）</td><td>電気（＋）を、アンプへ</td></tr>
+        <tr><td>2</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#d62828;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>赤</td><td>アンプの VINの列（g30）</td><td>画面の VDD（e28）</td><td>電気（＋）を、画面へ</td></tr>
+        <tr><td>3</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#222222;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>黒</td><td>ESP32の GND（a19）</td><td>アンプの GND（h29）</td><td>電気（−）を、アンプへ</td></tr>
+        <tr><td>4</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#222222;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>黒</td><td>アンプの GNDの列（g29）</td><td>画面の GND（e27）</td><td>電気（−）を、画面へ</td></tr>
+        <tr><td>5</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#2a9d44;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>緑</td><td>ESP32の D22（a17）</td><td>画面の SCK（e29）</td><td>画面の 時計</td></tr>
+        <tr><td>6</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#e6c200;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>黄</td><td>ESP32の D21（a14）</td><td>画面の SDA（e30）</td><td>画面の データ</td></tr>
+        <tr><td>7</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#8b5a2b;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>茶</td><td>ESP32の D16（a8）</td><td>抵抗①の足（j22）</td><td>LED①（左のランプ）</td></tr>
+        <tr><td>8</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#ff8a00;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>オレンジ</td><td>ESP32の D17（a9）</td><td>抵抗②の足（j23）</td><td>LED②（右のランプ）</td></tr>
+        <tr><td>9</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#9a9a9a;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>灰</td><td>ESP32の D25（j11）</td><td>アンプの LRC（h24）</td><td>音の 左右の ふり分け</td></tr>
+        <tr><td>10</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#1e88e5;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>青</td><td>ESP32の D26（j10）</td><td>アンプの BCLK（h25）</td><td>音の 時計</td></tr>
+        <tr><td>11</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#7b3fb0;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>紫</td><td>ESP32の D18（a11）</td><td>アンプの DIN（h26）</td><td>音の データ</td></tr>
+        <tr><td>12</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#ffffff;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>白</td><td>ESP32の D14（j8）</td><td>さわる場所①（先は、どこにもつながない）</td><td>ふみきりが はじまる</td></tr>
+        <tr><td>13</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#8b5a2b;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>茶</td><td>ESP32の D27（j9）</td><td>さわる場所②（先は、どこにもつながない）</td><td>さぼてんきくんが 通る</td></tr>
       </tbody>
     </table>
   </div>
-  <p>同じ列の a〜e の穴は、つながっています（f〜j も同じ）。ESP32の足の列の、c・d・e（または g・h）の穴を、使うこともできます。</p>
+  <p>ワイヤーの、さわる場所の先（金属の部分）は、<strong>どこにもつながず</strong>、あけておきます。ここを、<strong>さわります</strong>。くわしくは、<a href="touch.html">タッチ版のページ</a>と同じです。</p>
+  <h3>スピーカー</h3>
+  <p>スピーカーの2本の線を、アンプの<strong>ねじ端子（＋と−）</strong>に、つなぎます。小さい（10mmくらい）スピーカーで、だいじょうぶです。</p>
+  <p>アンプは、ブレッドボードに、さす代わりに、メスつきのワイヤーで、つないでも、かまいません。<strong>場所がせまいときは、アンプを、ブレッドボードの外に置いて、メスつきのワイヤーで、つなぐ</strong>と、らくです。</p>
 
   <div class="note"><strong>電源が入ったときは、ワイヤーの先に、さわらないでね。</strong>（画面に「さわらないでね」と出ている間に、さわっていない時の「ようす」を、おぼえます）</div>
 
@@ -183,7 +182,7 @@ pre.code{max-height:28em;overflow:auto;font-size:.82rem;line-height:1.5;white-sp
 //   ESP32 GPIO26  → アンプ BCLK
 //   ESP32 GPIO25  → アンプ LRC
 //   ESP32 GPIO18  → アンプ DIN
-//   ESP32 5V（VIN）→ アンプ VIN（アンプは、5Vでも 3.3Vでも 動きます）
+//   ESP32 3V3 → アンプ VIN（5Vでも 動きます。ページの配線図は 3V3）
 //   ESP32 GND     → アンプ GND
 //   アンプの 出力 → スピーカー（＋と −）
 //   ESP32 GPIO14（D14）→ ワイヤー1（さわる場所①）… ふみきりが はじまる

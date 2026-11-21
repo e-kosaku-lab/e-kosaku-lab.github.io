@@ -458,43 +458,43 @@
 <rect x="923" y="304.0" width="42" height="44" rx="4" fill="#cfd2d6" stroke="#80848b"/><text x="944" y="331.0" text-anchor="middle" font-size="12" fill="#333">USB</text>
 <rect x="869" y="296.0" width="52" height="60" fill="#2b2e35" stroke="#555"/>
 <rect x="407" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(415,210) rotate(90)" font-size="12" font-weight="700" fill="#fff">GND</text>
+<text transform="translate(407,210) rotate(90)" font-size="12" font-weight="700" fill="#fff">GND</text>
 <rect x="435" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(443,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D23</text>
+<text transform="translate(435,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D23</text>
 <rect x="463" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(471,210) rotate(90)" font-size="12" font-weight="700" fill="#2a9d44">D22</text>
+<text transform="translate(463,210) rotate(90)" font-size="12" font-weight="700" fill="#2a9d44">D22</text>
 <rect x="491" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(499,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">TX</text>
+<text transform="translate(491,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">TX</text>
 <rect x="519" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(527,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">RX</text>
+<text transform="translate(519,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">RX</text>
 <rect x="547" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(555,210) rotate(90)" font-size="12" font-weight="700" fill="#e0a100">D21</text>
+<text transform="translate(547,210) rotate(90)" font-size="12" font-weight="700" fill="#e0a100">D21</text>
 <rect x="575" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(583,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">GND</text>
+<text transform="translate(575,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">GND</text>
 <rect x="603" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(611,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D19</text>
+<text transform="translate(603,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D19</text>
 <rect x="631" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(639,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D18</text>
+<text transform="translate(631,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D18</text>
 <rect x="659" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(667,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D5</text>
+<text transform="translate(659,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D5</text>
 <rect x="687" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(695,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D17</text>
+<text transform="translate(687,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D17</text>
 <rect x="715" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(723,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D16</text>
+<text transform="translate(715,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D16</text>
 <rect x="743" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(751,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D4</text>
+<text transform="translate(743,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D4</text>
 <rect x="771" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(779,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D0</text>
+<text transform="translate(771,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D0</text>
 <rect x="799" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(807,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D2</text>
+<text transform="translate(799,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D2</text>
 <rect x="827" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(835,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D15</text>
+<text transform="translate(827,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">D15</text>
 <rect x="855" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(863,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">SD1</text>
+<text transform="translate(855,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">SD1</text>
 <rect x="883" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(891,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">SD0</text>
+<text transform="translate(883,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">SD0</text>
 <rect x="911" y="196" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(919,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">CLK</text>
+<text transform="translate(911,210) rotate(90)" font-size="12" font-weight="400" fill="#fff">CLK</text>
 <rect x="407" y="448" width="8" height="8" fill="#e8d28a"/>
 <text transform="translate(415,442) rotate(-90)" font-size="12" font-weight="700" fill="#d33">3V3</text>
 <rect x="435" y="448" width="8" height="8" fill="#e8d28a"/>
@@ -555,13 +555,13 @@
 <rect x="125.0" y="538" width="140" height="80" fill="#0c1a2e"/>
 <text x="201.0" y="584" text-anchor="middle" font-size="14" fill="#8fd8ff">OLED 0.96インチ</text>
 <rect x="155" y="476" width="8" height="8" fill="#222"/>
-<text transform="translate(163,490) rotate(90)" font-size="12" fill="#fff">GND</text>
+<text transform="translate(155,490) rotate(90)" font-size="12" fill="#fff">GND</text>
 <rect x="183" y="476" width="8" height="8" fill="#222"/>
-<text transform="translate(191,490) rotate(90)" font-size="12" fill="#fff">VDD</text>
+<text transform="translate(183,490) rotate(90)" font-size="12" fill="#fff">VDD</text>
 <rect x="211" y="476" width="8" height="8" fill="#222"/>
-<text transform="translate(219,490) rotate(90)" font-size="12" fill="#fff">SCK</text>
+<text transform="translate(211,490) rotate(90)" font-size="12" fill="#fff">SCK</text>
 <rect x="239" y="476" width="8" height="8" fill="#222"/>
-<text transform="translate(247,490) rotate(90)" font-size="12" fill="#fff">SDA</text>
+<text transform="translate(239,490) rotate(90)" font-size="12" fill="#fff">SDA</text>
 <text x="201.0" y="712" text-anchor="middle" font-size="15" font-weight="700" fill="#10366a">画面（OLED）</text>
 <text x="663.0" y="626" text-anchor="middle" font-size="15" font-weight="700" fill="#333">ESP32ボード（NodeMCU-32S）　アンテナ＝左、USB＝右</text>
 <path d="M411.0 480.0 Q186.0 453.0 159.0 228.0" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" opacity=".9"/>
