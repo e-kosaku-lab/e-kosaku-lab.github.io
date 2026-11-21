@@ -57,6 +57,11 @@ pre.code{max-height:28em;overflow:auto;font-size:.82rem;line-height:1.5;white-sp
   <h2 id="wire">つなぎかた</h2>
   <div class="note"><strong>USBケーブルは、はずしてからね。</strong>ワイヤーを、1本ずつ、さします。</div>
 
+  <figure>
+    <div class="scrollx"><img src="images/doremi-wiring.svg" width="1040" height="1120" alt="さわってドレミの配線図。ブレッドボードの上に、ESP32、画面、アンプがあり、電気、画面、アンプのワイヤーと、ド・レ・ミ・ファ・ソ・ラの6本のさわるワイヤーがつながっている。" loading="lazy"></div>
+    <figcaption>さわってドレミの配線図（ブレッドボードを上から見たところ）。ワイヤーの色は、見やすくするための目安です。スマホでは、横にずらして見られます。<a href="images/doremi-wiring.svg" target="_blank" rel="noopener">図を大きく開く</a></figcaption>
+  </figure>
+
   <h3>つなぐ順番</h3>
   <ol class="steps">
     <li><strong>アンプとスピーカーを、つなぐ。</strong>（下の表）</li>
@@ -103,17 +108,18 @@ pre.code{max-height:28em;overflow:auto;font-size:.82rem;line-height:1.5;white-sp
   <h3>さわる場所（ワイヤー6本）</h3>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>音</th><th>ESP32のピン</th><th>穴</th></tr></thead>
+      <thead><tr><th>音</th><th>色</th><th>ESP32のピン</th><th>穴</th></tr></thead>
       <tbody>
-        <tr><td>ド</td><td>GPIO4</td><td>7a</td></tr>
-        <tr><td>レ</td><td>GPIO13</td><td>5j</td></tr>
-        <tr><td>ミ</td><td>GPIO14</td><td>8j</td></tr>
-        <tr><td>ファ</td><td>GPIO27</td><td>9j</td></tr>
-        <tr><td>ソ</td><td>GPIO32</td><td>13j</td></tr>
-        <tr><td>ラ</td><td>GPIO33</td><td>12j</td></tr>
+        <tr><td>ド</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#ffffff;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>白</td><td>GPIO4（D4）</td><td>7a</td></tr>
+        <tr><td>レ</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#8b5a2b;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>茶</td><td>GPIO13（D13）</td><td>5j</td></tr>
+        <tr><td>ミ</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#ff8a00;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>オレンジ</td><td>GPIO14（D14）</td><td>8j</td></tr>
+        <tr><td>ファ</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#2a9d44;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>緑</td><td>GPIO27（D27）</td><td>9j</td></tr>
+        <tr><td>ソ</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#1e88e5;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>青</td><td>GPIO32（D32）</td><td>13j</td></tr>
+        <tr><td>ラ</td><td class="nw"><span style="display:inline-block;width:.9em;height:.9em;background:#7b3fb0;border:1px solid #666;border-radius:2px;vertical-align:-.1em;margin-right:.3em"></span>紫</td><td>GPIO33（D33）</td><td>12j</td></tr>
       </tbody>
     </table>
   </div>
+
   <p>ワイヤーの、もう一方の先（金属の部分）は、<strong>どこにもつながず</strong>、あけておきます。ここを、<strong>さわります</strong>。くわしくは、<a href="touch.html">タッチ版のページ</a>と同じです。</p>
   <div class="note"><strong>電源が入ったときは、ワイヤーの先に、さわらないでね。</strong>（画面に「さわらないでね」と出ている間に、さわっていない時の「ようす」を、おぼえます）</div>
 
