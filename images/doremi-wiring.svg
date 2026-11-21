@@ -505,9 +505,9 @@
 <rect x="547" y="598" width="8" height="8" fill="#e8d28a"/>
 <text transform="translate(555,592) rotate(-90)" font-size="12" font-weight="400" fill="#fff">D35</text>
 <rect x="575" y="598" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(583,592) rotate(-90)" font-size="12" font-weight="700" fill="#7ec8ff">D32</text>
+<text transform="translate(583,592) rotate(-90)" font-size="12" font-weight="700" fill="#c79bff">D32</text>
 <rect x="603" y="598" width="8" height="8" fill="#e8d28a"/>
-<text transform="translate(611,592) rotate(-90)" font-size="12" font-weight="700" fill="#c79bff">D33</text>
+<text transform="translate(611,592) rotate(-90)" font-size="12" font-weight="700" fill="#7ec8ff">D33</text>
 <rect x="631" y="598" width="8" height="8" fill="#e8d28a"/>
 <text transform="translate(639,592) rotate(-90)" font-size="12" font-weight="700" fill="#ffb86b">D25</text>
 <rect x="659" y="598" width="8" height="8" fill="#e8d28a"/>
@@ -592,13 +592,13 @@
 <rect x="876" y="116" width="8" height="14" rx="1" fill="#c9ccd1" stroke="#555"/>
 <text x="880" y="108" text-anchor="middle" font-size="13" font-weight="700" fill="#333">ド D4</text>
 <path d="M579.0 630.0 C579.0 700.0 560.0 720.0 560.0 790.0" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" opacity=".95"/>
-<path d="M579.0 630.0 C579.0 700.0 560.0 720.0 560.0 790.0" fill="none" stroke="#1e88e5" stroke-width="5.5" stroke-linecap="round"/>
+<path d="M579.0 630.0 C579.0 700.0 560.0 720.0 560.0 790.0" fill="none" stroke="#7b3fb0" stroke-width="5.5" stroke-linecap="round"/>
 <rect x="556" y="790" width="8" height="14" rx="1" fill="#c9ccd1" stroke="#555"/>
-<text x="560" y="824" text-anchor="middle" font-size="13" font-weight="700" fill="#333">ソ D32</text>
+<text x="560" y="824" text-anchor="middle" font-size="13" font-weight="700" fill="#333">ラ D32</text>
 <path d="M607.0 630.0 C607.0 700.0 650.0 720.0 650.0 790.0" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" opacity=".95"/>
-<path d="M607.0 630.0 C607.0 700.0 650.0 720.0 650.0 790.0" fill="none" stroke="#7b3fb0" stroke-width="5.5" stroke-linecap="round"/>
+<path d="M607.0 630.0 C607.0 700.0 650.0 720.0 650.0 790.0" fill="none" stroke="#1e88e5" stroke-width="5.5" stroke-linecap="round"/>
 <rect x="646" y="790" width="8" height="14" rx="1" fill="#c9ccd1" stroke="#555"/>
-<text x="650" y="824" text-anchor="middle" font-size="13" font-weight="700" fill="#333">ラ D33</text>
+<text x="650" y="824" text-anchor="middle" font-size="13" font-weight="700" fill="#333">ソ D33</text>
 <path d="M691.0 630.0 C691.0 700.0 740.0 720.0 740.0 790.0" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" opacity=".95"/>
 <path d="M691.0 630.0 C691.0 700.0 740.0 720.0 740.0 790.0" fill="none" stroke="#2a9d44" stroke-width="5.5" stroke-linecap="round"/>
 <rect x="736" y="790" width="8" height="14" rx="1" fill="#c9ccd1" stroke="#555"/>
@@ -643,9 +643,9 @@
 <rect x="540" y="987" width="26" height="10" rx="3" fill="#2a9d44" stroke="#555"/>
 <text x="574" y="997" font-size="13" fill="#222">緑：D27 → ファ（j9）</text>
 <rect x="540" y="1013" width="26" height="10" rx="3" fill="#1e88e5" stroke="#555"/>
-<text x="574" y="1023" font-size="13" fill="#222">青：D32 → ソ（j13）</text>
+<text x="574" y="1023" font-size="13" fill="#222">青：D33 → ソ（j12）</text>
 <rect x="540" y="1039" width="26" height="10" rx="3" fill="#7b3fb0" stroke="#555"/>
-<text x="574" y="1049" font-size="13" fill="#222">紫：D33 → ラ（j12）</text>
+<text x="574" y="1049" font-size="13" fill="#222">紫：D32 → ラ（j13）</text>
 <text x="700" y="202" text-anchor="end" font-size="15" font-weight="700" fill="#333">ESP32ボード（NodeMCU-32S）　アンテナ＝左、USB＝右</text>
 <rect x="404" y="623" width="14" height="14" rx="2" fill="#d62828" stroke="#fff" stroke-width="3"/><rect x="404" y="623" width="14" height="14" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
 <rect x="96" y="567" width="14" height="14" rx="2" fill="#d62828" stroke="#fff" stroke-width="3"/><rect x="96" y="567" width="14" height="14" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
@@ -666,8 +666,8 @@
 <rect x="208" y="567" width="14" height="14" rx="2" fill="#7b3fb0" stroke="#fff" stroke-width="3"/><rect x="208" y="567" width="14" height="14" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
 <rect x="628" y="315" width="14" height="14" rx="2" fill="#7b3fb0" stroke="#fff" stroke-width="3"/><rect x="628" y="315" width="14" height="14" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
 <rect x="740" y="315" width="14" height="14" rx="2" fill="#ffffff" stroke="#fff" stroke-width="3"/><rect x="740" y="315" width="14" height="14" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
-<rect x="572" y="623" width="14" height="14" rx="2" fill="#1e88e5" stroke="#fff" stroke-width="3"/><rect x="572" y="623" width="14" height="14" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
-<rect x="600" y="623" width="14" height="14" rx="2" fill="#7b3fb0" stroke="#fff" stroke-width="3"/><rect x="600" y="623" width="14" height="14" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+<rect x="572" y="623" width="14" height="14" rx="2" fill="#7b3fb0" stroke="#fff" stroke-width="3"/><rect x="572" y="623" width="14" height="14" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
+<rect x="600" y="623" width="14" height="14" rx="2" fill="#1e88e5" stroke="#fff" stroke-width="3"/><rect x="600" y="623" width="14" height="14" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
 <rect x="684" y="623" width="14" height="14" rx="2" fill="#2a9d44" stroke="#fff" stroke-width="3"/><rect x="684" y="623" width="14" height="14" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
 <rect x="712" y="623" width="14" height="14" rx="2" fill="#ff8a00" stroke="#fff" stroke-width="3"/><rect x="712" y="623" width="14" height="14" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
 <rect x="796" y="623" width="14" height="14" rx="2" fill="#8b5a2b" stroke="#fff" stroke-width="3"/><rect x="796" y="623" width="14" height="14" rx="2" fill="none" stroke="#333" stroke-width="1.5"/>
