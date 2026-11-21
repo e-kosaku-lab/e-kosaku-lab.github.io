@@ -56,13 +56,13 @@ pre.code{max-height:28em;overflow:auto;font-size:.82rem;line-height:1.5;white-sp
   <div class="note"><strong>USBケーブルは、はずしてからね。</strong>電源が入ったときは、ワイヤーの先に、さわらないでね。（画面に「さわらないでね」と出ている間に、さわっていない時の「ようす」を、おぼえます）</div>
 
   <h2 id="dice">1. 電子サイコロ・おみくじ</h2>
-  <p>ワイヤー1を、ちょんとさわると、サイコロが転がります。さぼてんきくんが、見まもります。</p>
+  <p>ワイヤー1を、ちょんとさわると、サイコロが転がります。さぼてんきくんが、見まもります。<strong>サイコロは、1こでも、2こでも</strong>ふれます。2このときは、同じ目（ぞろめ）で「えへへ」、1と1で「いたい!」です。ごうけいも出ます。</p>
   <div class="tablewrap">
     <table>
       <thead><tr><th>さわりかた</th><th>おこること</th></tr></thead>
       <tbody>
-        <tr><td class="nw">ちょん</td><td>サイコロを ふる。6が出ると、さぼてんきくんが「えへへ」。1が出ると「いたい!」</td></tr>
-        <tr><td class="nw">ながく（1.2秒）</td><td>「サイコロ」と「おみくじ」を、きりかえる</td></tr>
+        <tr><td class="nw">ちょん</td><td>サイコロを ふる。1こ のとき、6が出ると、さぼてんきくんが「えへへ」。1が出ると「いたい!」</td></tr>
+        <tr><td class="nw">ながく（1.2秒）</td><td>「サイコロ1こ」→「サイコロ2こ」→「おみくじ」の順に、きりかえる</td></tr>
       </tbody>
     </table>
   </div>
@@ -80,6 +80,7 @@ pre.code{max-height:28em;overflow:auto;font-size:.82rem;line-height:1.5;white-sp
 <pre class="code"><code id="code-dice">// さぼてんきくんの 電子サイコロ・おみくじ（ESP32 + 0.96インチOLED）
 //
 // 「さぼてんきけい」の、追加パックの プログラムです。さぼてんきくんが、サイコロを 見まもります。
+// サイコロは 1こ でも 2こ でも ふれます。
 // 部品は、ESP32 と OLED と、予備のワイヤー1本だけ。温度・湿度のセンサーは、いりません。
 //
 // このプログラムは Wi-Fi / Bluetooth を一切使いません（WiFi.h などを読み込んでいません）。
@@ -96,8 +97,9 @@ pre.code{max-height:28em;overflow:auto;font-size:.82rem;line-height:1.5;white-sp
 //
 // つかいかた:
 //   ちょん、とさわる        … サイコロを ふる（さぼてんきくんが 見まもる）
-//   ながく（1.2びょう）さわる … 「サイコロ」と「おみくじ」を きりかえる
-//   6が でると さぼてんきくんは「えへへ」、1が でると「いたい！」
+//   ながく（1.2びょう）さわる … 「サイコロ1こ」→「サイコロ2こ」→「おみくじ」の じゅんに きりかえる
+//   サイコロ1こ: 6が でると さぼてんきくんは「えへへ」、1が でると「いたい！」
+//   サイコロ2こ: ぞろめ（同じ目）で「えへへ」、1と1で「いたい！」。ごうけいも 出ます
 //   ※ 電源を入れる時は、ワイヤーの先に、さわらないでください。
 
 #include &lt;Wire.h&gt;
@@ -411,24 +413,26 @@ void drawMark(const char *const mark[], int x, int y) {
   drawMarkS(mark, x, y, MARK_SCALE);
 }
 
-const int MODE_DICE = 0;
-const int MODE_OMIKUJI = 1;
-int mode = MODE_DICE;
+const int MODE_DICE1 = 0;    // サイコロ 1こ
+const int MODE_DICE2 = 1;    // サイコロ 2こ
+const int MODE_OMIKUJI = 2;  // おみくじ
+const int MODE_N = 3;
+int mode = MODE_DICE1;
 
 bool rolling = false;
 unsigned long rollStart = 0;
 unsigned long nextChange = 0;
-int shown = 1;    // いま 画面に出している 目（または おみくじの ばんごう）
-int result = 0;   // さいごに きまった 目
+int shown[2] = {1, 1};    // いま 画面に出している 目（または おみくじの ばんごう）
+int result[2] = {0, 0};   // さいごに きまった 目
 bool hasResult = false;
 
 int pickValue() {
-  if (mode == MODE_DICE) return random(1, DICE_MAX + 1);
+  if (mode != MODE_OMIKUJI) return random(1, DICE_MAX + 1);
   return random(0, OMIKUJI_N);
 }
 
-void drawPip(int cx, int cy) {
-  display.drawDisc(cx, cy, 4);
+void drawPip(int cx, int cy, int r) {
+  display.drawDisc(cx, cy, r);
 }
 
 // サイコロの 面（左上が x,y。大きさ s）
@@ -437,23 +441,27 @@ void drawDiceFace(int v, int x, int y, int s) {
   if (v &gt; 6) {
     char t[8];
     snprintf(t, sizeof(t), &quot;%d&quot;, v);
-    display.setFont(u8g2_font_logisoso28_tn);
+    if (s &gt;= 48) display.setFont(u8g2_font_logisoso28_tn);
+    else display.setFont(u8g2_font_logisoso20_tn);
     int w = display.getStrWidth(t);
-    display.drawStr(x + (s - w) / 2, y + s / 2 + 14, t);
+    display.drawStr(x + (s - w) / 2, y + s / 2 + (s &gt;= 48 ? 14 : 10), t);
     display.setFont(u8g2_font_b12_t_japanese2);
     return;
   }
-  int a = x + 12, b = x + s / 2, c = x + s - 12;
-  int r1 = y + 12, r2 = y + s / 2, r3 = y + s - 12;
+  int off = s / 4;          // はしから 点までの 距離
+  int r = s / 12;           // 点の 大きさ
+  if (r &lt; 2) r = 2;
+  int a = x + off, b = x + s / 2, c = x + s - off;
+  int r1 = y + off, r2 = y + s / 2, r3 = y + s - off;
   switch (v) {
-    case 1: drawPip(b, r2); break;
-    case 2: drawPip(a, r1); drawPip(c, r3); break;
-    case 3: drawPip(a, r1); drawPip(b, r2); drawPip(c, r3); break;
-    case 4: drawPip(a, r1); drawPip(c, r1); drawPip(a, r3); drawPip(c, r3); break;
-    case 5: drawPip(a, r1); drawPip(c, r1); drawPip(b, r2); drawPip(a, r3); drawPip(c, r3); break;
+    case 1: drawPip(b, r2, r); break;
+    case 2: drawPip(a, r1, r); drawPip(c, r3, r); break;
+    case 3: drawPip(a, r1, r); drawPip(b, r2, r); drawPip(c, r3, r); break;
+    case 4: drawPip(a, r1, r); drawPip(c, r1, r); drawPip(a, r3, r); drawPip(c, r3, r); break;
+    case 5: drawPip(a, r1, r); drawPip(c, r1, r); drawPip(b, r2, r); drawPip(a, r3, r); drawPip(c, r3, r); break;
     default:
-      drawPip(a, r1); drawPip(a, r2); drawPip(a, r3);
-      drawPip(c, r1); drawPip(c, r2); drawPip(c, r3);
+      drawPip(a, r1, r); drawPip(a, r2, r); drawPip(a, r3, r);
+      drawPip(c, r1, r); drawPip(c, r2, r); drawPip(c, r3, r);
       break;
   }
 }
@@ -468,8 +476,18 @@ void drawCactus(unsigned long now) {
     hop = frame ? -3 : 0;
     m = frame ? MARK_KAITEKI2 : MARK_KAITEKI;
   } else if (hasResult) {
-    bool great = (mode == MODE_DICE) ? (result == DICE_MAX) : (result == 0);
-    bool bad = (mode == MODE_DICE) ? (result == 1 &amp;&amp; DICE_MAX &gt; 1) : (result == OMIKUJI_N - 1);
+    bool great, bad;
+    if (mode == MODE_DICE1) {
+      great = (result[0] == DICE_MAX);
+      bad = (result[0] == 1 &amp;&amp; DICE_MAX &gt; 1);
+    } else if (mode == MODE_DICE2) {
+      bool same = (result[0] == result[1]);          // ぞろめ
+      bad = same &amp;&amp; result[0] == 1 &amp;&amp; DICE_MAX &gt; 1;  // 1と1
+      great = same &amp;&amp; !bad;
+    } else {
+      great = (result[0] == 0);
+      bad = (result[0] == OMIKUJI_N - 1);
+    }
     if (great) m = frame ? MARK_TERE2 : MARK_TERE;
     else if (bad) m = frame ? MARK_ITAI2 : MARK_ITAI;
     else m = frame ? MARK_KAITEKI2 : MARK_KAITEKI;
@@ -483,20 +501,34 @@ void drawScreen(unsigned long now) {
   char line[32];
   display.clearBuffer();
   display.setFont(u8g2_font_b12_t_japanese2);
-  if (mode == MODE_DICE) {
-    drawDiceFace(rolling || hasResult ? shown : 1, 6, 8, 48);
+  bool show = rolling || hasResult;
+  if (mode == MODE_DICE1) {
+    drawDiceFace(show ? shown[0] : 1, 6, 8, 48);
     if (rolling) {
       display.drawUTF8(56, 62, &quot;ごろごろ…&quot;);
     } else if (hasResult) {
-      snprintf(line, sizeof(line), &quot;%d が でた!&quot;, result);
+      snprintf(line, sizeof(line), &quot;%d が でた!&quot;, result[0]);
       display.drawUTF8(56, 62, line);
     } else {
       display.drawUTF8(56, 62, &quot;さわって!&quot;);
     }
+  } else if (mode == MODE_DICE2) {
+    drawDiceFace(show ? shown[0] : 1, 4, 8, 36);
+    drawDiceFace(show ? shown[1] : 1, 44, 8, 36);
+    if (rolling) {
+      display.drawUTF8(4, 62, &quot;ごろごろ…&quot;);
+    } else if (hasResult) {
+      int sum = result[0] + result[1];
+      if (result[0] == result[1]) snprintf(line, sizeof(line), &quot;ぞろめ! ごうけい %d&quot;, sum);
+      else snprintf(line, sizeof(line), &quot;ごうけい %d&quot;, sum);
+      display.drawUTF8(4, 62, line);
+    } else {
+      display.drawUTF8(4, 62, &quot;さわって!&quot;);
+    }
   } else {
     display.drawUTF8(4, 20, &quot;きょうは…&quot;);
-    if (rolling) display.drawUTF8(4, 44, OMIKUJI[shown]);
-    else if (hasResult) display.drawUTF8(4, 44, OMIKUJI[result]);
+    if (rolling) display.drawUTF8(4, 44, OMIKUJI[shown[0]]);
+    else if (hasResult) display.drawUTF8(4, 44, OMIKUJI[result[0]]);
     else display.drawUTF8(4, 44, &quot;？&quot;);
     display.drawUTF8(56, 62, rolling ? &quot;ごろごろ…&quot; : &quot;おみくじ&quot;);
   }
@@ -528,7 +560,7 @@ void loop() {
   padUpdate(pad1, now);
 
   if (pad1.longEdge) {
-    mode = (mode == MODE_DICE) ? MODE_OMIKUJI : MODE_DICE;
+    mode = (mode + 1) % MODE_N;
     rolling = false;
     hasResult = false;
   } else if (pad1.releasedEdge &amp;&amp; pad1.heldMs &lt; LONG_MS &amp;&amp; !rolling) {
@@ -541,7 +573,8 @@ void loop() {
 
   if (rolling) {
     if (now &gt;= nextChange) {
-      shown = pickValue();
+      shown[0] = pickValue();
+      shown[1] = pickValue();
       float progress = (float)(now - rollStart) / ROLL_MS;
       if (progress &gt; 1) progress = 1;
       nextChange = now + 60 + (unsigned long)(progress * 220);  // だんだん ゆっくりに
@@ -549,9 +582,11 @@ void loop() {
     if (now - rollStart &gt;= ROLL_MS) {
       rolling = false;
       hasResult = true;
-      result = pickValue();
-      shown = result;
-      Serial.printf(&quot;けっか=%d\n&quot;, result);
+      result[0] = pickValue();
+      result[1] = pickValue();
+      shown[0] = result[0];
+      shown[1] = result[1];
+      Serial.printf(&quot;けっか=%d, %d\n&quot;, result[0], result[1]);
     }
   }
 
